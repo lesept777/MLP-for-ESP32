@@ -1,0 +1,96 @@
+#######################################
+# Syntax Coloring Map For MLP
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MLP		KEYWORD1
+Net		KEYWORD1
+LAYER	KEYWORD1
+DATA	KEYWORD1
+DATASET	KEYWORD1
+dataset	KEYWORD1
+Neurons	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+netLoad	KEYWORD2
+netSave	KEYWORD2
+readCsvFromSpiffs	KEYWORD2
+createDataset	KEYWORD2
+destroyDataset	KEYWORD2
+displayNetwork	KEYWORD2
+begin	KEYWORD2
+initLearn	KEYWORD2
+setMaxError	KEYWORD2
+
+setVerbose		KEYWORD2
+setIterations		KEYWORD2
+setEpochs		KEYWORD2
+setBatchSize		KEYWORD2
+setAlpha		KEYWORD2
+setEta		KEYWORD2
+setGain		KEYWORD2
+setAnneal		KEYWORD2
+setActivation		KEYWORD2
+
+getIterations		KEYWORD2
+getEpochs		KEYWORD2
+getBatchSize		KEYWORD2
+getAlpha		KEYWORD2
+getEta		KEYWORD2
+getGain		KEYWORD2
+getAnneal		KEYWORD2
+getNeuronNumbers		KEYWORD2
+getWeight		KEYWORD2
+
+generateNetwork	KEYWORD2
+optimize	KEYWORD2
+setHeuristics	KEYWORD2
+setHeurInitialize	KEYWORD2
+setHeurChangeWeights	KEYWORD2
+setHeurMutateWeights	KEYWORD2
+setHeurChangeBatch	KEYWORD2
+setHeurChangeEta	KEYWORD2
+setHeurChangeGain	KEYWORD2
+setHeurChangeAlpha	KEYWORD2
+setHeurShuffleDataset	KEYWORD2
+setHeurZeroWeights	KEYWORD2
+displayHeuristics	KEYWORD2
+changeEta	KEYWORD2
+changeGain	KEYWORD2
+changeAlpha	KEYWORD2
+changeBatchSize	KEYWORD2
+simulateNet	KEYWORD2
+trainNet	KEYWORD2
+testNet	KEYWORD2
+evaluateNet	KEYWORD2
+evaluateNet	KEYWORD2
+predict	KEYWORD2
+getError	KEYWORD2
+
+estimateDuration	KEYWORD2
+shuffleDataset	KEYWORD2
+propagateLayer	KEYWORD2
+propagateNet	KEYWORD2
+computeOutputError	KEYWORD2
+backpropagateLayer	KEYWORD2
+backpropagateNet	KEYWORD2
+adjustWeights	KEYWORD2
+randomWeights	KEYWORD2
+saveWeights	KEYWORD2
+restoreWeights	KEYWORD2
+weightMutation	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+SIGMOID	LITERAL1    
+IDENTITY	LITERAL1
+RELU	LITERAL1
+TANH	LITERAL1
+SOFTMAX	LITERAL1
