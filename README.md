@@ -19,3 +19,11 @@ To declare a network, just create an array of int with the number of neurons in 
 int Neurons[] = {2, 20, 1};
 MLP Net(3, Neurons, 1);
 ```
+
+# Create a dataset
+To create a dataset, i.e. allocate memory for the data used for training the network, declare the dataset and call the method createDataset. The arguments are the dataset and the number of data.
+```
+DATASET dataset;
+int nData = 300;
+int ret = Net.createDataset (&dataset, nData);
+```
