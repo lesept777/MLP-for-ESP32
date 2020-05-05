@@ -9,5 +9,4 @@ This library was inspired by the code from Karsten Kutza (https://courses.cs.was
 
 # Dependencies
 Arduino FS https://github.com/espressif/arduino-esp32/tree/master/libraries/FS
-
 ESP32 SPIFFS https://github.com/espressif/arduino-esp32/tree/master/libraries/SPIFFS
