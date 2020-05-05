@@ -27,3 +27,13 @@ DATASET dataset;
 int nData = 300;
 int ret = Net.createDataset (&dataset, nData);
 ```
+The structure of a single data is: an array of floats, the output. The array has as many elements as the number of neurons of the input layer.
+
+The dataset can be filled by reading data from a csv file (stored in SPIFFS) or by putting values in it. Example for an input layer with 2 neurons:
+```
+for (int i = 0; i < nData; i++) {
+  dataset.data[i].In[0] = ...;
+  dataset.data[i].In[1] = ...;
+  dataset.data[i].Out   = ...;
+}
+```
