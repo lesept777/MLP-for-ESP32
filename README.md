@@ -73,3 +73,15 @@ The number of iterations,
 The number of epochs for each iterations,
 
 The size of the batch of data.
+
+# Inference
+When the goal is reached, i.e. when the error made on the test set is lower than the objective, the network is trained. Its parameters can be saved in a file in SPIFFS for later use.
+
+The next phase is inference: run the network on unknown data to predict the output. For the example of a 2 neurons input - 1 neuron output network, it's as simple as:
+```
+float out[0], x[2];
+x[0] = ...;
+x[1] = ...;
+Net.predict(&x[0], out);
+```
+The array out[0] contains the prediction.
