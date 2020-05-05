@@ -1,0 +1,98 @@
+/CirclesNetwork.txt - failed to open file for reading
+Estimated duration for training and optimization: 920000 ms (15 min 20 sec)
+
+Iteration number 0
+NMSE is 20.318 on Training Set and  3.944 on Test Set
+NMSE is 17.434 on Training Set and  3.668 on Test Set
+NMSE is 16.908 on Training Set and  3.635 on Test Set
+NMSE is 17.517 on Training Set and  3.526 on Test Set
+NMSE is 13.996 on Training Set and  3.283 on Test Set
+NMSE is 12.230 on Training Set and  2.775 on Test Set
+NMSE is 11.631 on Training Set and  2.709 on Test Set
+NMSE is 10.129 on Training Set and  2.363 on Test Set
+NMSE is 10.010 on Training Set and  2.171 on Test Set
+NMSE is 11.387 on Training Set and  2.160 on Test Set
+NMSE is  8.800 on Training Set and  1.917 on Test Set
+NMSE is  8.508 on Training Set and  1.882 on Test Set
+NMSE is  7.697 on Training Set and  1.785 on Test Set
+NMSE is  7.531 on Training Set and  1.701 on Test Set
+NMSE is  5.978 on Training Set and  1.522 on Test Set
+NMSE is  5.668 on Training Set and  1.404 on Test Set
+NMSE is  4.895 on Training Set and  1.132 on Test Set
+NMSE is  4.058 on Training Set and  1.097 on Test Set
+NMSE is  3.685 on Training Set and  1.064 on Test Set
+NMSE is  3.236 on Training Set and  0.970 on Test Set
+NMSE is  3.024 on Training Set and  0.872 on Test Set
+NMSE is  2.640 on Training Set and  0.825 on Test Set
+NMSE is  2.507 on Training Set and  0.774 on Test Set
+NMSE is  2.456 on Training Set and  0.736 on Test Set
+NMSE is  2.428 on Training Set and  0.732 on Test Set
+NMSE is  2.521 on Training Set and  0.721 on Test Set
+NMSE is  2.226 on Training Set and  0.714 on Test Set
+NMSE is  2.295 on Training Set and  0.702 on Test Set
+NMSE is  2.290 on Training Set and  0.698 on Test Set
+NMSE is  2.202 on Training Set and  0.696 on Test Set
+NMSE is  2.071 on Training Set and  0.679 on Test Set
+NMSE is  2.061 on Training Set and  0.662 on Test Set
+NMSE is  2.038 on Training Set and  0.642 on Test Set
+NMSE is  1.788 on Training Set and  0.642 on Test Set
+NMSE is  1.853 on Training Set and  0.623 on Test Set
+Iteration number 1
+NMSE is  2.002 on Training Set and  0.595 on Test Set
+NMSE is  1.932 on Training Set and  0.526 on Test Set
+NMSE is  1.997 on Training Set and  0.519 on Test Set
+NMSE is  2.338 on Training Set and  0.513 on Test Set
+Iteration number 2
+Iteration number 3 -> New random weights
+NMSE is  2.225 on Training Set and  0.505 on Test Set
+NMSE is  2.340 on Training Set and  0.493 on Test Set
+NMSE is  2.384 on Training Set and  0.493 on Test Set
+NMSE is  2.173 on Training Set and  0.491 on Test Set
+NMSE is  2.270 on Training Set and  0.488 on Test Set
+NMSE is  2.102 on Training Set and  0.464 on Test Set
+NMSE is  2.101 on Training Set and  0.462 on Test Set
+NMSE is  2.051 on Training Set and  0.449 on Test Set
+NMSE is  1.928 on Training Set and  0.447 on Test Set
+NMSE is  2.063 on Training Set and  0.435 on Test Set
+Iteration number 4
+NMSE is  1.937 on Training Set and  0.407 on Test Set
+NMSE is  1.946 on Training Set and  0.388 on Test Set
+NMSE is  2.165 on Training Set and  0.384 on Test Set
+Finished in 5 iterations (10000 epochs)
+
+Actual duration 1012312 ms
+
+Verifying on 240 train data : 41 errors (17.08%)
+Verifying on 60 test data  :  5 errors (8.33%)
+Saving network in file /CirclesNetwork.txt
+
+Validation 0: expected 2, prediction 2 -->OK
+Validation 1: expected 2, prediction 2 -->OK
+Validation 2: expected 1, prediction 0 -->NOK
+Validation 3: expected 1, prediction 2 -->NOK
+Validation 4: expected 1, prediction 1 -->OK
+Validation 5: expected 2, prediction 2 -->OK
+Validation 6: expected 2, prediction 2 -->OK
+Validation 7: expected 2, prediction 2 -->OK
+Validation 8: expected 1, prediction 1 -->OK
+Validation 9: expected 2, prediction 2 -->OK
+Validation 10: expected 2, prediction 2 -->OK
+Validation 11: expected 2, prediction 2 -->OK
+Validation 12: expected 2, prediction 2 -->OK
+Validation 13: expected 2, prediction 2 -->OK
+Validation 14: expected 1, prediction 1 -->OK
+Validation 15: expected 2, prediction 2 -->OK
+Validation 16: expected 2, prediction 2 -->OK
+Validation 17: expected 0, prediction 0 -->OK
+Validation 18: expected 2, prediction 2 -->OK
+Validation 19: expected 2, prediction 2 -->OK
+---------------------------
+Network has 3 layers:
+Layer number 0: 2 neurons
+Layer number 1: 20 neurons, activation SIGMOID, 60 weights
+Layer number 2: 1 neurons, activation SIGMOID, 21 weights
+Total number of weights: 81
+Learning rate is: 0.400
+Gain is: 1.150
+Momentum is: 0.900
+---------------------------

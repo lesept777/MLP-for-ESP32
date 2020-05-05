@@ -1,0 +1,86 @@
+
+Read 506 data of 13 input
+Estimated duration for training and optimization: 2990000 ms (49 min 50 sec)
+---------------------------
+Heuristics parameters:
+Init with random weights
+Random weights if needed
+Variable learning rate
+Variable Sigmoid gain
+---------------------------
+Creating a new network
+
+Iteration number 0
+NMSE is 24.028 on Training Set and 12.731 on Test Set
+NMSE is 10.466 on Training Set and  1.626 on Test Set
+NMSE is 11.401 on Training Set and  0.705 on Test Set
+NMSE is  9.719 on Training Set and  0.599 on Test Set
+NMSE is  9.769 on Training Set and  0.589 on Test Set
+NMSE is 10.956 on Training Set and  0.487 on Test Set
+NMSE is 10.779 on Training Set and  0.479 on Test Set
+NMSE is 10.487 on Training Set and  0.472 on Test Set
+NMSE is  9.688 on Training Set and  0.469 on Test Set
+NMSE is 10.522 on Training Set and  0.465 on Test Set
+NMSE is  8.252 on Training Set and  0.464 on Test Set
+NMSE is  8.877 on Training Set and  0.462 on Test Set
+NMSE is  8.255 on Training Set and  0.461 on Test Set
+NMSE is  8.242 on Training Set and  0.460 on Test Set
+NMSE is  8.150 on Training Set and  0.460 on Test Set
+NMSE is  8.733 on Training Set and  0.459 on Test Set
+NMSE is  8.565 on Training Set and  0.459 on Test Set
+NMSE is  8.105 on Training Set and  0.456 on Test Set
+NMSE is  8.622 on Training Set and  0.453 on Test Set
+NMSE is  8.190 on Training Set and  0.452 on Test Set
+NMSE is  7.982 on Training Set and  0.449 on Test Set
+NMSE is  5.762 on Training Set and  0.440 on Test Set
+NMSE is  6.356 on Training Set and  0.436 on Test Set
+NMSE is  7.797 on Training Set and  0.435 on Test Set
+NMSE is  7.697 on Training Set and  0.420 on Test Set
+NMSE is  7.567 on Training Set and  0.410 on Test Set
+NMSE is  7.148 on Training Set and  0.408 on Test Set
+NMSE is  7.452 on Training Set and  0.407 on Test Set
+Iteration number 1
+NMSE is  9.518 on Training Set and  0.398 on Test Set
+NMSE is  5.557 on Training Set and  0.371 on Test Set
+NMSE is  7.616 on Training Set and  0.358 on Test Set
+NMSE is  4.897 on Training Set and  0.352 on Test Set
+NMSE is  4.930 on Training Set and  0.336 on Test Set
+NMSE is  5.599 on Training Set and  0.325 on Test Set
+NMSE is  5.475 on Training Set and  0.304 on Test Set
+NMSE is  4.987 on Training Set and  0.294 on Test Set
+Iteration number 2
+NMSE is  4.826 on Training Set and  0.292 on Test Set
+NMSE is  4.131 on Training Set and  0.292 on Test Set
+NMSE is  4.966 on Training Set and  0.288 on Test Set
+NMSE is  5.431 on Training Set and  0.287 on Test Set
+NMSE is  4.777 on Training Set and  0.281 on Test Set
+NMSE is  5.020 on Training Set and  0.278 on Test Set
+Iteration number 3
+Iteration number 4 -> New random weights
+Finished in 5 iterations (10000 epochs)
+
+Actual duration 3483120 ms
+
+Verifying on 404 train data : 206 errors (50.99%)
+Verifying on 102 test data  : 22 errors (21.57%)
+
+Validation 0: prediction 22.297972, expected 21.600000 --> OK
+Validation 1: prediction 18.878040, expected 20.100000 --> OK
+Validation 2: prediction 25.399973, expected 26.600000 --> OK
+Validation 3: prediction 19.425201, expected 16.200001 --> NOK
+Validation 4: prediction 18.745466, expected 23.000000 --> NOK
+Validation 5: prediction 13.692989, expected 14.100000 --> OK
+Validation 6: prediction 10.356924, expected 13.400000 --> NOK
+Validation 7: prediction 18.745466, expected 23.000000 --> NOK
+Validation 8: prediction 19.644375, expected 24.299999 --> NOK
+Validation 9: prediction 25.229189, expected 25.000000 --> OK
+---------------------------
+Network has 3 layers:
+Layer number 0: 13 neurons
+Layer number 1: 35 neurons, activation SIGMOID, 490 weights
+Layer number 2: 1 neurons, activation SIGMOID, 36 weights
+Total number of weights: 526
+Learning rate is: 1.526
+Gain is: 0.850
+Momentum is: 0.900
+---------------------------

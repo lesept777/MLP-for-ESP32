@@ -1,0 +1,76 @@
+
+Loading network 
+Estimated duration for training and optimization: 130000 ms (2 min)
+---------------------------
+Heuristics parameters:
+Init with random weights
+Random weights if needed
+Variable batch size
+Variable learning rate
+Variable Sigmoid gain
+---------------------------
+Creating a new network
+
+Iteration number 0
+NMSE is  6.534 on Training Set and  1.674 on Test Set
+NMSE is  4.965 on Training Set and  1.270 on Test Set
+NMSE is  3.207 on Training Set and  1.073 on Test Set
+NMSE is  2.442 on Training Set and  1.060 on Test Set
+NMSE is  2.844 on Training Set and  1.020 on Test Set
+NMSE is  2.333 on Training Set and  1.016 on Test Set
+NMSE is  4.127 on Training Set and  0.983 on Test Set
+NMSE is  2.030 on Training Set and  0.975 on Test Set
+NMSE is  2.419 on Training Set and  0.952 on Test Set
+NMSE is  2.445 on Training Set and  0.942 on Test Set
+NMSE is  2.306 on Training Set and  0.935 on Test Set
+NMSE is  3.921 on Training Set and  0.887 on Test Set
+NMSE is  2.185 on Training Set and  0.887 on Test Set
+NMSE is  2.221 on Training Set and  0.884 on Test Set
+NMSE is  4.658 on Training Set and  0.883 on Test Set
+NMSE is  1.872 on Training Set and  0.849 on Test Set
+Iteration number 1
+NMSE is  2.562 on Training Set and  0.801 on Test Set
+NMSE is  1.688 on Training Set and  0.749 on Test Set
+NMSE is  1.946 on Training Set and  0.589 on Test Set
+NMSE is  1.987 on Training Set and  0.583 on Test Set
+NMSE is  2.169 on Training Set and  0.552 on Test Set
+NMSE is  2.352 on Training Set and  0.538 on Test Set
+Iteration number 2
+Iteration number 3 -> New random weights
+Iteration number 4
+NMSE is  4.331 on Training Set and  0.506 on Test Set
+Iteration number 5
+NMSE is  2.453 on Training Set and  0.262 on Test Set
+NMSE is  2.774 on Training Set and  0.147 on Test Set
+Iteration number 6
+Iteration number 7 -> New random weights
+Iteration number 8
+Iteration number 9 -> New random weights
+Finished in 10 iterations (10000 epochs)
+
+Actual duration 168959 ms
+
+Verifying on 160 train data :  9 errors (5.62%)
+Verifying on 40 test data  :  4 errors (10.00%)
+Saving network in file /Network.txt
+
+Validation 0: prediction 0.000000, expected 0.000000 --> OK
+Validation 1: prediction 0.011355, expected 0.000000 --> OK
+Validation 2: prediction 0.990149, expected 1.000000 --> OK
+Validation 3: prediction 0.000000, expected 0.000000 --> OK
+Validation 4: prediction 0.958196, expected 1.000000 --> OK
+Validation 5: prediction 0.000000, expected 0.000000 --> OK
+Validation 6: prediction 0.000000, expected 0.000000 --> OK
+Validation 7: prediction 0.000000, expected 0.000000 --> OK
+Validation 8: prediction 0.000000, expected 0.000000 --> OK
+Validation 9: prediction 0.957731, expected 1.000000 --> OK
+---------------------------
+Network has 3 layers:
+Layer number 0: 2 neurons
+Layer number 1: 8 neurons, activation SIGMOID, 24 weights
+Layer number 2: 1 neurons, activation SIGMOID, 9 weights
+Total number of weights: 33
+Learning rate is: 0.781
+Gain is: 1.600
+Momentum is: 0.900
+---------------------------

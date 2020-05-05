@@ -1,0 +1,95 @@
+
+Estimated duration for training and optimization: 108000 ms (1 min)
+
+Iteration number 0
+NMSE is  5.810 on Training Set and  2.029 on Test Set
+NMSE is  6.189 on Training Set and  1.612 on Test Set
+NMSE is  5.678 on Training Set and  1.199 on Test Set
+NMSE is  2.489 on Training Set and  0.783 on Test Set
+NMSE is  2.642 on Training Set and  0.750 on Test Set
+NMSE is  2.194 on Training Set and  0.646 on Test Set
+NMSE is  2.606 on Training Set and  0.546 on Test Set
+NMSE is  1.861 on Training Set and  0.515 on Test Set
+NMSE is  1.721 on Training Set and  0.512 on Test Set
+NMSE is  1.957 on Training Set and  0.408 on Test Set
+NMSE is  1.507 on Training Set and  0.381 on Test Set
+NMSE is  1.359 on Training Set and  0.308 on Test Set
+NMSE is  1.327 on Training Set and  0.301 on Test Set
+NMSE is  1.254 on Training Set and  0.284 on Test Set
+NMSE is  1.344 on Training Set and  0.238 on Test Set
+NMSE is  1.308 on Training Set and  0.226 on Test Set
+NMSE is  1.186 on Training Set and  0.213 on Test Set
+NMSE is  0.976 on Training Set and  0.192 on Test Set
+NMSE is  0.742 on Training Set and  0.168 on Test Set
+NMSE is  0.709 on Training Set and  0.167 on Test Set
+NMSE is  0.657 on Training Set and  0.165 on Test Set
+NMSE is  0.593 on Training Set and  0.138 on Test Set
+NMSE is  0.677 on Training Set and  0.134 on Test Set
+NMSE is  0.374 on Training Set and  0.102 on Test Set
+NMSE is  0.286 on Training Set and  0.073 on Test Set
+NMSE is  0.303 on Training Set and  0.068 on Test Set
+NMSE is  0.137 on Training Set and  0.056 on Test Set
+NMSE is  0.124 on Training Set and  0.039 on Test Set
+NMSE is  0.122 on Training Set and  0.039 on Test Set
+NMSE is  0.149 on Training Set and  0.039 on Test Set
+NMSE is  0.123 on Training Set and  0.037 on Test Set
+NMSE is  0.045 on Training Set and  0.017 on Test Set
+NMSE is  0.043 on Training Set and  0.016 on Test Set
+NMSE is  0.037 on Training Set and  0.013 on Test Set
+NMSE is  0.037 on Training Set and  0.012 on Test Set
+NMSE is  0.025 on Training Set and  0.010 on Test Set
+NMSE is  0.020 on Training Set and  0.008 on Test Set
+NMSE is  0.017 on Training Set and  0.007 on Test Set
+NMSE is  0.022 on Training Set and  0.007 on Test Set
+NMSE is  0.021 on Training Set and  0.007 on Test Set
+NMSE is  0.021 on Training Set and  0.007 on Test Set
+NMSE is  0.017 on Training Set and  0.007 on Test Set
+NMSE is  0.021 on Training Set and  0.007 on Test Set
+NMSE is  0.017 on Training Set and  0.007 on Test Set
+NMSE is  0.015 on Training Set and  0.006 on Test Set
+NMSE is  0.015 on Training Set and  0.005 on Test Set
+NMSE is  0.013 on Training Set and  0.005 on Test Set
+NMSE is  0.013 on Training Set and  0.004 on Test Set
+NMSE is  0.012 on Training Set and  0.004 on Test Set
+NMSE is  0.013 on Training Set and  0.004 on Test Set
+NMSE is  0.011 on Training Set and  0.004 on Test Set
+NMSE is  0.011 on Training Set and  0.004 on Test Set
+NMSE is  0.011 on Training Set and  0.004 on Test Set
+NMSE is  0.010 on Training Set and  0.003 on Test Set
+Iteration number 1
+NMSE is  0.011 on Training Set and  0.003 on Test Set
+NMSE is  0.011 on Training Set and  0.002 on Test Set
+NMSE is  0.010 on Training Set and  0.002 on Test Set
+NMSE is  0.010 on Training Set and  0.002 on Test Set
+NMSE is  0.009 on Training Set and  0.002 on Test Set
+NMSE is  0.009 on Training Set and  0.002 on Test Set
+NMSE is  0.009 on Training Set and  0.002 on Test Set
+NMSE is  0.009 on Training Set and  0.002 on Test Set
+Finished in 2 iterations (1000 epochs)
+
+Actual duration 147007 ms
+
+Verifying on 240 train data :  3 errors (1.25%)
+Verifying on 60 test data  :  1 errors (1.67%)
+
+Validation x = -3.012: 	prediction -0.117, 	expected -0.129 --> OK
+Validation x = 2.499: 	prediction 0.597, 	expected 0.599 --> OK
+Validation x = -1.025: 	prediction -0.864, 	expected -0.855 --> OK
+Validation x = 2.499: 	prediction 0.597, 	expected 0.599 --> OK
+Validation x = 1.602: 	prediction 0.957, 	expected 1.000 --> OK
+Validation x = 0.577: 	prediction 0.536, 	expected 0.545 --> OK
+Validation x = -2.051: 	prediction -0.890, 	expected -0.887 --> OK
+Validation x = 1.089: 	prediction 0.899, 	expected 0.886 --> OK
+Validation x = -3.140: 	prediction -0.006, 	expected -0.002 --> OK
+Validation x = 0.769: 	prediction 0.691, 	expected 0.695 --> OK
+---------------------------
+Network has 4 layers:
+Layer number 0: 1 neurons
+Layer number 1: 8 neurons, activation TANH, 16 weights
+Layer number 2: 3 neurons, activation TANH, 27 weights
+Layer number 3: 1 neurons, activation TANH, 4 weights
+Total number of weights: 47
+Learning rate is: 0.320
+Gain is: 0.700
+Momentum is: 0.900
+---------------------------
