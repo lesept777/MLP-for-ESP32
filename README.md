@@ -48,9 +48,28 @@ Net.setActivation (Activations);
 Net.setMaxError (0.3f);                
 ```
 Net.begin (0.8f) --> Divide the dataset as 80% training and 20% testing
+
 Net.initLearn defines the values of: the momentum, the learning rate, the gain of the sigmoid activation function, and the change rate of the learning rate.
+
 Net.setMaxError set the objective output testing error to stop the training phase.
 
 Other options are available (see the examples).
 
 # Run the training phase
+The training phase is merely the optimization of the weights of the network to better fit the output of the network and the output of the dataset.
+
+A heuristics is used for optimization, based on the error backpropagation process. Various options can be set for the heuristics.
+
+Then, run the optimization. It can be done automatically:
+```
+Net.optimize (&dataset, 5, 2000, 50);
+```
+The parameters are:
+
+The dataset,
+
+The number of iterations,
+
+The number of epochs for each iterations,
+
+The size of the batch of data.
