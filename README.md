@@ -8,5 +8,6 @@ It can address deep networks, made of one input layer, multiple hidden layers an
 This library was inspired by the code from Karsten Kutza (https://courses.cs.washington.edu/courses/cse599/01wi/admin/Assignments/bpn.html).
 
 # Dependencies
-Arduino FS
-ESP32 SPIFFS
+Arduino FS https://github.com/espressif/arduino-esp32/tree/master/libraries/FS
+
+ESP32 SPIFFS https://github.com/espressif/arduino-esp32/tree/master/libraries/SPIFFS
