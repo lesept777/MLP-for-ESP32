@@ -3,7 +3,7 @@ This library is designed to be used with the Arduino IDE.
 
 It implements both training and inference phases on a dataset. Datasets can be created in the sketch or read from a csv file. This library is not intended to work with images, only with arrays of floats.
 
-It can address **deep networks**, made of one input layer, multiple hidden layers and one output layer. The output layer can have one neuron for regression, or several neurons for classification. In the case of classification, the softmax function is not coded yet (as of April 2020), so remain under 4 or 5 output neurons.
+It can address **deep networks**, made of one input layer, multiple hidden layers and one output layer. The output layer can have one neuron for regression, or several neurons for classification. In the case of classification, the softmax function is not coded yet (as of April 2020), so stay under 4 or 5 output neurons.
 
 This library was inspired by the code from Karsten Kutza (https://courses.cs.washington.edu/courses/cse599/01wi/admin/Assignments/bpn.html).
 
@@ -20,7 +20,7 @@ MLP Net(3, Neurons, 1);
 ```
 
 # Create a dataset
-To create a dataset, i.e. allocate memory for the data used for training the network, declare the dataset and call the method createDataset. The arguments are the dataset and the number of data.
+To create a dataset, i.e. allocate memory for the data used for training the network, declare the dataset and call the method `createDataset`. The arguments are the dataset and the number of data.
 ```
 DATASET dataset;
 int nData = 300;
@@ -47,13 +47,13 @@ Net.setActivation (Activations);
 Net.setMaxError (0.3f);                
 ```
 * `Net.begin (0.8f)` --> Divide the dataset as 80% training and 20% testing
-* Net.initLearn defines the values of: the momentum, the learning rate, the gain of the sigmoid activation function, and the change rate of the learning rate.
-* Net.setMaxError set the objective output testing error to stop the training phase.
+* `Net.initLearn` defines the values of: the momentum, the learning rate, the gain of the sigmoid activation function, and the change rate of the learning rate.
+* `Net.setMaxError` sets the objective output testing error to stop the training phase.
 
 Other options are available (see the examples).
 
 # Run the training phase
-The training phase is merely the optimization of the weights of the network to better fit the output of the network and the output of the dataset.
+The training phase is merely the optimization of the weights to better fit the output of the network and the output of the dataset.
 
 A heuristics is used for optimization, based on the error backpropagation process. Various options can be set for the heuristics.
 
@@ -68,7 +68,7 @@ The parameters are:
 * The size of the batch of data.
 
 # Improve the training
-It is possible to improve the training results if the maximum number of epochs is reached. Just save the network, and run the code again with heuristics parameter H_INIT_OPTIM set to 0:
+It is possible to improve the training results if the maximum number of epochs is reached. Just save the network, and run the code again with heuristics parameter `H_INIT_OPTIM` set to 0:
 ```
 bool initialize = !Net.netLoad(networkFile);
 // Training
@@ -83,7 +83,7 @@ Net.setHeurInitialize(initialize); // No need to init a new network if we read i
 
 Net.netSave(networkFile);
 ```
-On first run, if the save file is not found, the boolean initialize is true. The optimization will begin with random weights. On the next run, the saved network is loaded, and the boolean is set to false. Then, the optimization will begin with the loaded weights, and try to improve the previous result.
+On first run, if the save file is not found, the boolean `initialize` is true. The optimization will begin with random weights. On the next run, the saved network is loaded, and the boolean is set to false. Then, the optimization will begin with the loaded weights, and will try to improve the previous result.
 
 # Inference
 When the goal is reached, i.e. when the error made on the test set is lower than the objective, the network is trained. Its parameters can be saved in a file in SPIFFS for later use.
@@ -95,4 +95,4 @@ x[0] = ...;
 x[1] = ...;
 Net.predict(&x[0], out);
 ```
-The array out[0] contains the prediction.
+The array `out[0]` contains the prediction.
