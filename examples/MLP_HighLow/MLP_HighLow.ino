@@ -42,7 +42,7 @@ void setup() {
   bool initialize = !Net.netLoad(networkFile);
 
   // Training
-  int heuristics = H_INIT_OPTIM +
+  long heuristics = H_INIT_OPTIM +
                    H_CHAN_WEIGH +
                    /*       H_MUTA_WEIGH +   */
                    H_CHAN_BATCH +

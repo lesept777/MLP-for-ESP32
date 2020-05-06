@@ -34,7 +34,7 @@ void setup() {
   Net.shuffleDataset (&dataset, 0, nData);
   Net.setBatchSize (30);
   float minError = 10;
-  for (int e = 0; e < 5000; e++) {
+  for (int e = 0; e < 5000; e++) { // 5000 training epochs
     Net.trainNet (&dataset);
     Net.testNet (&dataset, true);
     Net.getError (&trainError, &testError);
@@ -44,7 +44,7 @@ void setup() {
     }
     if (testError < 0.002) break;
   }
-  Serial.printf("\nActual duration %u ms\n", millis() - chrono);
+  Serial.printf("\nTraining duration %u ms\n", millis() - chrono);
 
   // Evaluation
   Net.testNet (&dataset, true);

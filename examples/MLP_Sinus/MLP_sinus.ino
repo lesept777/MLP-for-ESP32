@@ -29,7 +29,7 @@ void setup() {
   Net.setMaxError (0.002f);
 
   // Training
-  int heuristics = H_INIT_OPTIM +
+  long heuristics = H_INIT_OPTIM +
                    H_CHAN_WEIGH +
                    /* H_MUTA_WEIGH + */
                    H_CHAN_BATCH +
@@ -42,7 +42,7 @@ void setup() {
   Net.displayHeuristics();
 
   unsigned long chrono = millis();
-  Net.optimize (&dataset, 5, 1000, 40);  // Train baby, train...
+  Net.optimize (&dataset, 1, 4000, 40);  // Train baby, train...
   Serial.printf("\nActual duration %u ms\n", millis() - chrono);
 
   // Evaluation
