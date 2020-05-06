@@ -49,9 +49,11 @@
 // Activation functions
 enum ACTIVATION {
   SIGMOID,
-  SIGMOID2,  /* Sigmoid like function between -1 & 1 */
+  SIGMOID2,     /* Sigmoid like function between -1 & 1 */
   IDENTITY,
   RELU,
+  LEAKYRELU,    /* RELU with a small slope for negative values */
+  ELU,          /* Similar to SIGMOID2 for <0, and RELU for >0 */
   TANH,
   SOFTMAX
 };
@@ -280,6 +282,7 @@ class MLP
     float    _minTestError;
     bool     _datasetProcessed = false;
     float    _minVal, _delta;
+    float    _alphaELU = 1.0f;
     char     ActivNames[6][10] = {"SIGMOID", "SIGMOID2", "IDENTITY", 
                                   "RELU", "TANH", "SOFTMAX"
                                  };

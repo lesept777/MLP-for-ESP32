@@ -768,8 +768,8 @@ void MLP::propagateLayer(LAYER* Lower, LAYER* Upper)
       Sum = 0;
       for (int j = 0; j <= Lower->Units; j++)
         Sum += Upper->Weight[i][j] * Lower->Output[j];
-      Upper->Output[i] = 1 / (1 + exp(-Gain * Sum));
-      // Upper->Output[i] = activation (Sum, Upper, i);
+      // Upper->Output[i] = 1 / (1 + exp(-Gain * Sum));
+      Upper->Output[i] = activation (Sum, Upper, i);
     }
   // }
 }
@@ -800,8 +800,8 @@ void MLP::computeOutputError(float* Target)
       Out = OutputLayer->Output[i];
       // Err = Target[i - 1] - Out;
       Err = (Target[i - 1] - _minVal) / _delta - Out;
-      OutputLayer->Error[i] = Gain * Out * (1 - Out) * Err;
-      // OutputLayer->Error[i] = derivActiv (Out, OutputLayer, i) * Err;
+      // OutputLayer->Error[i] = Gain * Out * (1 - Out) * Err;
+      OutputLayer->Error[i] = derivActiv (Out, OutputLayer, i) * Err;
       Error += 0.5 * Err * Err; // Cost function
     }
   // }
@@ -816,8 +816,8 @@ void MLP::backpropagateLayer(LAYER* Upper, LAYER* Lower)
     Err = 0;
     for (int j = 1; j <= Upper->Units; j++)
       Err += Upper->Weight[j][i] * Upper->Error[j];
-    Lower->Error[i] = Gain * Out * (1 - Out) * Err;
-    // Lower->Error[i] = derivActiv (Out, Upper, i) * Err;
+    // Lower->Error[i] = Gain * Out * (1 - Out) * Err;
+    Lower->Error[i] = derivActiv (Out, Upper, i) * Err;
   }
 }
 
@@ -954,6 +954,12 @@ float MLP::activation (float x, LAYER* layer, int neuron)
     case RELU:
       return (x > 0) ? x : 0;
       break;
+    case LEAKYRELU:
+      return (x > 0) ? x : x / 100.0f;
+      break;
+    case ELU:
+      return (x > 0) ? x : _alphaElu*(exp(x) - 1);
+      break;
     case TANH:
       return tanh(x);
       break;
@@ -1006,11 +1012,19 @@ float MLP::derivActiv (float x, LAYER* layer, int neuron)
       return Gain * (1 + x) * (1 - x) / 2.0f;
       break;
     case IDENTITY:
-      return 1;
+      return 1.0f;
       break;
     case RELU:
-      return (x > 0) ? 1 : 0;
+      return (x > 0) ? 1.0f : 0.0f;
       break;
+    case LEAKYRELU:
+      return (x > 0) ? 1.0f : 0.01f;
+      break;
+    case ELU: {
+      int l = layer->Number;
+      return (x > 0) ? 1.0f : _alphaElu + Layer[l-1]->Output[neuron];
+      break;
+      }
     case TANH:
       return 1 - x * x;
       break;
