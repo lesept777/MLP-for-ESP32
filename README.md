@@ -72,10 +72,10 @@ It is possible to improve the training results if the maximum number of epochs i
 ```
 bool initialize = !Net.netLoad(networkFile);
 // Training
-int heuristics = H_INIT_OPTIM +
-                 H_CHAN_WEIGH +
-                 H_CHAN_LRATE +
-                 H_CHAN_SGAIN;
+long heuristics = H_INIT_OPTIM +
+                  H_CHAN_WEIGH +
+                  H_CHAN_LRATE +
+                  H_CHAN_SGAIN;
 Net.setHeuristics(heuristics);
 Net.setHeurInitialize(initialize); // No need to init a new network if we read it from SPIFFS
 
