@@ -96,3 +96,14 @@ x[1] = ...;
 Net.predict(&x[0], out);
 ```
 The array `out[0]` contains the prediction.
+
+# Various options
+* Activation functions currently available: 
+    * `SIGMOID`
+    * `SIGMOID2`: similar to SIGMOID, but between -1 and +1
+    * `TANH`
+    * `RELU`: Rectified Linear Unit
+    * `IDENTITY`
+
+
+	
