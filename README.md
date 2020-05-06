@@ -47,11 +47,9 @@ int Activations[] = {SIGMOID, SIGMOID};
 Net.setActivation (Activations);
 Net.setMaxError (0.3f);                
 ```
-Net.begin (0.8f) --> Divide the dataset as 80% training and 20% testing
-
-Net.initLearn defines the values of: the momentum, the learning rate, the gain of the sigmoid activation function, and the change rate of the learning rate.
-
-Net.setMaxError set the objective output testing error to stop the training phase.
+* Net.begin (0.8f) --> Divide the dataset as 80% training and 20% testing
+* Net.initLearn defines the values of: the momentum, the learning rate, the gain of the sigmoid activation function, and the change rate of the learning rate.
+* Net.setMaxError set the objective output testing error to stop the training phase.
 
 Other options are available (see the examples).
 
@@ -65,14 +63,28 @@ Then, run the optimization. It can be done automatically:
 Net.optimize (&dataset, 5, 2000, 50);
 ```
 The parameters are:
+* The dataset,
+* The number of iterations,
+* The number of epochs for each iterations,
+* The size of the batch of data.
 
-The dataset,
+# Improve the training
+It is possible to improve the training results if the maximum number of epochs is reached. Just save the network, and run the code again with heuristics parameter H_INIT_OPTIM set to 0:
+```
+bool initialize = !Net.netLoad(networkFile);
+// Training
+int heuristics = H_INIT_OPTIM +
+                 H_CHAN_WEIGH +
+                 H_CHAN_LRATE +
+                 H_CHAN_SGAIN;
+Net.setHeuristics(heuristics);
+Net.setHeurInitialize(initialize); // No need to init a new network if we read it from SPIFFS
 
-The number of iterations,
+...
 
-The number of epochs for each iterations,
-
-The size of the batch of data.
+Net.netSave(networkFile);
+```
+On first run, if the save file is not found, the boolean initialize is true. The optimization will begin with random weights. On the next run, the saved network is loaded, and the boolean is set to false. Then, the optimization will begin with the loaded weights, and try to improve the previous result.
 
 # Inference
 When the goal is reached, i.e. when the error made on the test set is lower than the objective, the network is trained. Its parameters can be saved in a file in SPIFFS for later use.
