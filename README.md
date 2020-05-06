@@ -105,8 +105,7 @@ The array `out[0]` contains the prediction.
 
 The **sigmoid** and **hyperbolic tangent** activation functions cannot be used in networks with many layers due to the vanishing gradient problem (they saturate). The **rectified linear** activation function overcomes this problem, allowing models to learn faster and perform better.
 
-RELU: ![RELU function](https://i.imgur.com/gKA4kA9.jpg "RELU function")    
-SIGMOID: ![SIGMPOID function](https://i.stack.imgur.com/czEqL.png "Sigmoid function")
+![RELU SIGMOID](https://miro.medium.com/max/1452/1*29VH_NiSdoLJ1jUMLrURCA.png "Sigmoid and RELU functions")
 
 **Softmax** to come later, for classification problems.
 	
