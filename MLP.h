@@ -168,7 +168,7 @@ class MLP
     setWeight(layer, upperNeuron, lowerNeuron, value): set any weight value
 */
     float getWeight (int, int, int);
-    int  setWeight (int, int, int, float);
+    int   setWeight (int, int, int, float);
 // Allocates memory for the network
     void  generateNetwork ();
 
@@ -188,7 +188,7 @@ class MLP
     A heuristics is defined as an integer whose bits indicate
     various options (see the #define)
 */
-    void  setHeuristics (int);
+    void  setHeuristics (long);
 /*
     Methods to set the options one by one
     bool : true / false to allow or disable
@@ -284,7 +284,7 @@ class MLP
                                   "RELU", "TANH", "SOFTMAX"
                                  };
     // Booleans for the heuristics
-    int      _heuristics     = 0;
+    long     _heuristics     = 0;
     bool     _initialize     = true;
     bool     _changeWeights  = false;
     bool     _mutateWeights  = false;

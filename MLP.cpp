@@ -358,7 +358,7 @@ void MLP::setActivation (int activations[]) {
   for (int i = 0; i < _numLayers; i++) _activations[i+1] = activations[i];
 }
 
-void MLP::setHeuristics (int heuristics) { 
+void MLP::setHeuristics (long heuristics) { 
   _heuristics = heuristics;
   if (_heuristics != 0) {
     _initialize     = _heuristics & H_INIT_OPTIM; // 0b000000001;
