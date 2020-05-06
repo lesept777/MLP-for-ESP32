@@ -101,9 +101,10 @@ The array `out[0]` contains the prediction.
     * `SIGMOID2`: Similar to `SIGMOID`, but between -1 and +1
     * `TANH`: Quite similar to `SIGMOID2`
     * `RELU`: Rectified Linear Unit
+	* `LEAKYRELU` and `ELU` variants
     * `IDENTITY`
 
-The **sigmoid** and **hyperbolic tangent** activation functions cannot be used in networks with many layers due to the vanishing gradient problem (they saturate). The **rectified linear** activation function overcomes this problem, allowing models to learn faster and perform better.
+The **sigmoid** and **hyperbolic tangent** activation functions cannot be used in networks with many layers due to the vanishing gradient problem. In the backpropagation process, gradients tend to get smaller and smaller as we move backwards:  neurons in earlier layers learn slower than neurons in the last layers. This leads to longer learning and less accurate prediction. The **rectified linear** activation function overcomes this problem, allowing models to learn faster and perform better.
 
 ![RELU SIGMOID](https://miro.medium.com/max/1452/1*29VH_NiSdoLJ1jUMLrURCA.png "Sigmoid and RELU functions")
 
