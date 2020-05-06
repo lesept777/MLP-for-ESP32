@@ -104,6 +104,7 @@ The array `out[0]` contains the prediction.
     * `TANH`: Quite similar to `SIGMOID2`
     * `RELU`: Rectified Linear Unit
     * `IDENTITY`
+
 The sigmoid and hyperbolic tangent activation functions cannot be used in networks with many layers due to the vanishing gradient problem (they saturate). The rectified linear activation function overcomes the vanishing gradient problem, allowing models to learn faster and perform better.
-![RELU function](https://miro.medium.com/max/1026/0*g9ypL5M3k-f7EW85.png)
+![RELU function](https://www.researchgate.net/profile/Hossam_H_Sultan/publication/333411007/figure/fig7/AS:766785846525952@1559827400204/ReLU-activation-function.png)
 	
