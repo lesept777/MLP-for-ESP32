@@ -48,4 +48,6 @@ Set the heuristics:
 * Variable Sigmoid gain
 * Variable momentum
 * Shuffle dataset if needed
+
 However, this example is so simple and quick that the heuristics is not used.
+# Training
