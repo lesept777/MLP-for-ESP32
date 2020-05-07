@@ -14,4 +14,18 @@ First create the dataset and put data inside.
     dataset.data[i].Out = sin(x);
   }
   ```
-  
+  Then define the training parameters:
+  ```
+  Net.begin (0.8f);                         // Initialize train & test sets
+  Net.initLearn (0.9f, 0.5f, 1.0f, 0.8f);   // Set learning parameters
+  Net.setActivation (Activations);
+  Net.setMaxError (0.004f);
+```
+* 80% of the dataset is for training, 20% for testing
+* Learning parameters are:
+    * Momentum = 0.9
+    * Learning rate = 0.5
+    * Sigmoid gain = 1
+    * LR change rate = 0.8
+* Activations are set to `{SIGMOID, SIGMOID, SIGMOID}`
+* Training will stop when the error on the test set is lower than 0.004
