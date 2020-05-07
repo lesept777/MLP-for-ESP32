@@ -50,4 +50,13 @@ Set the heuristics:
 * Shuffle dataset if needed
 
 However, this example is so simple and quick that the heuristics is not used.
-# Training
+# Training and evaluation
+Training is done by a single line:
+```
+Net.optimize (&dataset, 1, 4000, 40);  // Train baby, train...
+```
+Evaluation: 
+```
+Net.testNet (&dataset, true);
+Net.evaluateNet (&dataset, 0.05f);     // Display results
+```
