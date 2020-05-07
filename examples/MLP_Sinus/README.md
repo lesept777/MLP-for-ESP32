@@ -51,12 +51,13 @@ Set the heuristics:
 
 However, this example is so simple and quick that the heuristics is not used.
 # Training and evaluation
-Training is done by a single line:
+Training is done by a single line: optimize the network on the `dataset` on 1 iteration, made of 4000 epochs (maximum) and batch size of 40 data.
 ```
 Net.optimize (&dataset, 1, 4000, 40);  // Train baby, train...
 ```
-Evaluation: 
+Evaluation: provides the number of errors on the training and testing sets. The threshold for the erro is set to `0.05`.
 ```
 Net.testNet (&dataset, true);
 Net.evaluateNet (&dataset, 0.05f);     // Display results
 ```
+# The effect of batch size
