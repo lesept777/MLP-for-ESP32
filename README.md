@@ -96,7 +96,7 @@ Net.predict(&x[0], out);
 The array `out[0]` contains the prediction.
 
 # Various options
-* Activation functions currently available: 
+* **Activation functions** currently available: 
     * `SIGMOID`: S-shaped curve, between 0 and 1
     * `SIGMOID2`: Similar to `SIGMOID`, but between -1 and +1
     * `TANH`: Quite similar to `SIGMOID2`
@@ -109,4 +109,5 @@ The **sigmoid** and **hyperbolic tangent** activation functions cannot be used i
 ![RELU SIGMOID](https://miro.medium.com/max/1452/1*29VH_NiSdoLJ1jUMLrURCA.png "Sigmoid and RELU functions")
 
 **Softmax** to come later, for classification problems.
-	
+
+* **Effect of the batch size** : see the "sinus" example
