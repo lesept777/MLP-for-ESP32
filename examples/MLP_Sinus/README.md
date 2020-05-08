@@ -64,3 +64,9 @@ Net.evaluateNet (&dataset, 0.05f);     // Display results
 As the convergence is quick, I used this example to see the effect of the batch size on the speed of convergence. The following table shows the mean numbers of epochs and duration time averaged on 10 trials, for various batch sizes.
 |  Batch size |   Epochs   |  Duration (ms)  |
 |:-----------:|:----------:|:---------------:|
+|	  1	|	 406	|	27854	|
+|	  5	|	 323	|	22755	|
+|	 10	|	 376	|	26475	|
+|	 25	|	 265	|	19545	|
+|	 50	|	 449	|	34459	|
+|	100	|	 311	|	27067	|
