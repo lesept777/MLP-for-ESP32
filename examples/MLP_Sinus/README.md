@@ -76,7 +76,7 @@ As the convergence is quick, I used this example to see the effect of the batch 
 
 This tends to show that using small mini-batches up to 10 to 25 samples helps converging faster. This is only a tendency, as the obtained results depend on the initial weights, which are randomly chosen.
 
-Another run gives similar tendencies:
+Another run gives similar tendencies, with lower values around batch size of 35:
 |  Batch size |   Epochs   |  Duration (ms)  |
 |:-----------:|:----------:|:---------------:|
 |	  1	|	1363	|	19097	|
