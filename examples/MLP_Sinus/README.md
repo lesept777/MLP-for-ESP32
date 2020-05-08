@@ -64,9 +64,13 @@ Net.evaluateNet (&dataset, 0.05f);     // Display results
 As the convergence is quick, I used this example to see the effect of the batch size on the speed of convergence. The following table shows the mean numbers of epochs and learning time averaged on 10 trials, for various batch sizes. The dataset is made of 300 samples, and training is stopped when the error is below 0.005.
 |  Batch size |   Epochs   |  Duration (ms)  |
 |:-----------:|:----------:|:---------------:|
-|	  1	|	 406	|	27854	|
-|	  5	|	 323	|	22755	|
-|	 10	|	 376	|	26475	|
-|	 25	|	 265	|	19545	|
-|	 50	|	 449	|	34459	|
-|	100	|	 311	|	27067	|
+|	  1	|	1727	|	24212	|
+|	  5	|	1516	|	22431	|
+|	 10	|	1219	|	19139	|
+|	 15	|	1419	|	23553	|
+|	 20	|	1715	|	29795	|
+|	 25	|	1203	|	21965	|
+|	 50	|	1111	|	25202	|
+|	 75	|	1429	|	37483	|
+|	100	|	1672	|	52874	|
+This tends to show that using small mini-batches up to 10 to 25 samples helps converging faster. This is only a tendency, as the obtained results depend on the initial weights, which are randomly chosen.
