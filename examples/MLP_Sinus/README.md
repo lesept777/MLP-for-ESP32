@@ -93,3 +93,8 @@ Another run gives similar tendencies, with lower values around batch size of 35:
 |	 60	|	1239	|	30494	|
 |	 75	|	1417	|	38773	|
 |	100	|	1647	|	52380	|
+|	125	|	1533	|	55672	|
+|	150	|	1372	|	55890	|
+|	175	|	1397	|	63097	|
+
+For large batches, the number of epochs remains quite constant, but the computation r=time rises. So, the best choice seems to use mini batch size around one tenth of the dataset size.
