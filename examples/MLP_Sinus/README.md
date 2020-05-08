@@ -61,3 +61,11 @@ Net.testNet (&dataset, true);
 Net.evaluateNet (&dataset, 0.05f);     // Display results
 ```
 # The effect of batch size
+As the convergence is quick, I used this example to see the effect of the batch size on the speed of convergence. The following table shows the mean numbers of epochs and duration time for 10 trials, for various batch sizes.
+|  Batch size |   Epochs   |  Duration (ms)  |
+|:-----------:|:----------:|:---------------:|
+|	  1	|	 579	|	39941	|
+|	  5	|	 414	|	28607	|
+|	 10	|	 646	|	43636	|
+|	 20	|	 244	|	17913	|
+|	 40	|	 301	|	22931	|
