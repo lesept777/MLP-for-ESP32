@@ -110,4 +110,4 @@ The **sigmoid** and **hyperbolic tangent** activation functions cannot be used i
 
 **Softmax** to come later, for classification problems.
 
-* **Effect of the batch size** : see the "sinus" example
+* **Effect of the batch size** : see the ["sinus" example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_Sinus)
