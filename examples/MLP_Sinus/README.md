@@ -73,4 +73,5 @@ As the convergence is quick, I used this example to see the effect of the batch 
 |	 50	|	1111	|	25202	|
 |	 75	|	1429	|	37483	|
 |	100	|	1672	|	52874	|
+
 This tends to show that using small mini-batches up to 10 to 25 samples helps converging faster. This is only a tendency, as the obtained results depend on the initial weights, which are randomly chosen.
