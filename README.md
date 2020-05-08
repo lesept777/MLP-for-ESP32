@@ -5,11 +5,11 @@ It implements both training and inference phases on a dataset. Datasets can be c
 
 It can address **deep networks**, made of one input layer, multiple hidden layers and one output layer. The output layer can have one neuron for regression, or several neurons for classification. In the case of classification, the softmax function is not coded yet (as of April 2020), so stay under 4 or 5 output neurons.
 
-This library was inspired by the code from Karsten Kutza (https://courses.cs.washington.edu/courses/cse599/01wi/admin/Assignments/bpn.html).
+This library was inspired by the work from [Karsten Kutza](https://courses.cs.washington.edu/courses/cse599/01wi/admin/Assignments/bpn.html).
 
 # Dependencies
-* Arduino FS https://github.com/espressif/arduino-esp32/tree/master/libraries/FS
-* ESP32 SPIFFS https://github.com/espressif/arduino-esp32/tree/master/libraries/SPIFFS
+* [Arduino FS](https://github.com/espressif/arduino-esp32/tree/master/libraries/FS)
+* [ESP32 SPIFFS](https://github.com/espressif/arduino-esp32/tree/master/libraries/SPIFFS)
 
 # Declare a network
 To declare a network, just create an array of int with the number of neurons in each layer. The arguments of the constructor are: number of layers, array of neurons, verbose level.
