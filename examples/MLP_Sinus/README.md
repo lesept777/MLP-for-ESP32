@@ -15,7 +15,7 @@ The network used here has 4 layers, with neurons {1, 8, 3, 1}. First create the 
   }
 ```
 
-## Then define the training parameters:
+## Then define the training parameters
 ```
 Net.begin (0.8f);                         // Initialize train & test sets
 Net.initLearn (0.9f, 0.5f, 1.0f, 0.8f);   // Set learning parameters
@@ -41,6 +41,7 @@ Evaluation: provides the number of errors on the training and testing sets. The 
 Net.testNet (&dataset, true);
 Net.evaluateNet (&dataset, 0.05f);     // Display results
 ```
+The result is shown in the file [Output.txt](https://github.com/lesept777/MLP-for-ESP32/blob/master/examples/MLP_Sinus/Output.txt)
 
 # The effect of batch size
 As the convergence is quick, I used this example to see the effect of the batch size on the speed of convergence. The following table shows the mean numbers of epochs and learning time averaged on 10 trials, for various batch sizes. The dataset is made of 300 samples, and training is stopped when the error is below 0.005.
