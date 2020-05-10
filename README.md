@@ -14,6 +14,7 @@ This library was inspired by the work from [Karsten Kutza](https://courses.cs.wa
 ## Quick start
 If you want to test it quickly, try the ["sinus" example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_Sinus)
 
+# Guidelines
 ## Declare a network
 To declare a network, just create an array of int with the number of neurons in each layer. The arguments of the constructor are: number of layers, array of neurons, verbose level.
 ```
