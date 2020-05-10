@@ -7,11 +7,14 @@ It can address **deep networks**, made of one input layer, multiple hidden layer
 
 This library was inspired by the work from [Karsten Kutza](https://courses.cs.washington.edu/courses/cse599/01wi/admin/Assignments/bpn.html).
 
-# Dependencies
+## Dependencies
 * [Arduino FS](https://github.com/espressif/arduino-esp32/tree/master/libraries/FS)
 * [ESP32 SPIFFS](https://github.com/espressif/arduino-esp32/tree/master/libraries/SPIFFS)
 
-# Declare a network
+## Quick start
+If you want to test it quickly, try the ["sinus" example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_Sinus)
+
+## Declare a network
 To declare a network, just create an array of int with the number of neurons in each layer. The arguments of the constructor are: number of layers, array of neurons, verbose level.
 ```
 // Declare the network
@@ -19,7 +22,7 @@ int Neurons[] = {2, 20, 1};
 MLP Net(3, Neurons, 1);
 ```
 
-# Create a dataset
+## Create a dataset
 To create a dataset, i.e. allocate memory for the data used for training the network, declare the dataset and call the method `createDataset`. The arguments are the dataset and the number of data.
 ```
 DATASET dataset;
@@ -37,7 +40,7 @@ for (int i = 0; i < nData; i++) {
 }
 ```
 
-# Initialize the network
+## Initialize the network
 Define the parameters of the network.
 ```
 Net.begin (0.8f);
@@ -52,7 +55,7 @@ Net.setMaxError (0.3f);
 
 Other options are available (see the examples).
 
-# Run the training phase
+## Run the training phase
 The training phase is merely the optimization of the weights to better fit the output of the network and the output of the dataset.
 
 A heuristics is used for optimization, based on the error backpropagation process. Various options can be set for the heuristics.
@@ -67,7 +70,7 @@ The parameters are:
 * The number of epochs for each iterations,
 * The size of the batch of data.
 
-# Improve the training
+## Improve the training
 It is possible to improve the training results if the maximum number of epochs is reached. Just save the network, and run the code again with heuristics parameter `H_INIT_OPTIM` set to 0:
 ```
 bool initialize = !Net.netLoad(networkFile);
@@ -83,7 +86,7 @@ Net.netSave(networkFile);
 ```
 On first run, if the save file is not found, the boolean `initialize` is true. The optimization will begin with random weights. On the next run, the saved network is loaded, and the boolean is set to false. Then, the optimization will begin with the loaded weights, and will try to improve the previous result.
 
-# Inference
+## Inference
 When the goal is reached, i.e. when the error made on the test set is lower than the objective, the network is trained. Its parameters can be saved in a file in SPIFFS for later use.
 
 The next phase is inference: run the network on unknown data to predict the output. For the example of a 2 neurons input - 1 neuron output network, it's as simple as:
@@ -95,7 +98,7 @@ Net.predict(&x[0], out);
 ```
 The array `out[0]` contains the prediction.
 
-# Various options
+## Various options
 * **Activation functions** currently available: 
     * `SIGMOID`: S-shaped curve, between 0 and 1
     * `SIGMOID2`: Similar to `SIGMOID`, but between -1 and +1
