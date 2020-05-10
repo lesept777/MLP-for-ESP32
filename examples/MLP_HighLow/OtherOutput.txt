@@ -1,198 +1,63 @@
 
-/Network_HiLo.txt - failed to open file for reading
-Estimated duration for training and optimization: 300000 ms (5 min 0 sec)
+Loading network 
 ---------------------------
 Heuristics parameters:
-Init with random weights
 Random weights if needed
 Variable batch size
 Variable learning rate
 Variable Sigmoid gain
 ---------------------------
-Creating a new network
+Processing dataset
+Estimated duration for training and optimization: 90000 ms (1 min 30 sec)
 
-Iteration number 0
-NMSE is 24.458 on Training Set and  6.138 on Test Set
-NMSE is 20.200 on Training Set and  5.052 on Test Set
-NMSE is 18.758 on Training Set and  4.696 on Test Set
-NMSE is 17.923 on Training Set and  4.487 on Test Set
-NMSE is 17.071 on Training Set and  4.285 on Test Set
-NMSE is 16.456 on Training Set and  4.163 on Test Set
-NMSE is 14.205 on Training Set and  3.598 on Test Set
-NMSE is 13.154 on Training Set and  3.338 on Test Set
-NMSE is 12.342 on Training Set and  3.046 on Test Set
-NMSE is 11.608 on Training Set and  2.818 on Test Set
-NMSE is 11.265 on Training Set and  2.814 on Test Set
-NMSE is 10.164 on Training Set and  2.667 on Test Set
-NMSE is  9.993 on Training Set and  2.591 on Test Set
-NMSE is 10.022 on Training Set and  2.576 on Test Set
-NMSE is 10.358 on Training Set and  2.572 on Test Set
 Iteration number 1
-NMSE is 10.298 on Training Set and  2.569 on Test Set
-NMSE is 10.205 on Training Set and  2.554 on Test Set
-NMSE is  9.637 on Training Set and  2.541 on Test Set
-Iteration number 2
-NMSE is  9.021 on Training Set and  2.540 on Test Set
-NMSE is  9.022 on Training Set and  2.532 on Test Set
-NMSE is  9.047 on Training Set and  2.527 on Test Set
-NMSE is  9.039 on Training Set and  2.522 on Test Set
-NMSE is  8.992 on Training Set and  2.520 on Test Set
-NMSE is  8.999 on Training Set and  2.512 on Test Set
-NMSE is  9.026 on Training Set and  2.510 on Test Set
-NMSE is  9.036 on Training Set and  2.508 on Test Set
-NMSE is  9.000 on Training Set and  2.501 on Test Set
-NMSE is  8.862 on Training Set and  2.479 on Test Set
-NMSE is  8.868 on Training Set and  2.479 on Test Set
-NMSE is  9.047 on Training Set and  2.471 on Test Set
-NMSE is  8.915 on Training Set and  2.463 on Test Set
-NMSE is  8.901 on Training Set and  2.458 on Test Set
-NMSE is  8.945 on Training Set and  2.456 on Test Set
-NMSE is  9.039 on Training Set and  2.452 on Test Set
-NMSE is  9.054 on Training Set and  2.449 on Test Set
-NMSE is  9.044 on Training Set and  2.448 on Test Set
-NMSE is  9.020 on Training Set and  2.448 on Test Set
-NMSE is  8.984 on Training Set and  2.445 on Test Set
-NMSE is  8.956 on Training Set and  2.444 on Test Set
-Iteration number 3
-NMSE is  8.983 on Training Set and  2.346 on Test Set
-NMSE is  9.073 on Training Set and  2.300 on Test Set
-NMSE is  9.045 on Training Set and  2.291 on Test Set
-NMSE is  9.078 on Training Set and  2.282 on Test Set
-NMSE is  9.005 on Training Set and  2.271 on Test Set
-NMSE is  9.079 on Training Set and  2.239 on Test Set
-NMSE is  9.047 on Training Set and  2.217 on Test Set
-NMSE is  9.047 on Training Set and  2.198 on Test Set
-NMSE is  9.111 on Training Set and  2.187 on Test Set
-NMSE is  8.952 on Training Set and  2.184 on Test Set
-NMSE is  8.845 on Training Set and  2.177 on Test Set
-NMSE is  9.767 on Training Set and  2.160 on Test Set
-NMSE is  9.617 on Training Set and  2.083 on Test Set
-NMSE is  9.439 on Training Set and  2.073 on Test Set
-NMSE is  9.026 on Training Set and  1.977 on Test Set
-NMSE is  8.598 on Training Set and  1.966 on Test Set
-NMSE is  9.237 on Training Set and  1.939 on Test Set
-NMSE is  9.311 on Training Set and  1.784 on Test Set
-NMSE is  8.505 on Training Set and  1.741 on Test Set
-NMSE is  8.606 on Training Set and  1.703 on Test Set
-NMSE is  8.419 on Training Set and  1.629 on Test Set
-NMSE is  8.252 on Training Set and  1.578 on Test Set
-NMSE is  8.504 on Training Set and  1.564 on Test Set
-NMSE is  8.007 on Training Set and  1.491 on Test Set
-NMSE is  8.374 on Training Set and  1.445 on Test Set
-NMSE is  7.621 on Training Set and  1.445 on Test Set
-NMSE is  6.720 on Training Set and  1.410 on Test Set
-NMSE is  6.469 on Training Set and  1.350 on Test Set
-NMSE is  7.015 on Training Set and  1.310 on Test Set
-NMSE is  6.503 on Training Set and  1.297 on Test Set
-NMSE is  5.480 on Training Set and  1.289 on Test Set
-NMSE is  6.296 on Training Set and  1.263 on Test Set
-Iteration number 4
-NMSE is  4.391 on Training Set and  1.186 on Test Set
-NMSE is  4.538 on Training Set and  1.158 on Test Set
-NMSE is  4.374 on Training Set and  1.121 on Test Set
-NMSE is  4.127 on Training Set and  0.986 on Test Set
-NMSE is  3.480 on Training Set and  0.918 on Test Set
-NMSE is  3.941 on Training Set and  0.724 on Test Set
-NMSE is  3.200 on Training Set and  0.591 on Test Set
-NMSE is  3.187 on Training Set and  0.467 on Test Set
-NMSE is  3.273 on Training Set and  0.465 on Test Set
-NMSE is  3.312 on Training Set and  0.338 on Test Set
-NMSE is  3.463 on Training Set and  0.289 on Test Set
-NMSE is  3.644 on Training Set and  0.256 on Test Set
-NMSE is  3.375 on Training Set and  0.244 on Test Set
-NMSE is  3.251 on Training Set and  0.181 on Test Set
-NMSE is  3.550 on Training Set and  0.144 on Test Set
-Iteration number 5
-Iteration number 6 -> New random weights
-Iteration number 7
-NMSE is  3.665 on Training Set and  0.138 on Test Set
-NMSE is  4.092 on Training Set and  0.133 on Test Set
-Iteration number 8
-NMSE is  4.657 on Training Set and  0.095 on Test Set
-NMSE is  4.778 on Training Set and  0.075 on Test Set
-Iteration number 9
-Finished in 10 iterations (10000 epochs)
+NMSE is  3.334 on Training Set and  0.412 on Test Set
+NMSE is  3.294 on Training Set and  0.273 on Test Set
+NMSE is  3.139 on Training Set and  0.247 on Test Set
+NMSE is  3.041 on Training Set and  0.245 on Test Set
+NMSE is  2.928 on Training Set and  0.199 on Test Set
+NMSE is  2.924 on Training Set and  0.173 on Test Set
+NMSE is  2.893 on Training Set and  0.135 on Test Set
+NMSE is  2.934 on Training Set and  0.121 on Test Set
+NMSE is  2.799 on Training Set and  0.120 on Test Set
+NMSE is  2.738 on Training Set and  0.112 on Test Set
+NMSE is  2.776 on Training Set and  0.108 on Test Set
+NMSE is  2.696 on Training Set and  0.099 on Test Set
+NMSE is  2.757 on Training Set and  0.092 on Test Set
+NMSE is  2.612 on Training Set and  0.088 on Test Set
+NMSE is  2.643 on Training Set and  0.083 on Test Set
+NMSE is  2.556 on Training Set and  0.077 on Test Set
+NMSE is  2.600 on Training Set and  0.067 on Test Set
+NMSE is  2.485 on Training Set and  0.066 on Test Set
+NMSE is  2.472 on Training Set and  0.064 on Test Set
+NMSE is  2.457 on Training Set and  0.060 on Test Set
+NMSE is  2.444 on Training Set and  0.058 on Test Set
+NMSE is  2.499 on Training Set and  0.048 on Test Set
+Finished in 1 iterations (393 epochs)
 
-Actual duration 282080 ms
+Actual duration 3364 ms
 
-Verifying on 160 train data : 19 errors (11.88%)
-Verifying on 40 test data  :  8 errors (20.00%)
+Verifying on 160 train data : 22 errors (13.75%)
+Verifying on 40 test data  :  5 errors (12.50%)
 Saving network in file /Network_HiLo.txt
 
-Validation 0: prediction 0.007465, expected 0.000000 --> OK
-Validation 1: prediction 0.987713, expected 1.000000 --> OK
-Validation 2: prediction 0.000000, expected 0.000000 --> OK
-Validation 3: prediction 1.000000, expected 1.000000 --> OK
-Validation 4: prediction 1.000000, expected 1.000000 --> OK
-Validation 5: prediction 0.596986, expected 1.000000 --> NOK
-Validation 6: prediction 0.000000, expected 0.000000 --> OK
-Validation 7: prediction 0.000000, expected 0.000000 --> OK
-Validation 8: prediction 0.004427, expected 0.000000 --> OK
-Validation 9: prediction 0.000000, expected 0.000000 --> OK
+Validation 0: prediction 0.872345, expected 1.000000 --> NOK
+Validation 1: prediction 0.889678, expected 1.000000 --> NOK
+Validation 2: prediction 0.996060, expected 1.000000 --> OK
+Validation 3: prediction 0.851738, expected 1.000000 --> NOK
+Validation 4: prediction 0.000000, expected 0.000000 --> OK
+Validation 5: prediction 1.000000, expected 1.000000 --> OK
+Validation 6: prediction 0.210117, expected 0.000000 --> NOK
+Validation 7: prediction 0.895798, expected 1.000000 --> NOK
+Validation 8: prediction 0.569641, expected 0.000000 --> NOK
+Validation 9: prediction 0.854156, expected 1.000000 --> NOK
 ---------------------------
 Network has 3 layers:
 Layer number 0: 2 neurons
 Layer number 1: 8 neurons, activation SIGMOID, 24 weights
 Layer number 2: 1 neurons, activation SIGMOID, 9 weights
 Total number of weights: 33
-Learning rate is: 0.977
-Gain is: 1.150
-Momentum is: 0.900
----------------------------
-ets Jun  8 2016 00:22:57
-
-rst:0x1 (POWERON_RESET),boot:0x13 (SPI_FAST_FLASH_BOOT)
-configsip: 0, SPIWP:0xee
-clk_drv:0x00,q_drv:0x00,d_drv:0x00,cs0_drv:0x00,hd_drv:0x00,wp_drv:0x00
-mode:DIO, clock div:1
-load:0x3fff0018,len:4
-load:0x3fff001c,len:1216
-ho 0 tail 12 room 4
-load:0x40078000,len:9720
-ho 0 tail 12 room 4
-load:0x40080400,len:6352
-entry 0x400806b8
-
-Loading network 
-Estimated duration for training and optimization: 180000 ms (3 min 0 sec)
-
-Iteration number 0
-NMSE is  2.528 on Training Set and  0.737 on Test Set
-NMSE is  2.352 on Training Set and  0.623 on Test Set
-NMSE is  3.293 on Training Set and  0.532 on Test Set
-NMSE is  2.447 on Training Set and  0.436 on Test Set
-NMSE is  1.940 on Training Set and  0.223 on Test Set
-NMSE is  1.519 on Training Set and  0.220 on Test Set
-Iteration number 1
-NMSE is  1.683 on Training Set and  0.042 on Test Set
-NMSE is  2.630 on Training Set and  0.037 on Test Set
-NMSE is  1.094 on Training Set and  0.015 on Test Set
-NMSE is  3.826 on Training Set and  0.006 on Test Set
-Finished in 1 iterations (220 epochs)
-
-Actual duration 31923 ms
-
-Verifying on 160 train data : 11 errors (6.88%)
-Verifying on 40 test data  :  0 errors (0.00%)
-Saving network in file /Network_HiLo.txt
-
-Validation 0: prediction 1.000000, expected 1.000000 --> OK
-Validation 1: prediction 0.997740, expected 1.000000 --> OK
-Validation 2: prediction 0.025584, expected 0.000000 --> OK
-Validation 3: prediction 1.000000, expected 1.000000 --> OK
-Validation 4: prediction 1.000000, expected 1.000000 --> OK
-Validation 5: prediction 0.997111, expected 1.000000 --> OK
-Validation 6: prediction 1.000000, expected 1.000000 --> OK
-Validation 7: prediction 1.000000, expected 1.000000 --> OK
-Validation 8: prediction 0.000000, expected 0.000000 --> OK
-Validation 9: prediction 1.000000, expected 1.000000 --> OK
----------------------------
-Network has 3 layers:
-Layer number 0: 2 neurons
-Layer number 1: 8 neurons, activation SIGMOID, 24 weights
-Layer number 2: 1 neurons, activation SIGMOID, 9 weights
-Total number of weights: 33
-Learning rate is: 1.221
+Learning rate is: 0.500
 Gain is: 1.000
 Momentum is: 0.900
 ---------------------------
