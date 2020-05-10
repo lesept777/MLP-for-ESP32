@@ -47,6 +47,8 @@ getGain		KEYWORD2
 getAnneal		KEYWORD2
 getNeuronNumbers		KEYWORD2
 getWeight		KEYWORD2
+setWeight		KEYWORD2
+getTotalEpochs		KEYWORD2
 
 generateNetwork	KEYWORD2
 optimize	KEYWORD2
@@ -72,6 +74,8 @@ evaluateNet	KEYWORD2
 evaluateNet	KEYWORD2
 predict	KEYWORD2
 getError	KEYWORD2
+getTrainSetError	KEYWORD2
+getTestSetError	KEYWORD2
 
 estimateDuration	KEYWORD2
 shuffleDataset	KEYWORD2
@@ -90,6 +94,7 @@ weightMutation	KEYWORD2
 # Constants (LITERAL1)
 #######################################
 SIGMOID	LITERAL1    
+SIGMOID2	LITERAL1    
 IDENTITY	LITERAL1
 RELU	LITERAL1
 TANH	LITERAL1

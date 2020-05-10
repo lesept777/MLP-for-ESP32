@@ -66,7 +66,8 @@ typedef struct {           /* A layer of the network:                 */
   float*    Error;         /* - error term of ith neuron              */
   float**   Weight;        /* - connection weights to ith neuron      */
   float**   WeightSave;    /* - saved weights for stopped training    */
-  float**   dWeight;       /* - last weight deltas for momentum       */
+  float**   dWeight;       /* - weight deltas                         */
+  float**   dWeightOld;    /* - last weight deltas for momentum       */
 } LAYER;
 
 typedef struct
@@ -226,6 +227,9 @@ class MLP
     void  testNet (DATASET*, bool);
     void  evaluateNet (DATASET*, float);
     void  getError (float*, float*);
+    float getTrainSetError (DATASET*);
+    float getTestSetError (DATASET*);
+    int   getTotalEpochs ();
 
 /*
     Once the net in trained and optimized, use the predict method
@@ -304,9 +308,11 @@ class MLP
     float    _minGain = 0.5f,  _maxGain = 2.0f;
     float    _minAlpha = 0.5f, _maxAlpha = 1.5f;
     float    _zeroThreshold = 0.1f;
+    int      _totalEpochs;
 
     // Private methods
     void  simulateNet(float*, float*, float*, bool);
+    void  process(float*, float*, float*, int);
     void  propagateLayer(LAYER*, LAYER*);
     void  propagateNet();
     void  computeOutputError(float*);
@@ -319,9 +325,9 @@ class MLP
     float randomFloat(float, float);
     int   readIntFile (File);
     float readFloatFile (File);
-    float activation (float, LAYER*, int);
-    float derivActiv (float, LAYER*, int);
-    float softmax (int, int);
+    float activation (float, LAYER*);
+    float derivActiv (float, LAYER*);
+    void softmax (int);
 };
 
 #endif
