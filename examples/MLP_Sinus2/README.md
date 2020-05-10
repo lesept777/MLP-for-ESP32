@@ -4,7 +4,11 @@ This example shows how to fit the sine curve, for x from -PI to +PI with user's 
 As for the sinus example, the network has 4 layers, with neurons {1, 8, 3, 1}. The dataset creation is exactly the same, as well as the training parameters
 
 ## Training 
-First initialize the weights with random values. Then shuffle the complete dataset and set the mini-batch size. 5000 epochs are run. One epoch is made of the `trainNet` and `testNet` methods. `trainNet` does the propagation - backpropagation process, and `testNet` computes the errors. If a better set of weights (lower error on the test set) is found, its value is displayed. If the maximum number of epochs is reached or the error is lower than a threshold (0.002), the optimization process is stopped.
+First initialize the weights with random values. Then shuffle the complete dataset and set the mini-batch size. 
+
+A maximum of 5000 epochs are run. One epoch is made of the `trainNet` and `testNet` methods. `trainNet` does the propagation - backpropagation process, and `testNet` computes the errors. If a better set of weights (lower error on the test set) is found, its value is displayed. 
+
+If the maximum number of epochs is reached or the error is lower than a threshold (0.002), the optimization process is stopped.
 ```
   float trainError, testError;
   Net.randomWeights (0.5f);
@@ -23,7 +27,7 @@ First initialize the weights with random values. Then shuffle the complete datas
   }
 ```
 
-#Evaluation
+# Evaluation
 Evaluation provides the number of errors on the training and testing sets. The threshold for the error is set to 0.05.
 ```
 Net.testNet (&dataset, true);
