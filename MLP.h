@@ -259,6 +259,12 @@ class MLP
     void restoreWeights();
     void weightMutation (float, float);
 
+
+
+    void displayData (DATASET*);
+    void disp(float*, float*, int, int);
+
+
   private:
 
     // Parameters of the network
