@@ -5,19 +5,21 @@ As for the sinus example, the network has 4 layers, with neurons {1, 8, 3, 1}. T
 
 ## Training 
 First initialize the weights with random values. Then shuffle the complete dataset and set the mini-batch size. 
-
-A maximum of 5000 epochs are run. One epoch is made of the `trainNet` and `testNet` methods. `trainNet` does the propagation - backpropagation process, and `testNet` computes the errors. If a better set of weights (lower error on the test set) is found, its value is displayed. 
-
-If the maximum number of epochs is reached or the error is lower than a threshold (0.002), the optimization process is stopped.
 ```
   float trainError, testError;
   Net.randomWeights (0.5f);
   Net.shuffleDataset (&dataset, 0, nData);
   Net.setBatchSize (30);
   float minError = 10;
+```
+A maximum of 5000 epochs are run. One epoch is made of the `trainNet` and `testNet` methods. `trainNet` does the propagation - backpropagation process, and `testNet` computes the errors. If a better set of weights (lower error on the test set) is found, its value is displayed. 
+```
   for (int e = 0; e < 5000; e++) {
     Net.trainNet (&dataset);
     Net.testNet (&dataset, true);
+```
+If the maximum number of epochs is reached or the error is lower than a threshold (0.002), the optimization process is stopped.
+```
     Net.getError (&trainError, &testError);
     if (testError < minError) {
       minError = testError;
