@@ -26,7 +26,7 @@ int sector (float x, float y) {
   if (x >= 0.5 && y >= 0.5) return 3;
 }
 ```
-This function eturns the sector's number (i.e. the output value) for a given (x,y) point.  `dataset.data[i].Out` contains the sector's number.
+This function returns the sector's number (i.e. the output value) for a given (x,y) point.  `dataset.data[i].Out` contains the sector's number.
 
 3 output results are provided, in 3 files:
 * Output.txt: standard optimization, using `SIGMOID` activation for the hidden layer
