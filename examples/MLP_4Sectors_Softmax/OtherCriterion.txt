@@ -1,0 +1,111 @@
+---------------------------
+Heuristics parameters:
+Init with random weights
+Random weights if needed
+Variable batch size
+Variable learning rate
+Variable Sigmoid gain
+Stop optimization if train + test error under threshold
+---------------------------
+Processing dataset
+Estimated duration for training and optimization: 414000 ms (6 min 54 sec)
+Creating a new network
+
+Iteration number 1
+NMSE is 438.719 on Training Set and 277.201 on Test Set
+NMSE is 342.057 on Training Set and 239.556 on Test Set
+NMSE is 215.887 on Training Set and 100.265 on Test Set
+NMSE is 193.278 on Training Set and 53.583 on Test Set
+NMSE is 189.248 on Training Set and 54.259 on Test Set
+NMSE is 168.486 on Training Set and 51.198 on Test Set
+NMSE is 159.816 on Training Set and 52.008 on Test Set
+NMSE is 149.835 on Training Set and 44.382 on Test Set
+NMSE is 148.433 on Training Set and 43.464 on Test Set
+NMSE is 140.752 on Training Set and 44.732 on Test Set
+NMSE is 132.453 on Training Set and 43.514 on Test Set
+NMSE is 136.868 on Training Set and 35.853 on Test Set
+NMSE is 136.280 on Training Set and 33.203 on Test Set
+NMSE is 125.464 on Training Set and 42.148 on Test Set
+NMSE is 122.628 on Training Set and 39.390 on Test Set
+NMSE is 113.018 on Training Set and 45.301 on Test Set
+NMSE is 111.667 on Training Set and 39.497 on Test Set
+NMSE is 110.307 on Training Set and 31.281 on Test Set
+NMSE is 100.575 on Training Set and 34.396 on Test Set
+NMSE is 92.736 on Training Set and 20.641 on Test Set
+NMSE is 78.739 on Training Set and 31.222 on Test Set
+NMSE is 87.284 on Training Set and 22.516 on Test Set
+NMSE is 82.804 on Training Set and 24.098 on Test Set
+NMSE is 79.942 on Training Set and 23.633 on Test Set
+NMSE is 77.995 on Training Set and 24.023 on Test Set
+NMSE is 73.913 on Training Set and 25.946 on Test Set
+NMSE is 79.758 on Training Set and 19.494 on Test Set
+NMSE is 78.197 on Training Set and 21.031 on Test Set
+NMSE is 77.541 on Training Set and 19.306 on Test Set
+NMSE is 67.589 on Training Set and 19.262 on Test Set
+NMSE is 59.252 on Training Set and 21.717 on Test Set
+NMSE is 51.581 on Training Set and 19.319 on Test Set
+NMSE is 49.459 on Training Set and 19.857 on Test Set
+NMSE is 53.313 on Training Set and 15.307 on Test Set
+NMSE is 47.380 on Training Set and 16.627 on Test Set
+NMSE is 42.594 on Training Set and 12.891 on Test Set
+NMSE is 42.405 on Training Set and  9.733 on Test Set
+NMSE is 37.997 on Training Set and  8.030 on Test Set
+NMSE is 35.844 on Training Set and  4.558 on Test Set
+NMSE is 27.558 on Training Set and  6.723 on Test Set
+NMSE is 24.962 on Training Set and  7.415 on Test Set
+NMSE is 23.647 on Training Set and  5.320 on Test Set
+NMSE is 18.033 on Training Set and  3.753 on Test Set
+NMSE is 15.238 on Training Set and  6.282 on Test Set
+NMSE is 19.133 on Training Set and  2.131 on Test Set
+NMSE is 17.066 on Training Set and  2.932 on Test Set
+NMSE is  9.455 on Training Set and  3.328 on Test Set
+NMSE is  7.158 on Training Set and  5.419 on Test Set
+NMSE is  6.680 on Training Set and  2.289 on Test Set
+NMSE is  6.037 on Training Set and  2.737 on Test Set
+NMSE is  3.299 on Training Set and  3.358 on Test Set
+NMSE is  2.724 on Training Set and  3.257 on Test Set
+NMSE is  4.754 on Training Set and  0.674 on Test Set
+NMSE is  2.039 on Training Set and  1.882 on Test Set
+Iteration number 2
+NMSE is  0.893 on Training Set and  0.480 on Test Set
+NMSE is  0.648 on Training Set and  0.373 on Test Set
+NMSE is  0.559 on Training Set and  0.300 on Test Set
+Finished in 2 iterations (1103 epochs)
+
+Actual duration 251820 ms
+
+NMSE is  0.509 on Training Set and  0.254 on Test Set
+Verifying on 640 train data :  0 errors (0.00%)
+Verifying on 160 test data  :  0 errors (0.00%)
+Saving network in file /SectorNetwork.txt
+
+Validation  0: expected 1, prediction 1 (0.00 1.00 0.00 0.00) -->OK
+Validation  1: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation  2: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation  3: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation  4: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation  5: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation  6: expected 1, prediction 1 (0.00 1.00 0.00 0.00) -->OK
+Validation  7: expected 1, prediction 1 (0.00 1.00 0.00 0.00) -->OK
+Validation  8: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation  9: expected 1, prediction 1 (0.04 0.96 0.00 0.00) -->OK
+Validation 10: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation 11: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation 12: expected 2, prediction 2 (0.06 0.00 0.94 0.00) -->OK
+Validation 13: expected 2, prediction 2 (0.10 0.00 0.90 0.00) -->OK
+Validation 14: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation 15: expected 2, prediction 2 (0.43 0.00 0.57 0.00) -->OK
+Validation 16: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation 17: expected 2, prediction 2 (0.39 0.00 0.61 0.00) -->OK
+Validation 18: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation 19: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+---------------------------
+Network has 3 layers:
+Layer number 0: 2 neurons
+Layer number 1: 8 neurons, activation SIGMOID, 24 weights
+Layer number 2: 4 neurons, activation SOFTMAX, 36 weights
+Total number of weights: 60
+Learning rate is: 0.256
+Gain is: 1.450
+Momentum is: 0.900
+---------------------------
