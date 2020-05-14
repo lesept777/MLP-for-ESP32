@@ -116,11 +116,12 @@ The **sigmoid** and **hyperbolic tangent** activation functions cannot be used i
 
 * **Effect of the batch size** : see the ["sinus" example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_Sinus)
 
-* Optimizor's options
+* **Optimizor's options**
 
 A set of options is provided to define the heuristics used during training's optimization. They are set by using the `setHeuristics`method or one by one with the associated methods (this enables a finer tuning and the possibility to change the heuristics options during training).
 
 Current options are:
+*  
 	* H_INIT_OPTIM   to initialize optimizer with random weights
 	* H_CHAN_WEIGH   to force new random weights during optimization
 	* H_MUTA_WEIGH   to slightly change the weights during optimization
