@@ -1,0 +1,93 @@
+
+Loading network 
+---------------------------
+Heuristics parameters:
+Random weights if needed
+Variable batch size
+Variable learning rate
+Variable Sigmoid gain
+---------------------------
+Processing dataset
+Estimated duration for training and optimization: 470000 ms (7 min 50 sec)
+
+Iteration number 1
+NMSE is 157.353 on Training Set and 41.116 on Test Set
+NMSE is 138.864 on Training Set and 39.522 on Test Set
+NMSE is 148.491 on Training Set and 38.901 on Test Set
+NMSE is 150.751 on Training Set and 24.758 on Test Set
+NMSE is 151.165 on Training Set and  1.841 on Test Set
+NMSE is 132.358 on Training Set and  0.620 on Test Set
+NMSE is 154.095 on Training Set and  0.414 on Test Set
+NMSE is 108.239 on Training Set and  0.393 on Test Set
+NMSE is 107.023 on Training Set and  0.361 on Test Set
+NMSE is 112.226 on Training Set and  0.256 on Test Set
+NMSE is 73.467 on Training Set and  0.240 on Test Set
+NMSE is 67.096 on Training Set and  0.200 on Test Set
+NMSE is 76.867 on Training Set and  0.178 on Test Set
+NMSE is 48.242 on Training Set and  0.178 on Test Set
+NMSE is 33.238 on Training Set and  0.177 on Test Set
+NMSE is 20.108 on Training Set and  0.174 on Test Set
+Iteration number 2
+NMSE is  5.971 on Training Set and  0.172 on Test Set
+Iteration number 3
+NMSE is  5.908 on Training Set and  0.169 on Test Set
+Iteration number 4
+NMSE is  3.599 on Training Set and  0.169 on Test Set
+NMSE is  3.547 on Training Set and  0.166 on Test Set
+NMSE is  3.669 on Training Set and  0.166 on Test Set
+NMSE is  6.673 on Training Set and  0.165 on Test Set
+Iteration number 5
+NMSE is  5.659 on Training Set and  0.165 on Test Set
+Iteration number 6
+NMSE is  6.342 on Training Set and  0.162 on Test Set
+NMSE is  6.405 on Training Set and  0.161 on Test Set
+NMSE is  5.513 on Training Set and  0.160 on Test Set
+Iteration number 7
+Iteration number 8 -> New random weights, changing batch size to 36
+Iteration number 9
+NMSE is  6.034 on Training Set and  0.158 on Test Set
+NMSE is 29.792 on Training Set and  0.158 on Test Set
+NMSE is 11.038 on Training Set and  0.158 on Test Set
+NMSE is  7.557 on Training Set and  0.157 on Test Set
+Iteration number 10
+NMSE is  5.470 on Training Set and  0.156 on Test Set
+NMSE is  5.363 on Training Set and  0.153 on Test Set
+NMSE is  5.365 on Training Set and  0.151 on Test Set
+Finished in 11 iterations (11000 epochs)
+
+Actual duration 435591 ms
+
+Verifying on 640 train data :  1 errors (0.16%)
+Verifying on 160 test data  :  0 errors (0.00%)
+Saving network in file /SectorNetwork.txt
+
+Validation  0: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation  1: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation  2: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation  3: expected 1, prediction 1 (0.00 1.00 0.00 0.00) -->OK
+Validation  4: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation  5: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation  6: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation  7: expected 1, prediction 1 (0.00 1.00 0.00 0.00) -->OK
+Validation  8: expected 2, prediction 3 (0.00 0.00 0.00 1.00) -->NOK
+Validation  9: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation 10: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation 11: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation 12: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation 13: expected 1, prediction 1 (0.00 1.00 0.00 0.00) -->OK
+Validation 14: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation 15: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation 16: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation 17: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation 18: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation 19: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+---------------------------
+Network has 3 layers:
+Layer number 0: 2 neurons
+Layer number 1: 8 neurons, activation LEAKYRELU, 24 weights
+Layer number 2: 4 neurons, activation SOFTMAX, 36 weights
+Total number of weights: 60
+Learning rate is: 0.256
+Gain is: 1.150
+Momentum is: 0.900
+---------------------------
