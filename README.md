@@ -117,19 +117,20 @@ The **sigmoid** and **hyperbolic tangent** activation functions cannot be used i
 * **Effect of the batch size** : see the ["sinus" example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_Sinus)
 
 * Optimizor's options
+
 A set of options is provided to define the heuristics used during training's optimization. They are set by using the `setHeuristics`method or one by one with the associated methods (this enables a finer tuning and the possibility to change the heuristics options during training).
 
 Current options are:
-* H_INIT_OPTIM   to initialize optimizer with random weights
-* H_CHAN_WEIGH   to force new random weights during optimization
-* H_MUTA_WEIGH   to slightly change the weights during optimization
-* H_CHAN_BATCH   to enable to change batch size
-* H_CHAN_LRATE   to enable to change the learning rate
-* H_CHAN_SGAIN   to enable to change the sigmoid gain
-* H_CHAN_ALPHA   to enable to change the sigmoid gain
-* H_SHUF_DATAS   to shuffle the dataset
-* H_ZERO_WEIGH   to force low weights to 0
-* H_STOP_TOTER   to stop optimization if test + train Error < threshold 
+	* H_INIT_OPTIM   to initialize optimizer with random weights
+	* H_CHAN_WEIGH   to force new random weights during optimization
+	* H_MUTA_WEIGH   to slightly change the weights during optimization
+	* H_CHAN_BATCH   to enable to change batch size
+	* H_CHAN_LRATE   to enable to change the learning rate
+	* H_CHAN_SGAIN   to enable to change the sigmoid gain
+	* H_CHAN_ALPHA   to enable to change the sigmoid gain
+	* H_SHUF_DATAS   to shuffle the dataset
+	* H_ZERO_WEIGH   to force low weights to 0
+	* H_STOP_TOTER   to stop optimization if test + train Error < threshold 
 
 Heuristics options can be set like this:
 ```
