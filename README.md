@@ -123,16 +123,16 @@ A set of options is provided to define the heuristics used during training's opt
 Current options are:
 
 *  
-	* H_INIT_OPTIM   to initialize optimizer with random weights
-	* H_CHAN_WEIGH   to force new random weights during optimization
-	* H_MUTA_WEIGH   to slightly change the weights during optimization
-	* H_CHAN_BATCH   to enable to change batch size
-	* H_CHAN_LRATE   to enable to change the learning rate
-	* H_CHAN_SGAIN   to enable to change the sigmoid gain
-	* H_CHAN_ALPHA   to enable to change the sigmoid gain
-	* H_SHUF_DATAS   to shuffle the dataset
-	* H_ZERO_WEIGH   to force low weights to 0
-	* H_STOP_TOTER   to stop optimization if test + train Error < threshold 
+	* `H_INIT_OPTIM`   : initialize optimizer with random weights
+	* `H_CHAN_WEIGH`   : force new random weights during optimization
+	* `H_MUTA_WEIGH`   : slightly change the weights during optimization
+	* `H_CHAN_BATCH`   : enable to change batch size
+	* `H_CHAN_LRATE`   : enable to change the learning rate
+	* `H_CHAN_SGAIN`   : enable to change the sigmoid gain
+	* `H_CHAN_ALPHA`   : enable to change the sigmoid gain
+	* `H_SHUF_DATAS`   : shuffle the dataset
+	* `H_ZERO_WEIGH`   : force low weights to 0
+	* `H_STOP_TOTER`   : stop optimization if test + train Error < threshold 
 
 Heuristics options can be set like this:
 ```
