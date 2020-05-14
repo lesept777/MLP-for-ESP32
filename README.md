@@ -115,10 +115,10 @@ The **sigmoid** and **hyperbolic tangent** activation functions cannot be used i
 
 **Softmax** for classification problems implemented.
 
-### **Effect of the batch size** : see the ["sinus" example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_Sinus)
+### **Effect of the batch size**
+See the ["sinus" example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_Sinus)
 
 ### **Optimizor's options**
-
 A set of options is provided to define the heuristics used during training's optimization. They are set by using the `setHeuristics`method or one by one with the associated methods (this enables a finer tuning and the possibility to change the heuristics options during training).
 
 Current options are:
