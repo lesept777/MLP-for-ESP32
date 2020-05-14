@@ -147,5 +147,7 @@ Heuristics options can be set like this:
 or one by one:
 ```
 Net.setHeurInitialize(true);
+Net.setHeurChangeEta(true);
+Net.setHeurShuffleDataset(false);
 ```
 
