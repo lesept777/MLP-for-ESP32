@@ -1,0 +1,162 @@
+
+---------------------------
+Heuristics parameters:
+Init with random weights
+Random weights if needed
+Variable batch size
+Variable learning rate
+Variable Sigmoid gain
+---------------------------
+Processing dataset
+Estimated duration for training and optimization: 450000 ms (7 min 30 sec)
+Creating a new network
+
+Iteration number 1
+NMSE is 356.219 on Training Set and 222.997 on Test Set
+NMSE is 296.660 on Training Set and 145.465 on Test Set
+NMSE is 281.099 on Training Set and 86.501 on Test Set
+NMSE is 236.271 on Training Set and 54.160 on Test Set
+NMSE is 212.169 on Training Set and 45.883 on Test Set
+NMSE is 198.213 on Training Set and 31.583 on Test Set
+NMSE is 180.423 on Training Set and 28.180 on Test Set
+NMSE is 164.159 on Training Set and 18.023 on Test Set
+NMSE is 170.182 on Training Set and 12.503 on Test Set
+NMSE is 133.172 on Training Set and 10.510 on Test Set
+NMSE is 104.570 on Training Set and  7.978 on Test Set
+NMSE is 115.256 on Training Set and  5.377 on Test Set
+NMSE is 115.026 on Training Set and  5.355 on Test Set
+NMSE is 101.923 on Training Set and  5.265 on Test Set
+NMSE is 70.732 on Training Set and  4.260 on Test Set
+NMSE is 97.002 on Training Set and  4.127 on Test Set
+NMSE is 88.935 on Training Set and  3.793 on Test Set
+NMSE is 72.995 on Training Set and  3.613 on Test Set
+NMSE is 91.513 on Training Set and  3.143 on Test Set
+NMSE is 84.865 on Training Set and  2.582 on Test Set
+NMSE is 95.650 on Training Set and  2.362 on Test Set
+NMSE is 95.634 on Training Set and  1.911 on Test Set
+NMSE is 90.576 on Training Set and  1.567 on Test Set
+NMSE is 95.623 on Training Set and  0.687 on Test Set
+NMSE is 91.489 on Training Set and  0.580 on Test Set
+NMSE is 85.979 on Training Set and  0.397 on Test Set
+NMSE is 63.687 on Training Set and  0.376 on Test Set
+NMSE is 59.910 on Training Set and  0.363 on Test Set
+NMSE is 64.206 on Training Set and  0.357 on Test Set
+NMSE is 87.167 on Training Set and  0.329 on Test Set
+NMSE is 61.280 on Training Set and  0.310 on Test Set
+NMSE is 59.460 on Training Set and  0.300 on Test Set
+NMSE is 69.835 on Training Set and  0.278 on Test Set
+NMSE is 51.005 on Training Set and  0.264 on Test Set
+NMSE is 74.324 on Training Set and  0.263 on Test Set
+NMSE is 54.824 on Training Set and  0.251 on Test Set
+NMSE is 42.078 on Training Set and  0.234 on Test Set
+NMSE is 41.516 on Training Set and  0.209 on Test Set
+NMSE is 107.678 on Training Set and  0.188 on Test Set
+NMSE is 85.225 on Training Set and  0.163 on Test Set
+NMSE is 90.617 on Training Set and  0.151 on Test Set
+Iteration number 2
+NMSE is 24.263 on Training Set and  0.150 on Test Set
+NMSE is 43.875 on Training Set and  0.136 on Test Set
+NMSE is 39.086 on Training Set and  0.117 on Test Set
+NMSE is 39.610 on Training Set and  0.087 on Test Set
+NMSE is 37.415 on Training Set and  0.086 on Test Set
+NMSE is 54.798 on Training Set and  0.079 on Test Set
+NMSE is 25.048 on Training Set and  0.078 on Test Set
+NMSE is 45.694 on Training Set and  0.075 on Test Set
+NMSE is 78.378 on Training Set and  0.047 on Test Set
+NMSE is  0.234 on Training Set and  0.046 on Test Set
+NMSE is  0.200 on Training Set and  0.043 on Test Set
+NMSE is  0.182 on Training Set and  0.040 on Test Set
+NMSE is  0.169 on Training Set and  0.037 on Test Set
+NMSE is  0.158 on Training Set and  0.035 on Test Set
+NMSE is  0.149 on Training Set and  0.033 on Test Set
+NMSE is  0.141 on Training Set and  0.031 on Test Set
+NMSE is  0.135 on Training Set and  0.030 on Test Set
+NMSE is  0.129 on Training Set and  0.029 on Test Set
+NMSE is  0.123 on Training Set and  0.027 on Test Set
+NMSE is  0.119 on Training Set and  0.026 on Test Set
+NMSE is  0.114 on Training Set and  0.025 on Test Set
+NMSE is  0.110 on Training Set and  0.024 on Test Set
+NMSE is  0.106 on Training Set and  0.024 on Test Set
+NMSE is  0.103 on Training Set and  0.023 on Test Set
+NMSE is  0.100 on Training Set and  0.022 on Test Set
+NMSE is  0.097 on Training Set and  0.021 on Test Set
+NMSE is  0.094 on Training Set and  0.021 on Test Set
+NMSE is  0.091 on Training Set and  0.020 on Test Set
+NMSE is  0.089 on Training Set and  0.020 on Test Set
+NMSE is  0.087 on Training Set and  0.019 on Test Set
+NMSE is  0.084 on Training Set and  0.019 on Test Set
+NMSE is  0.082 on Training Set and  0.018 on Test Set
+Iteration number 3
+NMSE is  0.080 on Training Set and  0.018 on Test Set
+NMSE is  0.078 on Training Set and  0.017 on Test Set
+NMSE is  0.077 on Training Set and  0.017 on Test Set
+NMSE is  0.075 on Training Set and  0.016 on Test Set
+NMSE is  0.073 on Training Set and  0.016 on Test Set
+NMSE is  0.072 on Training Set and  0.016 on Test Set
+NMSE is  0.070 on Training Set and  0.015 on Test Set
+NMSE is  0.069 on Training Set and  0.015 on Test Set
+NMSE is  0.068 on Training Set and  0.015 on Test Set
+NMSE is  0.066 on Training Set and  0.014 on Test Set
+NMSE is  0.065 on Training Set and  0.014 on Test Set
+NMSE is  0.064 on Training Set and  0.014 on Test Set
+NMSE is  0.063 on Training Set and  0.014 on Test Set
+NMSE is  0.062 on Training Set and  0.013 on Test Set
+NMSE is  0.061 on Training Set and  0.013 on Test Set
+NMSE is  0.060 on Training Set and  0.013 on Test Set
+NMSE is  0.059 on Training Set and  0.013 on Test Set
+NMSE is  0.058 on Training Set and  0.013 on Test Set
+NMSE is  0.057 on Training Set and  0.012 on Test Set
+NMSE is  0.056 on Training Set and  0.012 on Test Set
+NMSE is  0.055 on Training Set and  0.012 on Test Set
+NMSE is  0.054 on Training Set and  0.012 on Test Set
+NMSE is  0.054 on Training Set and  0.012 on Test Set
+NMSE is  0.053 on Training Set and  0.011 on Test Set
+NMSE is  0.052 on Training Set and  0.011 on Test Set
+NMSE is  0.051 on Training Set and  0.011 on Test Set
+NMSE is  0.051 on Training Set and  0.011 on Test Set
+NMSE is  0.050 on Training Set and  0.011 on Test Set
+NMSE is  0.049 on Training Set and  0.011 on Test Set
+NMSE is  0.049 on Training Set and  0.010 on Test Set
+NMSE is  0.048 on Training Set and  0.010 on Test Set
+NMSE is  0.048 on Training Set and  0.010 on Test Set
+NMSE is  0.047 on Training Set and  0.010 on Test Set
+NMSE is  0.046 on Training Set and  0.010 on Test Set
+Finished in 3 iterations (2033 epochs)
+
+Actual duration 121970 ms
+
+NMSE is  0.046 on Training Set and  0.010 on Test Set
+Verifying on 640 train data :  0 errors (0.00%)
+Verifying on 160 test data  :  0 errors (0.00%)
+Saving network in file /SectorNetwork.txt
+
+Validation  0: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation  1: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation  2: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation  3: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation  4: expected 1, prediction 1 (0.00 1.00 0.00 0.00) -->OK
+Validation  5: expected 0, prediction 1 (0.04 0.96 0.00 0.00) -->NOK
+Validation  6: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation  7: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation  8: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation  9: expected 2, prediction 2 (0.00 0.00 1.00 0.00) -->OK
+Validation 10: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation 11: expected 1, prediction 1 (0.00 1.00 0.00 0.00) -->OK
+Validation 12: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation 13: expected 1, prediction 1 (0.03 0.97 0.00 0.00) -->OK
+Validation 14: expected 3, prediction 3 (0.00 0.00 0.00 1.00) -->OK
+Validation 15: expected 1, prediction 0 (0.74 0.26 0.00 0.00) -->NOK
+Validation 16: expected 3, prediction 3 (0.00 0.00 0.01 0.99) -->OK
+Validation 17: expected 3, prediction 3 (0.01 0.00 0.05 0.94) -->OK
+Validation 18: expected 0, prediction 0 (1.00 0.00 0.00 0.00) -->OK
+Validation 19: expected 2, prediction 0 (0.97 0.00 0.03 0.00) -->NOK
+---------------------------
+Network has 3 layers:
+Layer number 0: 2 neurons
+Layer number 1: 8 neurons, activation SIGMOID, 24 weights
+Layer number 2: 4 neurons, activation SOFTMAX, 36 weights
+Total number of weights: 60
+Learning rate is: 0.977
+Gain is: 1.750
+Momentum is: 0.900
+---------------------------
