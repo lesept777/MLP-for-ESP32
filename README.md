@@ -112,6 +112,6 @@ The **sigmoid** and **hyperbolic tangent** activation functions cannot be used i
 
 ![RELU SIGMOID](https://miro.medium.com/max/1452/1*29VH_NiSdoLJ1jUMLrURCA.png "Sigmoid and RELU functions")
 
-**Softmax** to come later, for classification problems.
+**Softmax** for classification problems implemented.
 
 * **Effect of the batch size** : see the ["sinus" example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_Sinus)
