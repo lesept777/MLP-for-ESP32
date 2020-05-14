@@ -293,9 +293,9 @@ class MLP
     bool     _datasetProcessed = false;
     float    _minVal, _delta;
     float    _alphaELU = 1.0f;
-    char     ActivNames[6][10] = {"SIGMOID", "SIGMOID2", "IDENTITY", 
-                                  "RELU", "TANH", "SOFTMAX"
-                                 };
+    char     ActivNames[8][10] = {"SIGMOID", "SIGMOID2", "IDENTITY", 
+                                  "RELU", "LEAKYRELU", "ELU", "TANH", 
+                                  "SOFTMAX" };
     // Booleans for the heuristics
     long     _heuristics     = 0;
     bool     _initialize     = true;
@@ -333,7 +333,7 @@ class MLP
     float readFloatFile (File);
     float activation (float, LAYER*);
     float derivActiv (float, LAYER*);
-    void softmax (int);
+    void  softmax ();
 };
 
 #endif

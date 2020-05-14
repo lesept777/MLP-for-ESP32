@@ -279,7 +279,7 @@ void MLP::displayNetwork()
       if (_verbose > 2 && l != 0) {
         for (int i = 1; i <= Layer[l]->Units; i++)
           for (int j = 0; j <= Layer[l - 1]->Units; j++)
-            Serial.printf("\t%d - %d: % f\n",i,j,Layer[l]->Weight[i][j]);
+            Serial.printf("\t%d - %d: %f\n",i,j,Layer[l]->Weight[i][j]);
       }
     }
   }
@@ -628,7 +628,7 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
     if (Stop) break;
   }
   restoreWeights();
-  int nepochs = (iter - 1) * _epochs;
+  int nepochs = iter * _epochs;
   if (nepochs < 0) nepochs = 0;
   _totalEpochs = nepochs + epoch;
   if (_verbose > 0) Serial.printf("\nFinished in %d iterations (%d epochs)\n", 
@@ -720,21 +720,50 @@ void MLP::testNet(DATASET* dataset, bool disp)
 void MLP::evaluateNet(DATASET* dataset, float threshold)
 {
   float *Out;
-  Out = new float [_units[_numLayers - 1]];
+  if (OutputLayer->Activation == SOFTMAX) Out = new float [OutputLayer->Units + 1];
+  else Out = new float [_units[_numLayers - 1]];
 
   int nError = 0;
   for (int sample = 0; sample < _nTrain; sample++) {
-    simulateNet(&dataset->data[sample].In[0], Out, &dataset->data[sample].Out, false);
-    float x = Out[0] * _delta + _minVal;
-    if (abs(x - dataset->data[sample].Out) > threshold) ++nError;
+    // simulateNet(&dataset->data[sample].In[0], Out, &dataset->data[sample].Out, false);
+    process(&dataset->data[sample].In[0], Out, &dataset->data[sample].Out, 1);
+    if (OutputLayer->Activation == SOFTMAX) {
+      // Softmax case : look for the highest value
+      int indexMax = 0;
+      float valMax = 0;
+      for (int j = 0; j < OutputLayer->Units; j++) {
+        if (Out[j] > valMax) {
+          valMax = Out[j];
+          indexMax = j;
+        }
+      }
+      if (abs(indexMax - dataset->data[sample].Out) > threshold) ++nError;
+    } else {
+      float x = Out[0] * _delta + _minVal;
+      if (abs(x - dataset->data[sample].Out) > threshold) ++nError;
+    }
   }
   if (_verbose > 0) Serial.printf("\nVerifying on %d train data : %2d errors (%.2f%%)\n", _nTrain, nError, 100.0 * nError / _nTrain);
 
   nError = 0;
   for (int sample = _nTrain; sample < _nData; sample++) {
-    simulateNet(&dataset->data[sample].In[0], Out, &dataset->data[sample].Out, false);
-    float x = Out[0] * _delta + _minVal;
-    if (abs(x - dataset->data[sample].Out) > threshold) ++nError;
+    // simulateNet(&dataset->data[sample].In[0], Out, &dataset->data[sample].Out, false);
+    process(&dataset->data[sample].In[0], Out, &dataset->data[sample].Out, 1);
+    if (OutputLayer->Activation == SOFTMAX) {
+      // Softmax case : look for the highest value
+      int indexMax = 0;
+      float valMax = 0;
+      for (int j = 0; j < OutputLayer->Units; j++) {
+        if (Out[j] > valMax) {
+          valMax = Out[j];
+          indexMax = j;
+        }
+      }
+      if (abs(indexMax - dataset->data[sample].Out) > threshold) ++nError;
+    } else {
+      float x = Out[0] * _delta + _minVal;
+      if (abs(x - dataset->data[sample].Out) > threshold) ++nError;
+    }
   }
   if (_verbose > 0) Serial.printf("Verifying on %d test data  : %2d errors (%.2f%%)\n", _nTest, nError, 100.0 * nError / _nTest);
 
@@ -1019,10 +1048,14 @@ void MLP::weightMutation (float proba, float percent)
 
 void MLP::predict (float* Input, float *Output)
 {
-  setInput(Input);
-  propagateNet();
-  getOutput(Output);
-  Output[0] = Output[0] * _delta + _minVal;
+  if (OutputLayer->Activation != SOFTMAX) {
+    setInput(Input);
+    propagateNet();
+    getOutput(Output);
+    Output[0] = Output[0] * _delta + _minVal;
+  } else {
+    process(Input, Output, Output, 1);
+  }
 }
 
 // Shift the output values of the dataset to the interval [0, 1]
@@ -1061,23 +1094,22 @@ void MLP::getError (float *trainError, float *testError) {
 int MLP::getTotalEpochs () { return _totalEpochs; }
 
 // Softmax cost function for last layer
-void MLP::softmax (int l) {
+void MLP::softmax () {
   float *sum;
-  sum = new float [OutputLayer->Units];
-  // Serial.println("\tsoftmax");
+  int l = _numLayers - 1;
+  sum = new float [OutputLayer->Units + 1];
   float denom = 0;
   float sumMax = -HUGE_VAL;
-  for (int i = 0; i < OutputLayer->Units; i++) {
+  for (int i = 1; i <= OutputLayer->Units; i++) {
     sum[i] = 0;
-    for (int j = 0; j <= Layer[l-1]->Units; j++) {
-      sum[i] += Layer[l]->Weight[i+1][j] * Layer[l-1]->Output[j];
+    for (int j = 0; j <= Layer[l - 1]->Units; j++) {
+      sum[i] += Layer[l]->Weight[i][j] * Layer[l-1]->Output[j];
     }
     if (sum[i] > sumMax) sumMax = sum[i];
   }
-  for (int i = 0; i < OutputLayer->Units; i++) denom += exp(sum[i] - sumMax);
-  for (int i = 0; i < OutputLayer->Units; i++) {
+  for (int i = 1; i <= OutputLayer->Units; i++) denom += exp(sum[i] - sumMax);
+  for (int i = 1; i <= OutputLayer->Units; i++) {
     OutputLayer->Output[i] = exp(sum[i] - sumMax) / denom;
-    // Serial.printf("softmax: %d %f\n", i, OutputLayer->Output[i]);
   }
   delete sum;
   return;
@@ -1105,14 +1137,10 @@ void MLP::process (float* Input, float* Output, float* Target, int batch) {
     }
 
   // Forward propagation
-    // Serial.println("forward");
     for (int l = 0; l < _numLayers - 1; l++) {
-      // Serial.println(l);
       // Softmax case
       if (l == _numLayers - 2 && OutputLayer->Activation == SOFTMAX) {
-        softmax(l);
-        for (int i = 0; i < OutputLayer->Units; i++) 
-          Serial.printf("Forward: %d %d %f exp %f\n",iBatch,i,OutputLayer->Output[i],Target[2 * iBatch]);
+        softmax();
       } else {
         // Other activation
         float Sum;
@@ -1133,18 +1161,19 @@ void MLP::process (float* Input, float* Output, float* Target, int batch) {
     float Out, Err, Grad, Targ;
     Error = 0;
     for (int i = 1; i <= OutputLayer->Units; i++) {
-      Out = OutputLayer->Output[i];
       // Targ = (Target[i - 1 + (_units[_numLayers - 1] + 1) * iBatch] - _minVal) / _delta;
       if (OutputLayer->Activation == SOFTMAX) {
       // Cross entropy & softmax (see https://deepnotes.io/softmax-crossentropy)
+        Out = OutputLayer->Output[i];
         Targ = 0;
-        if (abs(Target[2 * iBatch] - (i - 1)) < 0.1) Targ = 1;
-        Grad = Targ - Out; // <-- SIGN? Nabla a^L C
+        if (abs(Target[2 * iBatch] - (i - 1)) < 0.1) Targ = 1; // one-hot encoded
+        Grad = Targ - Out; // Nabla a^L C
         OutputLayer->Error[i] = Grad; // delta^L
         Error -= Targ * log(Out + 0.00000001);
-        Serial.printf("Error: %f %f %f\n", Targ, Grad, Error);
+        // Serial.printf("Error: %f %f %f\n", Targ, Grad, Error);
       } else {
       // Squared Error loss
+        Out = OutputLayer->Output[i];
         Targ = (Target[2 * iBatch] - _minVal) / _delta;
         Grad = Targ - Out; // Nabla a^L C
         OutputLayer->Error[i] = derivActiv (Out, OutputLayer) * Grad; // delta^L
@@ -1173,7 +1202,7 @@ void MLP::process (float* Input, float* Output, float* Target, int batch) {
         }
   } // End for iBatch
 
-// Adjust weights
+  // Adjust weights
     for (int l = 1; l < _numLayers; l++) 
       for (int i = 1; i <= Layer[l]->Units; i++) 
         for (int j = 0; j <= Layer[l - 1]->Units; j++)
@@ -1184,8 +1213,6 @@ void MLP::process (float* Input, float* Output, float* Target, int batch) {
 }
 
 
-// process(&dataset->data[sample].In[0], Output,
-// &dataset->data[sample].Out, _batchSize);
 void MLP::displayData (DATASET* dataset)
 {
   Serial.printf("%d data\n", dataset->nData);
