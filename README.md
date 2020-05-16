@@ -113,7 +113,7 @@ The **sigmoid** and **hyperbolic tangent** activation functions cannot be used i
 
 ![RELU SIGMOID](https://miro.medium.com/max/1452/1*29VH_NiSdoLJ1jUMLrURCA.png "Sigmoid and RELU functions")
 
-**Softmax** for classification problems implemented.
+**Softmax** for classification problems implemented. `SOFTMAX` can only be used for the last layer. If you choose it, the cost function is [Cross entropy](https://en.wikipedia.org/wiki/Cross_entropy). Otherwise, it's Squared error.
 
 ### **Effect of the batch size**
 See the ["sinus" example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_Sinus)
@@ -131,7 +131,7 @@ Current options are:
 * `H_CHAN_ALPHA`   : enable to change the sigmoid gain
 * `H_SHUF_DATAS`   : shuffle the dataset
 * `H_ZERO_WEIGH`   : force low weights to 0
-* `H_STOP_TOTER`   : stop optimization if test + train Error < threshold 
+* `H_STOP_TOTER`   : stop optimization if (test + train) Error < threshold (instead of only test) 
 
 Heuristics options can be set like this:
 ```
