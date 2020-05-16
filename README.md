@@ -5,7 +5,7 @@ It implements both training and inference phases on a dataset. Datasets can be c
 
 It can address **deep networks**, made of one input layer, multiple hidden layers and one output layer. The output layer can have one neuron for regression, or several neurons for classification (use SIGMOID or SOFTMAX activation for the last layer).
 
-This library was inspired by the work from [Karsten Kutza](https://courses.cs.washington.edu/courses/cse599/01wi/admin/Assignments/bpn.html).
+This library was inspired by the work from [Karsten Kutza](https://courses.cs.washington.edu/courses/cse599/01wi/admin/Assignments/bpn.html). It has changed a lot since...
 
 ## Dependencies
 * [Arduino FS](https://github.com/espressif/arduino-esp32/tree/master/libraries/FS)
