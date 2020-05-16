@@ -361,30 +361,32 @@ void MLP::setActivation (int activations[]) {
 void MLP::setHeuristics (long heuristics) { 
   _heuristics = heuristics;
   if (_heuristics != 0) {
-    _initialize     = _heuristics & H_INIT_OPTIM; // 0b000000001;
-    _changeWeights  = _heuristics & H_CHAN_WEIGH; // 0b000000010;
-    _mutateWeights  = _heuristics & H_MUTA_WEIGH; // 0b000000100;
-    _changeBatch    = _heuristics & H_CHAN_BATCH; // 0b000001000;
-    _changeEta      = _heuristics & H_CHAN_LRATE; // 0b000010000;
-    _changeGain     = _heuristics & H_CHAN_SGAIN; // 0b000100000;
-    _changeAlpha    = _heuristics & H_CHAN_ALPHA; // 0b001000000;
-    _shuffleDataset = _heuristics & H_SHUF_DATAS; // 0b010000000;
-    _zeroWeights    = _heuristics & H_ZERO_WEIGH; // 0b100000000;
+    _initialize     = _heuristics & H_INIT_OPTIM; // 0b0000000001;
+    _changeWeights  = _heuristics & H_CHAN_WEIGH; // 0b0000000010;
+    _mutateWeights  = _heuristics & H_MUTA_WEIGH; // 0b0000000100;
+    _changeBatch    = _heuristics & H_CHAN_BATCH; // 0b0000001000;
+    _changeEta      = _heuristics & H_CHAN_LRATE; // 0b0000010000;
+    _changeGain     = _heuristics & H_CHAN_SGAIN; // 0b0000100000;
+    _changeAlpha    = _heuristics & H_CHAN_ALPHA; // 0b0001000000;
+    _shuffleDataset = _heuristics & H_SHUF_DATAS; // 0b0010000000;
+    _zeroWeights    = _heuristics & H_ZERO_WEIGH; // 0b0100000000;
+    _stopTotalError = _heuristics & H_STOP_TOTER; // 0b1000000000;
   }
 }
 
 void MLP::displayHeuristics () {
   Serial.println("---------------------------");
   Serial.println("Heuristics parameters:");
-  if(_initialize)     Serial.println ("Init with random weights");
-  if(_changeWeights)  Serial.println ("Random weights if needed");
-  if(_mutateWeights)  Serial.println ("Slighlty change weights if needed");
-  if(_changeBatch)    Serial.println ("Variable batch size");
-  if(_changeEta)      Serial.println ("Variable learning rate");
-  if(_changeGain)     Serial.println ("Variable Sigmoid gain");
-  if(_changeAlpha)    Serial.println ("Variable momentum");
-  if(_shuffleDataset) Serial.println ("Shuffle dataset if needed");
-  if(_zeroWeights)    Serial.printf ("Force weights less than %f to zero\n", _zeroThreshold);
+  if(_initialize)      Serial.println ("Init with random weights");
+  if(_changeWeights)   Serial.println ("Random weights if needed");
+  if(_mutateWeights)   Serial.println ("Slighlty change weights if needed");
+  if(_changeBatch)     Serial.println ("Variable batch size");
+  if(_changeEta)       Serial.println ("Variable learning rate");
+  if(_changeGain)      Serial.println ("Variable Sigmoid gain");
+  if(_changeAlpha)     Serial.println ("Variable momentum");
+  if(_shuffleDataset)  Serial.println ("Shuffle dataset if needed");
+  if(_zeroWeights)     Serial.printf ("Force weights less than %f to zero\n", _zeroThreshold);
+  if (_stopTotalError) Serial.println ("Stop optimization if train + test error under threshold");
   Serial.println("---------------------------");
 }
 
@@ -419,6 +421,8 @@ void MLP::setHeurZeroWeights (bool val, float zeroThreshold) {
   _zeroWeights   = val; 
   _zeroThreshold = zeroThreshold;
 }
+
+void MLP::setHeurTotalError (bool val) { _stopTotalError = val; }
 
 int   MLP::getIterations () {
   return _iters;
@@ -531,7 +535,7 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
   bool Stop = false;
   uint16_t lastSave, lastIter = 0;
   int iter, epoch;
-  _minTestError = MAX_float;
+  _minError = MAX_float;
 
     // Estimate maximum training duration
   if (_verbose > 0) {
@@ -594,6 +598,22 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
       trainNet(dataset);
       testNet(dataset, true);
 
+      // New best set of weights: save the weights
+      if (_criterion < _minError) {
+        if (_verbose > 1) Serial.print(" - saving network ...");
+        lastIter = iter;
+        _minError = _criterion;
+        saveWeights();
+        lastSave = epoch;
+      }
+
+      // Stop if the objective is reached
+      if (_criterion < _maxErr) {
+        if (_verbose > 1) Serial.println(" - stopping Training and restoring Weights ...");
+        Stop = true;
+        break;
+      }
+
       // Heuristics: change the learning rate, the gain and shuffle training set
       if (epoch - lastSave >= _epochs / 10) {
         if (_changeEta)  changeEta  ();
@@ -609,45 +629,33 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
         lastSave = epoch;
       }
 
-      // New best set of weights: save the weights
-      if (_testError < _minTestError) {
-        if (_verbose > 1) Serial.print(" - saving network ...");
-        lastIter = iter;
-        _minTestError = _testError;
-        saveWeights();
-        lastSave = epoch;
-      }
-
-      // Stop if the objective is reached
-      if (_testError < _maxErr) {
-        if (_verbose > 1) Serial.println(" - stopping Training and restoring Weights ...");
-        Stop = true;
-        break;
-      }
     }
-    if (Stop) break;
+    if (Stop) {
+      ++iter;
+      break;
+    }
   }
   restoreWeights();
-  int nepochs = iter * _epochs;
+  int nepochs = (iter - 1) * _epochs;
   if (nepochs < 0) nepochs = 0;
   _totalEpochs = nepochs + epoch;
   if (_verbose > 0) Serial.printf("\nFinished in %d iterations (%d epochs)\n", 
-    iter + 1, _totalEpochs);
+    iter, _totalEpochs);
   return _testError;
 }
 
 // Single forward and backward process
-void MLP::simulateNet(float* Input, float* Output, float* Target, bool BackProp)
-{
-  setInput(Input);
-  propagateNet();
-  getOutput(Output);
-  computeOutputError(Target);
-  if (BackProp) {
-    backpropagateNet();
-    adjustWeights();
-  }
-}
+// void MLP::simulateNet(float* Input, float* Output, float* Target, bool BackProp)
+// {
+//   setInput(Input);
+//   propagateNet();
+//   getOutput(Output);
+//   computeOutputError(Target);
+//   if (BackProp) {
+//     backpropagateNet();
+//     adjustWeights();
+//   }
+// }
 
 // Train on a batch of data
 void MLP::trainNet(DATASET* dataset)
@@ -656,12 +664,6 @@ void MLP::trainNet(DATASET* dataset)
   Output = new float [_units[_numLayers - 1]];
   if (!_datasetProcessed) processDataset(dataset);
   int sample = randomInt(0, _nTrain - _batchSize);
-  // for (int n = 0; n < _batchSize; n++) { // Update weights at the end of the batch
-    // simulateNet(&dataset->data[sample + n].In[0], Output,
-    //             &dataset->data[sample + n].Out, (n != _batchSize - 1));
-  // Serial.printf("%f %f %f %f\n", dataset->data[sample].In[0], dataset->data[sample].In[1], dataset->data[sample+1].In[0],dataset->data[sample+1].In[1]);
-  // Serial.printf("%f %f %f %f %f\n", dataset->data[sample].Out, dataset->data[sample+1].Out,
-    // dataset->data[sample+2].Out,dataset->data[sample+3].Out,dataset->data[sample+4].Out);
     process(&dataset->data[sample].In[0], Output,
                 &dataset->data[sample].Out, _batchSize);
   // }
@@ -673,8 +675,6 @@ float MLP::getTrainSetError (DATASET* dataset) {
   Output = new float [_units[_numLayers - 1]];
   float trainError = 0;
   for (int sample = 0; sample < _nTrain; sample++) {
-    // simulateNet(&dataset->data[sample].In[0], Output,
-    //             &dataset->data[sample].Out, false);
     process(&dataset->data[sample].In[0], Output,
                 &dataset->data[sample].Out, 1);
     trainError += Error;
@@ -688,8 +688,6 @@ float MLP::getTestSetError (DATASET* dataset) {
   Output = new float [_units[_numLayers - 1]];
   float testError = 0;
   for (int sample = _nTrain; sample < _nData; sample++) {
-    // simulateNet(&dataset->data[sample].In[0], Output,
-                // &dataset->data[sample].Out, false);
     process(&dataset->data[sample].In[0], Output,
                 &dataset->data[sample].Out, 1);
     testError += Error;
@@ -704,11 +702,16 @@ float MLP::getTestSetError (DATASET* dataset) {
 void MLP::testNet(DATASET* dataset, bool disp)
 {
   _testError = getTestSetError (dataset);
+  _criterion = _testError;
+  if (_stopTotalError) {
+    _trainError = getTrainSetError (dataset);
+    _criterion += _trainError;
+  }
 
   if (disp && _verbose > 0) {
-    if (_testError < _minTestError && _verbose == 1) Serial.println();
-    if (_testError < _minTestError || _verbose > 1) {
-      _trainError = getTrainSetError (dataset);
+    if (_criterion < _minError && _verbose == 1) Serial.println();
+    if (_criterion < _minError || _verbose > 1) {
+      if (!_stopTotalError) _trainError = getTrainSetError (dataset);
       // NMSE : Normalized Mean Square Error (cost function)
       Serial.printf("NMSE is %6.3f on Training Set and %6.3f on Test Set",
                     _trainError, _testError);
@@ -725,7 +728,6 @@ void MLP::evaluateNet(DATASET* dataset, float threshold)
 
   int nError = 0;
   for (int sample = 0; sample < _nTrain; sample++) {
-    // simulateNet(&dataset->data[sample].In[0], Out, &dataset->data[sample].Out, false);
     process(&dataset->data[sample].In[0], Out, &dataset->data[sample].Out, 1);
     if (OutputLayer->Activation == SOFTMAX) {
       // Softmax case : look for the highest value
@@ -747,7 +749,6 @@ void MLP::evaluateNet(DATASET* dataset, float threshold)
 
   nError = 0;
   for (int sample = _nTrain; sample < _nData; sample++) {
-    // simulateNet(&dataset->data[sample].In[0], Out, &dataset->data[sample].Out, false);
     process(&dataset->data[sample].In[0], Out, &dataset->data[sample].Out, 1);
     if (OutputLayer->Activation == SOFTMAX) {
       // Softmax case : look for the highest value
@@ -794,82 +795,82 @@ void MLP::shuffleDataset (DATASET* dataset, int begin, int end)
   }
 }
 
-// Forward propagation in a layer
-void MLP::propagateLayer(LAYER* Lower, LAYER* Upper)
-{
-    float Sum;
-    for (int i = 1; i <= Upper->Units; i++) {
-      Sum = 0;
-      for (int j = 0; j <= Lower->Units; j++)
-        Sum += Upper->Weight[i][j] * Lower->Output[j];
-      // Upper->Output[i] = 1 / (1 + exp(-Gain * Sum));
-      Upper->Output[i] = activation (Sum, Upper);
-    }
-}
+// // Forward propagation in a layer
+// void MLP::propagateLayer(LAYER* Lower, LAYER* Upper)
+// {
+//     float Sum;
+//     for (int i = 1; i <= Upper->Units; i++) {
+//       Sum = 0;
+//       for (int j = 0; j <= Lower->Units; j++)
+//         Sum += Upper->Weight[i][j] * Lower->Output[j];
+//       // Upper->Output[i] = 1 / (1 + exp(-Gain * Sum));
+//       Upper->Output[i] = activation (Sum, Upper);
+//     }
+// }
 
-// Forward propagation in the network
-void MLP::propagateNet()
-{
-  for (int l = 0; l < _numLayers - 1; l++)
-    propagateLayer(Layer[l], Layer[l + 1]);
-}
+// // Forward propagation in the network
+// void MLP::propagateNet()
+// {
+//   for (int l = 0; l < _numLayers - 1; l++)
+//     propagateLayer(Layer[l], Layer[l + 1]);
+// }
 
-// Compute the error of the network after forward propagation
-void MLP::computeOutputError(float* Target)
-{
-  float Out, Err;
-    Error = 0;
-    for (int i = 1; i <= OutputLayer->Units; i++) {
-      Out = OutputLayer->Output[i];
-      // Err = Target[i - 1] - Out;
-      Err = (Target[i - 1] - _minVal) / _delta - Out;
-      // OutputLayer->Error[i] = Gain * Out * (1 - Out) * Err;
-      OutputLayer->Error[i] = derivActiv (Out, OutputLayer) * Err;
-      Error += 0.5 * Err * Err; // Cost function
-    }
-}
+// // Compute the error of the network after forward propagation
+// void MLP::computeOutputError(float* Target)
+// {
+//   float Out, Err;
+//     Error = 0;
+//     for (int i = 1; i <= OutputLayer->Units; i++) {
+//       Out = OutputLayer->Output[i];
+//       // Err = Target[i - 1] - Out;
+//       Err = (Target[i - 1] - _minVal) / _delta - Out;
+//       // OutputLayer->Error[i] = Gain * Out * (1 - Out) * Err;
+//       OutputLayer->Error[i] = derivActiv (Out, OutputLayer) * Err;
+//       Error += 0.5 * Err * Err; // Cost function
+//     }
+// }
 
-// Back propagation of the error in a layer
-void MLP::backpropagateLayer(LAYER* Upper, LAYER* Lower)
-{
-  float Out, Err;
-  for (int i = 1; i <= Lower->Units; i++) {
-    Out = Lower->Output[i];
-    Err = 0;
-    for (int j = 1; j <= Upper->Units; j++)
-      Err += Upper->Weight[j][i] * Upper->Error[j];
-    // Lower->Error[i] = Gain * Out * (1 - Out) * Err;
-    Lower->Error[i] = derivActiv (Out, Upper) * Err;
-  }
-}
+// // Back propagation of the error in a layer
+// void MLP::backpropagateLayer(LAYER* Upper, LAYER* Lower)
+// {
+//   float Out, Err;
+//   for (int i = 1; i <= Lower->Units; i++) {
+//     Out = Lower->Output[i];
+//     Err = 0;
+//     for (int j = 1; j <= Upper->Units; j++)
+//       Err += Upper->Weight[j][i] * Upper->Error[j];
+//     // Lower->Error[i] = Gain * Out * (1 - Out) * Err;
+//     Lower->Error[i] = derivActiv (Out, Upper) * Err;
+//   }
+// }
 
-// Back propagation of the error in the network
-void MLP::backpropagateNet()
-{
-  for (int l = _numLayers - 1; l > 1; l--)
-    backpropagateLayer(Layer[l], Layer[l - 1]);
-}
+// // Back propagation of the error in the network
+// void MLP::backpropagateNet()
+// {
+//   for (int l = _numLayers - 1; l > 1; l--)
+//     backpropagateLayer(Layer[l], Layer[l - 1]);
+// }
 
-// Compute the new weights after backpropagation
-void MLP::adjustWeights()
-{
-  float Out, Err, dWeight;
-  for (int l = 1; l < _numLayers; l++) {
-    for (int i = 1; i <= Layer[l]->Units; i++) {
-      for (int j = 0; j <= Layer[l - 1]->Units; j++) {
-        Out = Layer[l - 1]->Output[j];
-        Err = Layer[l]->Error[i];
-        dWeight = Layer[l]->dWeight[i][j];
-        Layer[l]->Weight[i][j] += Eta * Err * Out + Alpha * dWeight;
-        Layer[l]->dWeight[i][j] = Eta * Err * Out;
+// // Compute the new weights after backpropagation
+// void MLP::adjustWeights()
+// {
+//   float Out, Err, dWeight;
+//   for (int l = 1; l < _numLayers; l++) {
+//     for (int i = 1; i <= Layer[l]->Units; i++) {
+//       for (int j = 0; j <= Layer[l - 1]->Units; j++) {
+//         Out = Layer[l - 1]->Output[j];
+//         Err = Layer[l]->Error[i];
+//         dWeight = Layer[l]->dWeight[i][j];
+//         Layer[l]->Weight[i][j] += Eta * Err * Out + Alpha * dWeight;
+//         Layer[l]->dWeight[i][j] = Eta * Err * Out;
 
-        // Apply zero weights heuristics
-        if (_zeroWeights && abs(Layer[l]->Weight[i][j])<_zeroThreshold)
-          Layer[l]->Weight[i][j] = 0; 
-      }
-    }
-  }
-}
+//         // Apply zero weights heuristics
+//         if (_zeroWeights && abs(Layer[l]->Weight[i][j])<_zeroThreshold)
+//           Layer[l]->Weight[i][j] = 0; 
+//       }
+//     }
+//   }
+// }
 
 // Random initialization of the weights
 void MLP::randomWeights(float x)
@@ -1048,14 +1049,8 @@ void MLP::weightMutation (float proba, float percent)
 
 void MLP::predict (float* Input, float *Output)
 {
-  if (OutputLayer->Activation != SOFTMAX) {
-    setInput(Input);
-    propagateNet();
-    getOutput(Output);
-    Output[0] = Output[0] * _delta + _minVal;
-  } else {
-    process(Input, Output, Output, 1);
-  }
+  process(Input, Output, Output, 1);
+  if (OutputLayer->Activation != SOFTMAX) Output[0] = Output[0] * _delta + _minVal;
 }
 
 // Shift the output values of the dataset to the interval [0, 1]

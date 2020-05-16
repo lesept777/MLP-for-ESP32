@@ -44,6 +44,7 @@
 #define H_CHAN_ALPHA   0x40  // to change the sigmoid gain
 #define H_SHUF_DATAS   0x80  // to shuffle the dataset
 #define H_ZERO_WEIGH   0x100  // to force low weights to 0
+#define H_STOP_TOTER   0x200 // stop optimization if test + train Error < threshold 
 
 
 // Activation functions
@@ -72,14 +73,14 @@ typedef struct {           /* A layer of the network:                 */
 
 typedef struct
 {
-  float *In;	  // dynamic array of input data
-  float Out;	  // output
+  float *In;      // dynamic array of input data
+  float Out;      // output
 } Data;
 
 typedef struct
 {
-  Data *data;	  // dynamic array of data
-  size_t nData;	  // number of data
+  Data *data;     // dynamic array of data
+  size_t nData;   // number of data
   size_t nInput;  // number of input (In)
 } DATASET;
 
@@ -206,6 +207,7 @@ class MLP
     void  setHeurChangeAlpha (bool, float, float);
     void  setHeurShuffleDataset (bool);
     void  setHeurZeroWeights (bool, float);
+    void  setHeurTotalError (bool);
 //  Display the summary of the heuristics options
     void  displayHeuristics ();
 //  Methods to force the change of the Alpha, Eta Gain and Batchsize values
@@ -286,10 +288,10 @@ class MLP
     float    _ratio = 0.8f;
     int      _iters, _epochs, _batchSize;
     float    _anneal = 0.8f;
-    float    _trainError, _testError;
+    float    _trainError, _testError, _criterion;
     float    _maxErr = 0.05f;
     uint8_t  _verbose;
-    float    _minTestError;
+    float    _minError;
     bool     _datasetProcessed = false;
     float    _minVal, _delta;
     float    _alphaELU = 1.0f;
@@ -307,6 +309,7 @@ class MLP
     bool     _shuffleDataset = false;
     bool     _zeroWeights    = false;
     bool     _changeAlpha    = false;
+    bool     _stopTotalError = false;
 
     float    _proba = 0.05f, _percent = 0.15f;
     float    _range = 1.0f;
