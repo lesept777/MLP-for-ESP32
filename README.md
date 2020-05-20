@@ -71,6 +71,8 @@ The parameters are:
 * The number of epochs for each iterations,
 * The size of the batch of data.
 
+It is possible to make your own optimization algorithm and train the network by yourself, as shown in the [Sinus2 example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_Sinus2)
+
 ## Improve the training
 It is possible to improve the training results if the maximum number of epochs is reached. Just save the network, and run the code again with heuristics parameter `H_INIT_OPTIM` set to 0:
 ```
@@ -107,7 +109,9 @@ The array `out[0]` contains the prediction.
 * `TANH`: Quite similar to `SIGMOID2`
 * `RELU`: Rectified Linear Unit
 * `LEAKYRELU` and `ELU` variants
+* `SELU` : Scaled Exponential Linear Unit (prevents vanishing & exploding gradient problems)
 * `IDENTITY`
+* `SOFTMAX`
 
 The **sigmoid** and **hyperbolic tangent** activation functions cannot be used in networks with many layers due to the vanishing gradient problem. In the backpropagation process, gradients tend to get smaller and smaller as we move backwards:  neurons in earlier layers learn slower than neurons in the last layers. This leads to longer learning and less accurate prediction. The **rectified linear** activation function overcomes this problem, allowing models to learn faster and perform better.
 
@@ -150,3 +154,5 @@ Net.setHeurChangeEta(true);
 Net.setHeurShuffleDataset(false);
 ```
 
+## Warning
+Keep filenames short, under 16 characters total. Otherwise, you may get strange results, due to the fact that the dataset is not read from SPIFFS for example.
