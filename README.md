@@ -128,6 +128,7 @@ A set of options is provided to define the heuristics used during training's opt
 Current options are:
 * `H_INIT_OPTIM`   : initialize optimizer with random weights
 * `H_CHAN_WEIGH`   : force new random weights during optimization
+* `H_SELE_WEIGH`   : select the best of 10 random sets when changing weights
 * `H_MUTA_WEIGH`   : slightly change the weights during optimization
 * `H_CHAN_BATCH`   : enable to change batch size
 * `H_CHAN_LRATE`   : enable to change the learning rate
