@@ -32,7 +32,10 @@
 #include "FS.h"
 #include "SPIFFS.h"
 
-#define MAX_LAYERS    8
+#define MAX_LAYERS    8      // Maximum number of layers
+#ifndef MAX_INPUT
+#define MAX_INPUT    40      // Maximum number of neurons in input layer
+#endif
 
 // Heuristics options: set them if...
 #define H_INIT_OPTIM   0x01  // if you initialize optimize
@@ -43,8 +46,9 @@
 #define H_CHAN_SGAIN   0x20  // to change the sigmoid gain
 #define H_CHAN_ALPHA   0x40  // to change the sigmoid gain
 #define H_SHUF_DATAS   0x80  // to shuffle the dataset
-#define H_ZERO_WEIGH   0x100  // to force low weights to 0
+#define H_ZERO_WEIGH   0x100 // to force low weights to 0
 #define H_STOP_TOTER   0x200 // stop optimization if test + train Error < threshold 
+#define H_SELE_WEIGH   0x400 // select best weights over 20 random sets
 
 
 // Activation functions
@@ -55,6 +59,7 @@ enum ACTIVATION {
   RELU,
   LEAKYRELU,    /* RELU with a small slope for negative values */
   ELU,          /* Similar to SIGMOID2 for <0, and RELU for >0 */
+  SELU,
   TANH,
   SOFTMAX
 };
@@ -208,6 +213,7 @@ class MLP
     void  setHeurShuffleDataset (bool);
     void  setHeurZeroWeights (bool, float);
     void  setHeurTotalError (bool);
+    void  setHeurSelectWeights (bool);
 //  Display the summary of the heuristics options
     void  displayHeuristics ();
 //  Methods to force the change of the Alpha, Eta Gain and Batchsize values
@@ -217,11 +223,14 @@ class MLP
     void  changeBatchSize ();
 // setMaxError (maxError): set the criterium for stopping the learning phase
     void  setMaxError (float);
+
+// select the best set of weights over 20 random ones
+    void  selectWeights(DATASET*);
 /*
     If you want to program your own optimization function, use the following
     methods
-    trainNet: does the complete propagation - backpropagation
-     - weight update process
+    trainNet: does the complete propagation + backpropagation
+     + weight update process
     testNet: computes the current error in the training and testing sets
     getError: returns the values of the errors
 */
@@ -277,7 +286,7 @@ class MLP
     float    Eta;           /* - learning rate                */
     float    Gain;          /* - gain of sigmoid function     */
     float    Error;         /* - total net error              */
-    float    AlphaSave;       /* - saved learning rate          */
+    float    AlphaSave;     /* - saved learning rate          */
     float    EtaSave;       /* - saved learning rate          */
     float    GainSave;      /* - saved gain                   */
 
@@ -293,11 +302,12 @@ class MLP
     uint8_t  _verbose;
     float    _minError;
     bool     _datasetProcessed = false;
-    float    _minVal, _delta;
+    float    _inMinVal[MAX_INPUT], _inDelta[MAX_INPUT];
+    float    _outMinVal, _outDelta;
     float    _alphaELU = 1.0f;
-    char     ActivNames[8][10] = {"SIGMOID", "SIGMOID2", "IDENTITY", 
-                                  "RELU", "LEAKYRELU", "ELU", "TANH", 
-                                  "SOFTMAX" };
+    char     ActivNames[9][10] = {"SIGMOID", "SIGMOID2", "IDENTITY", 
+                                  "RELU", "LEAKYRELU", "ELU", "SELU",
+                                  "TANH", "SOFTMAX"};
     // Booleans for the heuristics
     long     _heuristics     = 0;
     bool     _initialize     = true;
@@ -310,6 +320,7 @@ class MLP
     bool     _zeroWeights    = false;
     bool     _changeAlpha    = false;
     bool     _stopTotalError = false;
+    bool     _selectWeights  = false;
 
     float    _proba = 0.05f, _percent = 0.15f;
     float    _range = 1.0f;
@@ -318,6 +329,7 @@ class MLP
     float    _minAlpha = 0.5f, _maxAlpha = 1.5f;
     float    _zeroThreshold = 0.1f;
     int      _totalEpochs;
+    bool     _eval = false, _predict = false;
 
     // Private methods
     void  simulateNet(float*, float*, float*, bool);
