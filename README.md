@@ -133,7 +133,7 @@ Current options are:
 * `H_CHAN_BATCH`   : enable to change batch size
 * `H_CHAN_LRATE`   : enable to change the learning rate
 * `H_CHAN_SGAIN`   : enable to change the sigmoid gain
-* `H_CHAN_ALPHA`   : enable to change the sigmoid gain
+* `H_CHAN_ALPHA`   : enable to change the momentum (a way to prevent the algorithm from getting stuck in a local minimum)
 * `H_SHUF_DATAS`   : shuffle the dataset
 * `H_ZERO_WEIGH`   : force low weights to 0
 * `H_STOP_TOTER`   : stop optimization if (test + train) Error < threshold (instead of only test) 
