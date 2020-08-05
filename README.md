@@ -137,6 +137,8 @@ Current options are:
 * `H_SHUF_DATAS`   : shuffle the dataset
 * `H_ZERO_WEIGH`   : force low weights to 0
 * `H_STOP_TOTER`   : stop optimization if (test + train) Error < threshold (instead of only test) 
+* `H_FORC_S_G_D`   : force stochastic gradient descent
+* `H_REG1_WEIGH` and  `H_REG2_WEIGH`   : use L1 and/or L2 regularization for lower weight values, see the ["4 sectors" example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_4Sectors)
 
 Heuristics options can be set like this:
 ```
