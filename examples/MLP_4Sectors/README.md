@@ -61,12 +61,16 @@ The numbers (1 and 5) are parameters that set the importance of the regularizati
 ```
 provide the following results:
 * NMSE is  1.466 on Training Set and  0.154 on Test Set
+* Verifying on 400 train data : 18 errors (4.50%)
+* Verifying on 100 test data  :  3 errors (3.00%)
 * Average weight L1 norm: 3.68611 (lambda = 0.000010)
 * Average weight L2 norm: 49.88160 (lambda = 0.000000)
 The training and test performances are a little bit degraded but prediction remains correct (no error in 20 random cases). The average L1 norm of the weight was reduced.
 
-Setting the L1 parameter to 100 leads to less good results:
+Setting the L1 parameter to `100` leads to less good results:
 * NMSE is  3.725 on Training Set and  0.762 on Test Set
+* Verifying on 400 train data : 72 errors (18.00%)
+* Verifying on 100 test data  : 16 errors (16.00%)
 and a few prediction errors (2 in 20) but much lower weights:
 * Average weight L1 norm: 1.00118 (lambda = 0.000100)
 * Average weight L2 norm: 3.24623 (lambda = 0.000000)
@@ -77,3 +81,12 @@ and a few prediction errors (2 in 20) but much lower weights:
   Net.setHeurRegulL2 (true, 1); // for L2 regularization
 ```
 provide the following results:
+* NMSE is  1.429 on Training Set and  0.226 on Test Set
+The results are worse here:
+* NMSE is  1.429 on Training Set and  0.226 on Test Set
+* Verifying on 400 train data : 208 errors (52.00%)
+* Verifying on 100 test data  : 59 errors (59.00%)
+Prediction error is quite high (4 errors in 20 tests) and the norms of the weights are
+* Average weight L1 norm: 0.82061 (lambda = 0.000000)
+* Average weight L2 norm: 0.50392 (lambda = 0.000001)
+Clearly, the impact of regularization is too high. Setting the parameter to 0.01
