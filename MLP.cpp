@@ -288,8 +288,8 @@ void MLP::displayNetwork()
     }
   }
   Serial.printf ("Total number of weights: %d\n", numWeights);
-  Serial.printf ("Average weight L1 norm: %.5f (lambda = %.6f)\n", regulL1Weights()/numWeights, _lambdaRegulL1);
-  Serial.printf ("Average weight L2 norm: %.5f (lambda = %.6f)\n", regulL2Weights()/numWeights, _lambdaRegulL2);
+  Serial.printf ("Average weight L1 norm: %.5f (lambda = %.3e)\n", regulL1Weights()/numWeights, _lambdaRegulL1);
+  Serial.printf ("Average weight L2 norm: %.5f (lambda = %.3e)\n", regulL2Weights()/numWeights, _lambdaRegulL2);
   Serial.printf ("Learning rate is: %.3f\n", Eta);
   Serial.printf ("Gain is: %.3f\n", Gain);
   Serial.printf ("Momentum is: %.3f\n", Alpha);
