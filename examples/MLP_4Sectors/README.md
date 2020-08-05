@@ -53,9 +53,12 @@ after setting the heuristics parameters:
 ```
 Net.setHeuristics(heuristics);
 ```
-The numbers (1 and 5) are parameters that set the importance of the regularization in the cost function.
+The numbers (1 and 5) are parameters that set the importance of the regularization in the cost function. They are divided by 1000000 in the code, and appear as such in the network summary if you display it using
+```
+  Net.displayNetwork();
+```
 
-## L1 regularization using
+## L1 regularization
 ```
   Net.setHeurRegulL1 (true, 10); // for L1 regularization
 ```
@@ -78,7 +81,7 @@ and a few prediction errors (2 in 20) but much lower weights:
 * Average weight L2 norm: 3.24623 (lambda = 0.000000)
 
 
-## L2 regularization using
+## L2 regularization
 ```
   Net.setHeurRegulL2 (true, 1); // for L2 regularization
 ```
@@ -92,4 +95,14 @@ The results are worse here:
 Prediction error is quite high (4 errors in 20 tests) and the norms of the weights are
 * Average weight L1 norm: 0.82061 (lambda = 0.000000)
 * Average weight L2 norm: 0.50392 (lambda = 0.000001)
-Clearly, the impact of regularization is too high. Setting the parameter to 0.01
+
+Clearly, the impact of regularization is too high. Setting the parameter to 0.5 leads to better results:
+* NMSE is  1.041 on Training Set and  0.115 on Test Set
+* Verifying on 400 train data : 19 errors (4.75%)
+* Verifying on 100 test data  :  2 errors (2.00%)
+
+and no prediction errors but sensibly lower weights:
+* Average weight L1 norm: 5.50487 (lambda = 0.000000)
+* Average weight L2 norm: 44.23602 (lambda = 0.000000)
+
+L2 regularization seems to be more sensitive to the value of its parameter.
