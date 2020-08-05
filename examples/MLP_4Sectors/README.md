@@ -53,7 +53,7 @@ after setting the heuristics parameters:
 ```
 Net.setHeuristics(heuristics);
 ```
-The numbers (1 and 5) are parameters that set the importance of the regularization in the cost function. They are divided by 1000000 in the code, and appear as such in the network summary if you display it using
+The numbers (1 and 5) are floats parameters that set the importance of the regularization in the cost function. They are divided by 1000000 in the code, and appear as such in the network summary if you display it using
 ```
   Net.displayNetwork();
 ```
@@ -62,7 +62,7 @@ The numbers (1 and 5) are parameters that set the importance of the regularizati
 ```
   Net.setHeurRegulL1 (true, 10); // for L1 regularization
 ```
-provide the following results:
+provide the following results (you may obtain different results as the process is randomly initialized):
 * NMSE is  1.466 on Training Set and  0.154 on Test Set
 * Verifying on 400 train data : 18 errors (4.50%)
 * Verifying on 100 test data  :  3 errors (3.00%)
@@ -96,13 +96,13 @@ Prediction error is quite high (4 errors in 20 tests) and the norms of the weigh
 * Average weight L1 norm: 0.82061 (lambda = 0.000000)
 * Average weight L2 norm: 0.50392 (lambda = 0.000001)
 
-Clearly, the impact of regularization is too high. Setting the parameter to `0.75` leads to better results:
-* NMSE is  0.997 on Training Set and  0.195 on Test Set
-* Verifying on 400 train data : 18 errors (4.50%)
-* Verifying on 100 test data  :  8 errors (8.00%)
+Clearly, the impact of regularization is too high. Setting the parameter to `0.9` leads to better results:
+* NMSE is  0.985 on Training Set and  0.327 on Test Set
+* Verifying on 400 train data : 17 errors (4.25%)
+* Verifying on 100 test data  : 11 errors (11.00%)
 
-and no prediction errors but sensibly lower weights:
-* Average weight L1 norm: 3.64131 (lambda = 0.000e+00)
-* Average weight L2 norm: 32.03284 (lambda = 7.500e-07)
+and no prediction error but sensibly lower weights:
+* Average weight L1 norm: 3.70065 (lambda = 0.000e+00)
+* Average weight L2 norm: 25.12603 (lambda = 9.000e-07)
 
 L2 regularization seems to be more sensitive to the value of its parameter.
