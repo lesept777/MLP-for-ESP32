@@ -38,17 +38,20 @@
 #endif
 
 // Heuristics options: set them if...
-#define H_INIT_OPTIM   0x01  // if you initialize optimize
-#define H_CHAN_WEIGH   0x02  // for brand new random weights
-#define H_MUTA_WEIGH   0x04  // to slightly change the weights
-#define H_CHAN_BATCH   0x08  // to change natch size
-#define H_CHAN_LRATE   0x10  // to change the learning rate
-#define H_CHAN_SGAIN   0x20  // to change the sigmoid gain
-#define H_CHAN_ALPHA   0x40  // to change the sigmoid gain
-#define H_SHUF_DATAS   0x80  // to shuffle the dataset
-#define H_ZERO_WEIGH   0x100 // to force low weights to 0
-#define H_STOP_TOTER   0x200 // stop optimization if test + train Error < threshold 
-#define H_SELE_WEIGH   0x400 // select best weights over 20 random sets
+#define H_INIT_OPTIM     0x01  // if you initialize optimize
+#define H_CHAN_WEIGH     0x02  // for brand new random weights
+#define H_MUTA_WEIGH     0x04  // to slightly change the weights
+#define H_CHAN_BATCH     0x08  // to change natch size
+#define H_CHAN_LRATE     0x10  // to change the learning rate
+#define H_CHAN_SGAIN     0x20  // to change the sigmoid gain
+#define H_CHAN_ALPHA     0x40  // to change the sigmoid gain
+#define H_SHUF_DATAS     0x80  // to shuffle the dataset
+#define H_ZERO_WEIGH    0x100  // to force low weights to 0
+#define H_STOP_TOTER    0x200  // stop optimization if test + train Error < threshold 
+#define H_SELE_WEIGH    0x400  // select best weights over 10 random sets
+#define H_FORC_S_G_D    0x800  // force stochastic gradient descent for faster optimization
+#define H_REG1_WEIGH   0x1000  // use L1 weight regularization
+#define H_REG2_WEIGH   0x2000  // use L2 weight regularization
 
 
 // Activation functions
@@ -214,6 +217,8 @@ class MLP
     void  setHeurZeroWeights (bool, float);
     void  setHeurTotalError (bool);
     void  setHeurSelectWeights (bool);
+    void  setHeurRegulL1 (bool, float);
+    void  setHeurRegulL2 (bool, float);
 //  Display the summary of the heuristics options
     void  displayHeuristics ();
 //  Methods to force the change of the Alpha, Eta Gain and Batchsize values
@@ -226,6 +231,10 @@ class MLP
 
 // select the best set of weights over 20 random ones
     void  selectWeights(DATASET*);
+// parameters for regularization (L1 & L2)
+    float regulL1Weights();
+    float regulL2Weights();
+    int   numberOfWeights();
 /*
     If you want to program your own optimization function, use the following
     methods
@@ -234,8 +243,9 @@ class MLP
     testNet: computes the current error in the training and testing sets
     getError: returns the values of the errors
 */
-    void  trainNet (DATASET*);
+    void  trainNetSGD (DATASET*);
     void  testNet (DATASET*, bool);
+    void  trainAndTest (DATASET*);
     void  evaluateNet (DATASET*, float);
     void  getError (float*, float*);
     float getTrainSetError (DATASET*);
@@ -305,6 +315,8 @@ class MLP
     float    _inMinVal[MAX_INPUT], _inDelta[MAX_INPUT];
     float    _outMinVal, _outDelta;
     float    _alphaELU = 1.0f;
+    float    _lambdaRegulL1 = 0.0f;
+    float    _lambdaRegulL2 = 0.0f;
     char     ActivNames[9][10] = {"SIGMOID", "SIGMOID2", "IDENTITY", 
                                   "RELU", "LEAKYRELU", "ELU", "SELU",
                                   "TANH", "SOFTMAX"};
@@ -321,6 +333,9 @@ class MLP
     bool     _changeAlpha    = false;
     bool     _stopTotalError = false;
     bool     _selectWeights  = false;
+    bool     _forceSGD       = false;
+    bool     _regulL1        = false;
+    bool     _regulL2        = false;
 
     float    _proba = 0.05f, _percent = 0.15f;
     float    _range = 1.0f;

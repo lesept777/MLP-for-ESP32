@@ -6,6 +6,10 @@
 #define SWAP(x, y)    { typeof((x)) SWAPVal = (x); (x) = (y); (y) = SWAPVal; }
 
 #define BIAS          1
+
+template <typename T> int sgn(T val) {
+    return (T(0) < val) - (val < T(0));
+}
 //
 /*
   Constructor, arguments are:
@@ -284,9 +288,11 @@ void MLP::displayNetwork()
     }
   }
   Serial.printf ("Total number of weights: %d\n", numWeights);
-  Serial.printf("Learning rate is: %.3f\n", Eta);
-  Serial.printf("Gain is: %.3f\n", Gain);
-  Serial.printf("Momentum is: %.3f\n", Alpha);
+  Serial.printf ("Average weight L1 norm: %.5f (lambda = %.6f)\n", regulL1Weights()/numWeights, _lambdaRegulL1);
+  Serial.printf ("Average weight L2 norm: %.5f (lambda = %.6f)\n", regulL2Weights()/numWeights, _lambdaRegulL2);
+  Serial.printf ("Learning rate is: %.3f\n", Eta);
+  Serial.printf ("Gain is: %.3f\n", Gain);
+  Serial.printf ("Momentum is: %.3f\n", Alpha);
   Serial.println("---------------------------");
 }
 
@@ -373,23 +379,29 @@ void MLP::setHeuristics (long heuristics) {
     _zeroWeights    = _heuristics & H_ZERO_WEIGH; // 0x000100
     _stopTotalError = _heuristics & H_STOP_TOTER; // 0x000200
     _selectWeights  = _heuristics & H_SELE_WEIGH; // 0x000400
+    _forceSGD       = _heuristics & H_FORC_S_G_D; // 0x000800
+    _regulL1        = _heuristics & H_REG1_WEIGH; // 0x001000
+    _regulL2        = _heuristics & H_REG2_WEIGH; // 0x002000
   }
 }
 
 void MLP::displayHeuristics () {
   Serial.println("---------------------------");
   Serial.println("Heuristics parameters:");
-  if(_initialize)      Serial.println ("Init with random weights");
-  if(_changeWeights)   Serial.println ("Random weights if needed");
-  if(_mutateWeights)   Serial.println ("Slighlty change weights if needed");
-  if(_changeBatch)     Serial.println ("Variable batch size");
-  if(_changeEta)       Serial.println ("Variable learning rate");
-  if(_changeGain)      Serial.println ("Variable Sigmoid gain");
-  if(_changeAlpha)     Serial.println ("Variable momentum");
-  if(_shuffleDataset)  Serial.println ("Shuffle dataset if needed");
-  if(_zeroWeights)     Serial.printf  ("Force weights less than %f to zero\n", _zeroThreshold);
-  if(_stopTotalError)  Serial.println ("Stop optimization if train + test error under threshold");
-  if(_selectWeights)   Serial.println ("Select best weights at init");
+  if(_initialize)      Serial.println ("- Init with random weights");
+  if(_changeWeights)   Serial.println ("- Random weights if needed");
+  if(_mutateWeights)   Serial.println ("- Slighlty change weights if needed");
+  if(_changeBatch)     Serial.println ("- Variable batch size");
+  if(_changeEta)       Serial.println ("- Variable learning rate");
+  if(_changeGain)      Serial.println ("- Variable Sigmoid gain");
+  if(_changeAlpha)     Serial.println ("- Variable momentum");
+  if(_shuffleDataset)  Serial.println ("- Shuffle dataset if needed");
+  if(_zeroWeights)     Serial.printf  ("- Force weights less than %f to zero\n", _zeroThreshold);
+  if(_stopTotalError)  Serial.println ("- Stop optimization if train + test error under threshold");
+  if(_selectWeights)   Serial.println ("- Select best weights at init");
+  if(_forceSGD)        Serial.println ("- Force stochastic gradient descent");
+  if(_regulL1)         Serial.println ("- Use L1 weight regularization");
+  if(_regulL2)         Serial.println ("- Use L2 weight regularization");
   Serial.println("---------------------------");
 }
 
@@ -423,6 +435,14 @@ void MLP::setHeurShuffleDataset (bool val) { _shuffleDataset = val; }
 void MLP::setHeurZeroWeights (bool val, float zeroThreshold) { 
   _zeroWeights   = val; 
   _zeroThreshold = zeroThreshold;
+}
+void MLP::setHeurRegulL1 (bool val, float lambda = 1.0f) {
+  _regulL1 = val;
+  _lambdaRegulL1 = lambda / 1000000.0f;
+}
+void MLP::setHeurRegulL2 (bool val, float lambda = 1.0f) {
+  _regulL2 = val;
+  _lambdaRegulL2 = lambda / 1000000.0f;
 }
 
 void MLP::setHeurTotalError (bool val) { _stopTotalError = val; }
@@ -617,8 +637,12 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
     lastSave = 0;
     for (epoch = 0; epoch < _epochs; epoch++) {
       if (_verbose > 1) Serial.printf("\nEpoch %4d ", epoch);
-      trainNet(dataset);
-      testNet(dataset, true);
+      if (_forceSGD) {
+        trainNetSGD(dataset);
+        testNet(dataset, true);
+      } else {
+        trainAndTest (dataset);
+      }
 
       // New best set of weights: save the weights
       if (_criterion < _minError) {
@@ -638,8 +662,8 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
 
       // Heuristics: change the learning rate, the gain and shuffle training set
       if (epoch - lastSave >= _epochs / 10) {
-        if (_changeEta)  changeEta  ();
-        if (_changeGain) changeGain ();
+        if (_changeEta)   changeEta   ();
+        if (_changeGain)  changeGain  ();
         if (_changeAlpha) changeAlpha ();
         if (_shuffleDataset) {
           shuffleDataset (dataset, 0, _nTrain); // Shuffle training set
@@ -679,16 +703,52 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
 //   }
 // }
 
-// Train on a batch of data
-void MLP::trainNet(DATASET* dataset)
+// Train on a batch with no SGD
+void MLP::trainAndTest (DATASET* dataset)
+{
+  float *Output;
+  Output = new float [_units[_numLayers - 1]];
+  if (!_datasetProcessed) processDataset(dataset);
+  _eval = false;
+  _trainError = 0;
+  int sample;
+  for (int i = 0; i < _nTrain / _batchSize; i++) {
+    sample = i * _batchSize;
+    process(&dataset->data[sample].In[0], Output,
+                &dataset->data[sample].Out, _batchSize);
+    _trainError += Error;
+  }
+  sample += _batchSize;
+  if (_nTrain % _batchSize) {
+    process(&dataset->data[sample].In[0], Output,
+              &dataset->data[sample].Out, _nTrain % _batchSize);
+    _trainError += Error;
+  }
+
+  _testError = getTestSetError (dataset);
+  _criterion = _testError;
+  if (_stopTotalError) _criterion += _trainError;
+
+  if (_verbose > 0) {
+    if (_criterion < _minError && _verbose == 1) Serial.println();
+    if (_criterion < _minError || _verbose > 1) {
+      Serial.printf("NMSE is %6.3f on Training Set and %6.3f on Test Set",
+                    _trainError * _batchSize, _testError);
+    }
+  }
+  delete Output;
+}
+
+// Train on a random batch of data
+void MLP::trainNetSGD(DATASET* dataset)
 {
   float *Output;
   Output = new float [_units[_numLayers - 1]];
   if (!_datasetProcessed) processDataset(dataset);
   int sample = randomInt(0, _nTrain - _batchSize);
-    process(&dataset->data[sample].In[0], Output,
-                &dataset->data[sample].Out, _batchSize);
-  // }
+  _eval = false;
+  process(&dataset->data[sample].In[0], Output,
+          &dataset->data[sample].Out, _batchSize);
   delete Output;
 }
 
@@ -696,7 +756,7 @@ float MLP::getTrainSetError (DATASET* dataset) {
   float *Output;
   Output = new float [_units[_numLayers - 1]];
   float trainError = 0;
-  // _eval = true;
+  _eval = true;
   for (int sample = 0; sample < _nTrain; sample++) {
     process(&dataset->data[sample].In[0], Output,
                 &dataset->data[sample].Out, 1);
@@ -711,7 +771,7 @@ float MLP::getTestSetError (DATASET* dataset) {
   float *Output;
   Output = new float [_units[_numLayers - 1]];
   float testError = 0;
-  // _eval = true;
+  _eval = true;
   for (int sample = _nTrain; sample < _nData; sample++) {
     process(&dataset->data[sample].In[0], Output,
                 &dataset->data[sample].Out, 1);
@@ -798,12 +858,15 @@ void MLP::evaluateNet(DATASET* dataset, float threshold)
   delete Out;
 }
 
-// Provide the estimated time of the complete training in ms
+/* Provide the estimated time of the complete training in ms
+   The estimation is not very precise as the training time
+   may depend of other factors such as the verbose level
+*/
 uint32_t MLP::estimateDuration (DATASET* dataset)
 {
   saveWeights();
   unsigned long chrono = millis();
-  trainNet(dataset);
+  trainNetSGD(dataset);
   testNet(dataset, false);
   chrono = millis() - chrono;
   restoreWeights();
@@ -813,12 +876,11 @@ uint32_t MLP::estimateDuration (DATASET* dataset)
 // Shuffle a portion of the dataset, in the provided range
 void MLP::shuffleDataset (DATASET* dataset, int begin, int end)
 {
-  for (int i = 0; i < 2 * _nData; i++) {
-    int ind1 = begin + random(end - begin);
-    int ind2 = begin + random(end - begin);
+  for (int i = begin; i < end; i++) {
+    int ind = begin + random(end - begin);
     for (int j = 0; j < _units[0]; j++)
-      SWAP(dataset->data[ind1].In[j], dataset->data[ind2].In[j]);
-    SWAP(dataset->data[ind1].Out, dataset->data[ind2].Out);
+      SWAP(dataset->data[ind].In[j], dataset->data[i].In[j]);
+    SWAP(dataset->data[ind].Out, dataset->data[i].Out);
   }
 }
 
@@ -1233,6 +1295,8 @@ void MLP::process (float* Input, float* Output, float* Target, int batch) {
         Error += 0.5 * Grad * Grad; // Cost function C  
       }
     }
+    if (_regulL1) Error += regulL1Weights() * _lambdaRegulL1 / batch;
+    if (_regulL2) Error += regulL2Weights() * _lambdaRegulL2 / batch;
     // if (_eval) return; // Stop process if evaluation
 
   // Backpropagate error
@@ -1259,9 +1323,55 @@ void MLP::process (float* Input, float* Output, float* Target, int batch) {
   // Adjust weights
     for (int l = 1; l < _numLayers; l++) 
       for (int i = 1; i <= Layer[l]->Units; i++) 
-        for (int j = 0; j <= Layer[l - 1]->Units; j++)
+        for (int j = 0; j <= Layer[l - 1]->Units; j++) {
+          float temp = Layer[l]->Weight[i][j];
           Layer[l]->Weight[i][j] += (Layer[l]->dWeight[i][j]
            + Alpha * Layer[l]->dWeightOld[i][j]) / batch;
+          if (_regulL1) Layer[l]->Weight[i][j] -= sgn(temp) * _lambdaRegulL1 * Alpha / batch;
+          if (_regulL2) Layer[l]->Weight[i][j] -= temp * _lambdaRegulL2 * Alpha / batch;
+        }
 
 // End of process
+}
+
+// Weights regularization L1
+float MLP::regulL1Weights()
+{
+  float sum = 0;
+  for (int l = 1; l < _numLayers; l++) {
+    for (int i = 1; i <= Layer[l]->Units; i++){
+      for (int j = 0; j <= Layer[l - 1]->Units; j++){
+        sum += abs(Layer[l]->Weight[i][j]);
+      }
+    }
+  }
+  return sum;
+}
+
+// Weights regularization L2
+float MLP::regulL2Weights()
+{
+  float sum = 0;
+  for (int l = 1; l < _numLayers; l++) {
+    for (int i = 1; i <= Layer[l]->Units; i++){
+      for (int j = 0; j <= Layer[l - 1]->Units; j++){
+        sum += Layer[l]->Weight[i][j] * Layer[l]->Weight[i][j];
+      }
+    }
+  }
+  return sum / 2.0;
+}
+
+// Returns the number of weights
+int MLP::numberOfWeights()
+{
+  int N = 0;
+  for (int l = 1; l < _numLayers; l++) {
+    for (int i = 1; i <= Layer[l]->Units; i++){
+      for (int j = 0; j <= Layer[l - 1]->Units; j++){
+        ++N;
+      }
+    }
+  }
+  return N;
 }
