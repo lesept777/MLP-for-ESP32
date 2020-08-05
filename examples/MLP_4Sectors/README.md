@@ -63,4 +63,17 @@ provide the following results:
 * NMSE is  1.466 on Training Set and  0.154 on Test Set
 * Average weight L1 norm: 3.68611 (lambda = 0.000010)
 * Average weight L2 norm: 49.88160 (lambda = 0.000000)
-The training and test performances are a litlle bit degraded but prediction remains correct (no erroor in 20 random cases). The average L1 norm of the weight was reduced.
+The training and test performances are a little bit degraded but prediction remains correct (no error in 20 random cases). The average L1 norm of the weight was reduced.
+
+Setting the L1 parameter to 100 leads to less good results:
+* NMSE is  3.725 on Training Set and  0.762 on Test Set
+and a few prediction errors (2 in 20) but much lower weights:
+* Average weight L1 norm: 1.00118 (lambda = 0.000100)
+* Average weight L2 norm: 3.24623 (lambda = 0.000000)
+
+
+## L2 regularization using
+```
+  Net.setHeurRegulL2 (true, 1); // for L2 regularization
+```
+provide the following results:
