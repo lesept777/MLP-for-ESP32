@@ -96,13 +96,13 @@ Prediction error is quite high (4 errors in 20 tests) and the norms of the weigh
 * Average weight L1 norm: 0.82061 (lambda = 0.000000)
 * Average weight L2 norm: 0.50392 (lambda = 0.000001)
 
-Clearly, the impact of regularization is too high. Setting the parameter to 0.5 leads to better results:
-* NMSE is  1.041 on Training Set and  0.115 on Test Set
-* Verifying on 400 train data : 19 errors (4.75%)
-* Verifying on 100 test data  :  2 errors (2.00%)
+Clearly, the impact of regularization is too high. Setting the parameter to `0.75` leads to better results:
+* NMSE is  0.997 on Training Set and  0.195 on Test Set
+* Verifying on 400 train data : 18 errors (4.50%)
+* Verifying on 100 test data  :  8 errors (8.00%)
 
 and no prediction errors but sensibly lower weights:
-* Average weight L1 norm: 5.50487 (lambda = 0.000000)
-* Average weight L2 norm: 44.23602 (lambda = 0.000000)
+* Average weight L1 norm: 3.64131 (lambda = 0.000e+00)
+* Average weight L2 norm: 32.03284 (lambda = 7.500e-07)
 
 L2 regularization seems to be more sensitive to the value of its parameter.
