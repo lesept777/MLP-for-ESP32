@@ -7,10 +7,11 @@
 const char networkFile[] = "/SectorNetwork.txt";
 
 int sector (float x, float y) {
-  if (x <  0.5 && y < 0.5)  return 0;
-  if (x <  0.5 && y >= 0.5) return 1;
-  if (x >= 0.5 && y < 0.5)  return 2;
-  if (x >= 0.5 && y >= 0.5) return 3;
+  return (x > 0.5) * 2 + (y > 0.5);
+  // if (x <  0.5 && y < 0.5)  return 0;
+  // if (x <  0.5 && y >= 0.5) return 1;
+  // if (x >= 0.5 && y < 0.5)  return 2;
+  // if (x >= 0.5 && y >= 0.5) return 3;
 }
 
 // Declare the network
@@ -46,7 +47,7 @@ void setup() {
   bool initialize = !Net.netLoad(networkFile);
 
   // Training
-  long heuristics = H_INIT_OPTIM +
+  int heuristics = H_INIT_OPTIM +
                    H_CHAN_WEIGH +
                    /*       H_MUTA_WEIGH +   */
                    H_CHAN_BATCH +
