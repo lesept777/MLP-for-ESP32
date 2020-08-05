@@ -34,7 +34,6 @@ This function returns the sector's number (i.e. the output value) for a given (x
 
 Standard execution will provide results such as:
 * NMSE is  0.761 on Training Set and  0.080 on Test Set
-
 * Verifying on 400 train data : 17 errors (4.25%)
 * Verifying on 100 test data  :  4 errors (4.00%)
 
@@ -56,8 +55,12 @@ Net.setHeuristics(heuristics);
 ```
 The numbers (1 and 5) are parameters that set the importance of the regularization in the cost function.
 
-# L1 regularization using
+## L1 regularization using
 ```
   Net.setHeurRegulL1 (true, 10); // for L1 regularization
 ```
 provide the following results:
+* NMSE is  1.466 on Training Set and  0.154 on Test Set
+* Average weight L1 norm: 3.68611 (lambda = 0.000010)
+* Average weight L2 norm: 49.88160 (lambda = 0.000000)
+The training and test performances are a litlle bit degraded but prediction remains correct (no erroor in 20 random cases). The average L1 norm of the weight was reduced.
