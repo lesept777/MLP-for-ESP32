@@ -56,7 +56,7 @@ Net.setHeuristics(heuristics);
 ```
 The numbers (1 and 5) are parameters that set the importance of the regularization in the cost function.
 
-L1 regularization using
+# L1 regularization using
 ```
   Net.setHeurRegulL1 (true, 10); // for L1 regularization
 ```
