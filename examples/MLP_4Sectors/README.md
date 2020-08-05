@@ -83,26 +83,17 @@ and a few prediction errors (2 in 20) but much lower weights:
 
 ## L2 regularization
 ```
-  Net.setHeurRegulL2 (true, 1); // for L2 regularization
+  Net.setHeurRegulL2 (true, 3); // for L2 regularization
 ```
 provide the following results:
-* NMSE is  1.429 on Training Set and  0.226 on Test Set
+* NMSE is  1.953 on Training Set and  0.464 on Test Set
 
 The results are worse here:
-* Verifying on 400 train data : 208 errors (52.00%)
-* Verifying on 100 test data  : 59 errors (59.00%)
+* Verifying on 400 train data : 32 errors (8.00%)
+* Verifying on 100 test data  :  9 errors (9.00%)
 
-Prediction error is quite high (4 errors in 20 tests) and the norms of the weights are
-* Average weight L1 norm: 0.82061 (lambda = 0.000000)
-* Average weight L2 norm: 0.50392 (lambda = 0.000001)
+Prediction quality is good (0 errors in 20 tests) and the norms of the weights are
+* Average weight L1 norm: 3.67923 (lambda = 0.000e+00)
+* Average weight L2 norm: 18.09291 (lambda = 3.000e-06)
 
-Clearly, the impact of regularization is too high. Setting the parameter to `0.9` leads to better results:
-* NMSE is  0.985 on Training Set and  0.327 on Test Set
-* Verifying on 400 train data : 17 errors (4.25%)
-* Verifying on 100 test data  : 11 errors (11.00%)
-
-and no prediction error but sensibly lower weights:
-* Average weight L1 norm: 3.70065 (lambda = 0.000e+00)
-* Average weight L2 norm: 25.12603 (lambda = 9.000e-07)
-
-L2 regularization seems to be more sensitive to the value of its parameter.
+As mentioned above, you may obtain different results as the process is randomly initialized.
