@@ -35,12 +35,12 @@ void setup() {
   Net.setBatchSize (30);
   float minError = 10;
   for (int e = 0; e < 5000; e++) { // 5000 training epochs
-    Net.trainNet (&dataset);
+    Net.trainNetSGD (&dataset);
     Net.testNet (&dataset, true);
     Net.getError (&trainError, &testError);
     if (testError < minError) {
       minError = testError;
-      Serial.printf("Epoch %4d Error = %.3f\n", e,minError);
+      Serial.printf("Epoch %4d Error = %.3f\n", e, minError);
     }
     if (testError < 0.002) break;
   }
@@ -52,14 +52,13 @@ void setup() {
 
   // Prediction
   Serial.println();
-  float out[0];
   for (int i = 0; i < 10; i++) {
     int k = random(99);
     float x = -3.14f + k * 2.0f * 3.14f / 98.0f;
-    Net.predict(&x, out);
+    float out = Net.predict(&x);
     Serial.printf ("Validation x = % .3f : \tprediction % .3f, \texpected % .3f --> ",
-                   x, out[0], sin(x));
-    if (abs(out[0] - sin(x)) < 0.05f) Serial.println("OK");
+                   x, out, sin(x));
+    if (abs(out - sin(x)) < 0.05f) Serial.println("OK");
     else Serial.println("NOK");
   }
 
