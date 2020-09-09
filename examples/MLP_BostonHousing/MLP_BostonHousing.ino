@@ -1,0 +1,78 @@
+/*
+  Test Boston House prices
+  Dataset found here: https://raw.githubusercontent.com/jbrownlee/Datasets/master/housing.data
+  The dataset describes 13 numerical properties of houses in
+  Boston suburbs and is concerned with modeling the price of
+  houses in those suburbs in thousands of dollars.
+  (c) Lesept - April 2020
+*/
+#define FORMAT_SPIFFS_IF_FAILED true
+#include "MLP.h"
+const char datasetFile[] = "/Boston.csv";
+const char networkFile[] = "/Network_Housing.txt";
+
+// Declare the network
+int Neurons[] = {13, 50, 30, 1};
+int Activations[] = {RELU, RELU, SIGMOID};
+MLP Net(4, Neurons, 1);
+
+void setup() {
+  Serial.begin(115200);
+  Serial.println();
+  if (!SPIFFS.begin(FORMAT_SPIFFS_IF_FAILED)) {
+    Serial.println("SPIFFS Mount Failed");
+    return;
+  }
+
+  int nData = 506;
+  DATASET dataset;
+  int ret = Net.createDataset (&dataset, nData);
+  Net.readCsvFromSpiffs(datasetFile, &dataset, nData, 400.0f); // Read dataset
+  Net.begin (0.8f);                         // Initialize train & test sets
+  Net.initLearn (0.9f, 0.5f, 1.0f, 0.8f);   // Set learnning parameters
+  Net.setActivation (Activations);
+  Net.setMaxError (0.1f);                   // Set the stopping criterion
+  bool initialize = !Net.netLoad(networkFile);
+
+  // Training
+  long heuristics = H_INIT_OPTIM +
+                    H_CHAN_WEIGH +
+                    /* H_MUTA_WEIGH + */
+                    H_CHAN_BATCH +
+                    H_CHAN_LRATE +
+                    H_CHAN_SGAIN +
+                    H_STOP_TOTER;
+  Net.setHeuristics(heuristics);
+  Net.setHeurInitialize(initialize); // No need to init a new network if we read it from SPIFFS
+  // Display the heuristics parameters
+  Net.displayHeuristics();
+
+  unsigned long chrono = millis();
+  Net.optimize (&dataset, 5, 100, 50);  // Train baby, train...
+  Serial.printf("\nActual duration %u ms\n", millis() - chrono);
+
+  // Evaluation
+  Net.testNet (&dataset, true);
+  Net.evaluateNet (&dataset, 3.0f);     // Display results
+  Net.netSave(networkFile);
+
+  // Prediction
+  Serial.println();
+  for (int i = 0; i < 10; i++) {
+    int k = random(nData);
+    float out = Net.predict(&dataset.data[k].In[0]);
+    Serial.printf ("Validation %d: prediction %f, expected %f --> ",
+                   i, out, dataset.data[k].Out);
+    if (abs(out - dataset.data[k].Out) < 3) Serial.println("OK");
+    else Serial.println("NOK");
+  }
+
+  // Display the network
+  Net.displayNetwork();
+
+  Net.destroyDataset (&dataset);
+}
+
+void loop() {
+  // NOPE
+}
