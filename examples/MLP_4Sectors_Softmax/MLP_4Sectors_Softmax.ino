@@ -45,25 +45,26 @@ void setup() {
     dataset.data[i].Out = sector(x, y);
   }
 
-  Net.begin (0.8f);                         // Initialize train & test sets
-  Net.initLearn (0.9f, 0.5f, 1.0f, 0.8f);   // Set learning parameters
+  Net.begin (0.8f);                       // Initialize train & test sets
+  Net.initLearn (0.9f, 0.5f, 1.0f, 0.8f); // Set learning parameters
   Net.setActivation (Activations);
-  Net.setMaxError (0.01f);                  // Set the stopping criterion
-  bool initialize = !Net.netLoad(networkFile);
+  Net.setMaxError (1.0f);                 // Set the stopping criterion
+  bool initialize = true;//!Net.netLoad(networkFile);
 
   // Training
   long heuristics = H_INIT_OPTIM +
                     H_CHAN_WEIGH +
                     H_CHAN_BATCH +
                     H_CHAN_LRATE +
-                    H_CHAN_SGAIN;
+                    H_CHAN_SGAIN +
+                    H_STOP_TOTER;
   Net.setHeuristics(heuristics);
   Net.setHeurInitialize(initialize); // No need to init a new network if we read it from SPIFFS
   // Display the heuristics parameters
   Net.displayHeuristics();
 
   unsigned long chrono = millis();
-  Net.optimize (&dataset, 10, 1000, 55);  // Train baby, train...
+  Net.optimize (&dataset, 2, 1000, 55);  // Train baby, train...
   Serial.printf("\nActual duration %u ms\n", millis() - chrono);
 
   // Evaluation
@@ -74,23 +75,16 @@ void setup() {
 
   // Prediction
   Serial.println();
-  float out[4], x[2];
+//  float out[4], x[2];
+  float x[2];
   for (int i = 0; i < 20; i++) {
     x[0] = random(100) / 99.;
     x[1] = random(100) / 99.;
     int expected = sector(x[0], x[1]);
-    Net.predict(&x[0], out);
-    int indexMax = 0;
-    float valMax = 0;
-    for (int j = 0; j < 4; j++) {
-      if (out[j] > valMax) {
-        valMax = out[j];
-        indexMax = j;
-      }
-    }
-    Serial.printf ("Validation %2d: expected %d, prediction %d (%.2f %.2f %.2f %.2f) -->",
-                   i, expected, indexMax, out[0],  out[1],  out[2],  out[3]);
-   if (expected != indexMax) Serial.print("N");
+    int out = (int)Net.predict(&x[0]);
+    Serial.printf ("Validation %2d: expected %d, prediction %d -->",
+                   i, expected, out);
+   if (expected != out) Serial.print("N");
    Serial.println("OK");
   }
 
