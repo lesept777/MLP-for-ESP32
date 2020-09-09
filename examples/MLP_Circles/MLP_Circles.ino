@@ -53,11 +53,11 @@ void setup() {
 
   // Training
   long heuristics = H_INIT_OPTIM +
-                   H_CHAN_WEIGH +
-                   /* H_MUTA_WEIGH + */
-                   /* H_CHAN_BATCH + */
-                   H_CHAN_LRATE +
-                   H_CHAN_SGAIN;
+                    H_CHAN_WEIGH +
+                    /* H_MUTA_WEIGH + */
+                    /* H_CHAN_BATCH + */
+                    H_CHAN_LRATE +
+                    H_CHAN_SGAIN;
   Net.setHeuristics(heuristics);
   Net.setHeurInitialize(initialize); // No need to init a new network if we read it from SPIFFS
   // Display the heuristics parameters
@@ -75,13 +75,13 @@ void setup() {
 
   // Prediction for random points in the square [0-2]x[0-2]
   Serial.println();
-  float out[0], x[2];
   for (int i = 0; i < 20; i++) {
+    float x[2];
     x[0] = random(100) / 50.;
     x[1] = random(100) / 50.;
     int expected = area(x[0], x[1]);
-    Net.predict(&x[0], out);
-    int n = (int)(out[0] + 0.5f);
+    float out = Net.predict(&x[0]);
+    int n = (int)(out + 0.5f);
     Serial.printf ("Validation %2d: expected %d, prediction %d -->",
                    i, expected, n);
     if (expected == n) Serial.println("OK");
