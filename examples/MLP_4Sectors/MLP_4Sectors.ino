@@ -7,11 +7,14 @@
 const char networkFile[] = "/SectorNetwork.txt";
 
 int sector (float x, float y) {
-  return (x > 0.5) * 2 + (y > 0.5);
-  // if (x <  0.5 && y < 0.5)  return 0;
-  // if (x <  0.5 && y >= 0.5) return 1;
-  // if (x >= 0.5 && y < 0.5)  return 2;
-  // if (x >= 0.5 && y >= 0.5) return 3;
+  return (x >= 0.5) * 2 + (y >= 0.5);
+  /*
+     this is equivalent to:
+    if (x <  0.5 && y < 0.5)  return 0;
+    if (x <  0.5 && y >= 0.5) return 1;
+    if (x >= 0.5 && y < 0.5)  return 2;
+    if (x >= 0.5 && y >= 0.5) return 3;
+  */
 }
 
 // Declare the network
@@ -44,16 +47,20 @@ void setup() {
   Net.initLearn (0.9f, 0.5f, 1.0f, 0.8f);   // Set learning parameters
   Net.setActivation (Activations);
   Net.setMaxError (0.07f);                  // Set the stopping criterion
-  bool initialize = !Net.netLoad(networkFile);
+  bool initialize = true;//!Net.netLoad(networkFile);
 
   // Training
-  int heuristics = H_INIT_OPTIM +
-                   H_CHAN_WEIGH +
-                   /*       H_MUTA_WEIGH +   */
-                   H_CHAN_BATCH +
-                   H_CHAN_LRATE +
-                   H_CHAN_SGAIN;
+  long heuristics = H_INIT_OPTIM +
+                    H_CHAN_WEIGH +
+                    H_CHAN_BATCH +
+                    H_CHAN_LRATE +
+                    H_CHAN_SGAIN +
+                    H_SELE_WEIGH +
+                    H_FORC_S_G_D;
   Net.setHeuristics(heuristics);
+  // Test regularization
+  // Net.setHeurRegulL2 (true, 3.0);
+  // Net.setHeurRegulL1 (true, 100);
   Net.setHeurInitialize(initialize); // No need to init a new network if we read it from SPIFFS
   // Display the heuristics parameters
   Net.displayHeuristics();
@@ -70,14 +77,14 @@ void setup() {
 
   // Prediction
   Serial.println();
-  float out[0], x[2];
+  float out, x[2];
   for (int i = 0; i < 20; i++) {
     x[0] = random(100) / 99.;
     x[1] = random(100) / 99.;
     int expected = sector(x[0], x[1]);
-    Net.predict(&x[0], out);
-    int n = (int)(out[0] + 0.5f);
-    Serial.printf ("Validation %d: expected %d, prediction %d -->",
+    out = Net.predict(&x[0]);
+    int n = (int)(out + 0.5f);
+    Serial.printf ("Validation %2d: expected %d, prediction %d -->",
                    i, expected, n);
     if (expected == n) Serial.println("OK");
     else Serial.println("NOK");
