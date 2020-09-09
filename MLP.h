@@ -204,19 +204,23 @@ class MLP
 /*
     Methods to set the options one by one
     bool : true / false to allow or disable
-    float, float: set a range (minimum and maximum values)
+    float, float: set a range (minimum and maximum values) or probability
 */
     void  setHeurInitialize (bool);
-    void  setHeurChangeWeights (bool, float);
+    void  setHeurZeroWeights (bool, float);
+    // first float is the weight range, second is the probability to set weight to 0 (for sparsity)
+    void  setHeurChangeWeights (bool, float, float);
+    // first float is the mutation probability, second is the percent of change
     void  setHeurMutateWeights (bool, float, float);
     void  setHeurChangeBatch (bool);
+    // in the following methods, the float arguments are min and max values of the range
     void  setHeurChangeEta (bool, float, float);
     void  setHeurChangeGain (bool, float, float);
     void  setHeurChangeAlpha (bool, float, float);
     void  setHeurShuffleDataset (bool);
-    void  setHeurZeroWeights (bool, float);
     void  setHeurTotalError (bool);
     void  setHeurSelectWeights (bool);
+    // in the 2 following methods, the float argument is the value of lambda (regul parameter)
     void  setHeurRegulL1 (bool, float);
     void  setHeurRegulL2 (bool, float);
 //  Display the summary of the heuristics options
@@ -259,7 +263,8 @@ class MLP
     input: a pointer to the array of input data (in the format of the dataset)
     output: a pointer to the array of output result
 */
-    void  predict (float*, float*);
+    // void  predict (float*, float*);
+    float  predict (float*);
 
 /*
     Various useful functions
@@ -345,6 +350,7 @@ class MLP
     float    _zeroThreshold = 0.1f;
     int      _totalEpochs;
     bool     _eval = false, _predict = false;
+    float    _probaZeroWeight = 0.0f;
 
     // Private methods
     void  simulateNet(float*, float*, float*, bool);

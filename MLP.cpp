@@ -406,9 +406,10 @@ void MLP::displayHeuristics () {
 }
 
 void MLP::setHeurInitialize (bool val) { _initialize = val; }
-void MLP::setHeurChangeWeights (bool val, float range = 1.0f) { 
-  _changeWeights = val;
-  _range         = range;
+void MLP::setHeurChangeWeights (bool val, float range = 1.0f, float proba = 0.0f) { 
+  _changeWeights   = val;
+  _range           = range;
+  _probaZeroWeight = proba;
 }
 void MLP::setHeurMutateWeights (bool val, float proba = 0.05f, float percent = 0.15f) { 
   _mutateWeights = val;
@@ -808,6 +809,7 @@ void MLP::testNet(DATASET* dataset, bool disp)
 // Count the prediction errors on the training set and on the test set
 void MLP::evaluateNet(DATASET* dataset, float threshold)
 {
+//  _predict = true;
   float *Out;
   if (OutputLayer->Activation == SOFTMAX) Out = new float [OutputLayer->Units + 1];
   else Out = new float [_units[_numLayers - 1]];
@@ -856,6 +858,7 @@ void MLP::evaluateNet(DATASET* dataset, float threshold)
   if (_verbose > 0) Serial.printf("Verifying on %d test data  : %2d errors (%.2f%%)\n", _nTest, nError, 100.0 * nError / _nTest);
   _eval = false;
   delete Out;
+  // _predict = false;
 }
 
 /* Provide the estimated time of the complete training in ms
@@ -969,6 +972,8 @@ void MLP::randomWeights(float x)
     for (int i = 1; i <= Layer[l]->Units; i++){
       for (int j = 0; j <= Layer[l - 1]->Units; j++){
         Layer[l]->Weight[i][j] = randomFloat(-x, x);
+        // Randomly set zero weight
+        if ((float) esp_random() / UINT32_MAX < _probaZeroWeight) Layer[l]->Weight[i][j] = 0;
       }
     }
   }
@@ -1144,13 +1149,36 @@ void MLP::weightMutation (float proba, float percent)
       }
 }
 
-void MLP::predict (float* Input, float *Output)
+float MLP::predict (float* Input)
 {
-  _predict = true;
-  process(Input, Output, Output, 1);
-  if (OutputLayer->Activation != SOFTMAX) Output[0] = Output[0] * _outDelta + _outMinVal;
-  _predict = false;
+ _predict = true;
+  if (OutputLayer->Activation != SOFTMAX) {
+    float Output;
+    process(Input, &Output, 0, 1);
+    Output = Output * _outDelta + _outMinVal;
+    return Output;
+  } else {
+    float Output[_units[_numLayers - 1]];
+    process(Input, Output, 0, 1);
+    int indexMax = 0;
+    float valMax = 0;
+    for (int j = 0; j < _units[_numLayers - 1]; j++) {
+      if (Output[j] > valMax) {
+        valMax = Output[j];
+        indexMax = j;
+      }
+    }
+    return (float)indexMax;
+  }
+  // _predict = !_predict;
 }
+// void MLP::predict (float* Input, float *Output)
+// {
+//   _predict = true;
+//   process(Input, Output, Output, 1);
+//   if (OutputLayer->Activation != SOFTMAX) Output[0] = Output[0] * _outDelta + _outMinVal;
+//   _predict = false;
+// }
 
 // Shift the input & output values of the dataset to the interval [0, 1]
 void MLP::processDataset (DATASET* dataset)
@@ -1244,11 +1272,13 @@ void MLP::process (float* Input, float* Output, float* Target, int batch) {
 
   // Set input
     for (int i = 1; i <= InputLayer->Units; i++) {
+      yield();
       // InputLayer->Output[i] = Input[i - 1 + _units[0] * iBatch];
       InputLayer->Output[i] = (float) (Input[i - 1 + _units[0] * iBatch] - _inMinVal[i-1]) / _inDelta[i-1];
     }
 
   // Forward propagation
+  // if (_predict) Serial.println("   P3");
     for (int l = 0; l < _numLayers - 1; l++) {
       // Softmax case
       if (l == _numLayers - 2 && OutputLayer->Activation == SOFTMAX) {
@@ -1338,13 +1368,10 @@ void MLP::process (float* Input, float* Output, float* Target, int batch) {
 float MLP::regulL1Weights()
 {
   float sum = 0;
-  for (int l = 1; l < _numLayers; l++) {
-    for (int i = 1; i <= Layer[l]->Units; i++){
-      for (int j = 0; j <= Layer[l - 1]->Units; j++){
+  for (int l = 1; l < _numLayers; l++)
+    for (int i = 1; i <= Layer[l]->Units; i++)
+      for (int j = 0; j <= Layer[l - 1]->Units; j++)
         sum += abs(Layer[l]->Weight[i][j]);
-      }
-    }
-  }
   return sum;
 }
 
@@ -1352,13 +1379,10 @@ float MLP::regulL1Weights()
 float MLP::regulL2Weights()
 {
   float sum = 0;
-  for (int l = 1; l < _numLayers; l++) {
-    for (int i = 1; i <= Layer[l]->Units; i++){
-      for (int j = 0; j <= Layer[l - 1]->Units; j++){
+  for (int l = 1; l < _numLayers; l++) 
+    for (int i = 1; i <= Layer[l]->Units; i++)
+      for (int j = 0; j <= Layer[l - 1]->Units; j++)
         sum += Layer[l]->Weight[i][j] * Layer[l]->Weight[i][j];
-      }
-    }
-  }
   return sum / 2.0;
 }
 
@@ -1366,12 +1390,9 @@ float MLP::regulL2Weights()
 int MLP::numberOfWeights()
 {
   int N = 0;
-  for (int l = 1; l < _numLayers; l++) {
-    for (int i = 1; i <= Layer[l]->Units; i++){
-      for (int j = 0; j <= Layer[l - 1]->Units; j++){
+  for (int l = 1; l < _numLayers; l++) 
+    for (int i = 1; i <= Layer[l]->Units; i++)
+      for (int j = 0; j <= Layer[l - 1]->Units; j++)
         ++N;
-      }
-    }
-  }
   return N;
 }

@@ -73,7 +73,7 @@ changeAlpha	KEYWORD2
 changeBatchSize	KEYWORD2
 selectWeights	KEYWORD2
 simulateNet	KEYWORD2
-trainNet	KEYWORD2
+trainNetSGD	KEYWORD2
 testNet	KEYWORD2
 evaluateNet	KEYWORD2
 evaluateNet	KEYWORD2
