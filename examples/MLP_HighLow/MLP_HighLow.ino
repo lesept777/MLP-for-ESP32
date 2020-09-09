@@ -38,23 +38,23 @@ void setup() {
   Net.begin (0.8f);                         // Initialize train & test sets
   Net.initLearn (0.9f, 0.5f, 1.0f, 0.8f);   // Set learning parameters
   Net.setActivation (Activations);
-  Net.setMaxError (0.1f);                     // Set the stopping criterion
+  Net.setMaxError (0.03f);                     // Set the stopping criterion
   bool initialize = !Net.netLoad(networkFile);
 
   // Training
-  int heuristics = H_INIT_OPTIM +
-                   H_CHAN_WEIGH +
-                   /*       H_MUTA_WEIGH +   */
-                   H_CHAN_BATCH +
-                   H_CHAN_LRATE +
-                   H_CHAN_SGAIN;
+  long heuristics = H_INIT_OPTIM +
+                    H_CHAN_WEIGH +
+                    /*       H_MUTA_WEIGH +   */
+                    H_CHAN_BATCH +
+                    H_CHAN_LRATE +
+                    H_CHAN_SGAIN;
   Net.setHeuristics(heuristics);
   Net.setHeurInitialize(initialize); // No need to init a new network if we read it from SPIFFS
   // Display the heuristics parameters
   Net.displayHeuristics();
 
   unsigned long chrono = millis();
-  Net.optimize (&dataset, 10, 1000, 50);  // Train baby, train...
+  Net.optimize (&dataset, 10, 1000, 20);  // Train baby, train...
   Serial.printf("\nActual duration %u ms\n", millis() - chrono);
 
   // Evaluation
@@ -65,16 +65,16 @@ void setup() {
 
   // Prediction
   Serial.println();
-  float out[1], x[2];
   for (int i = 0; i < 10; i++) {
+    float x[2];
     x[0] = random(100) / 99.;
     x[1] = random(100) / 99.;
     float T = f(x[0]);
     float expected = (x[1] > T) ? 1 : 0;
-    Net.predict(&x[0], out);
+    float out = Net.predict(&x[0]);
     Serial.printf ("Validation %d: prediction %f, expected %f --> ",
-                   i, out[0], expected);
-    if (abs(out[0] - expected) < 0.1) Serial.println("OK");
+                   i, out, expected);
+    if (abs(out - expected) < 0.1) Serial.println("OK");
     else Serial.println("NOK");
   }
 
