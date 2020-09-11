@@ -1,0 +1,66 @@
+Processing dataset
+Read 569 data of 30 input
+---------------------------
+Heuristics parameters:
+- Init with random weights
+- Random weights if needed
+- Variable learning rate
+- Variable Sigmoid gain
+- Select best weights at init
+---------------------------
+Processing dataset
+Estimated duration for training and optimization: 130000 ms (2 min 10 sec)
+Creating a new network
+ - Selecting best weights
+
+Iteration number 1
+NMSE is 10.970 on Training Set and  2.958 on Test Set
+NMSE is  7.242 on Training Set and  2.416 on Test Set
+NMSE is  5.764 on Training Set and  2.112 on Test Set
+NMSE is  4.945 on Training Set and  1.903 on Test Set
+NMSE is  4.482 on Training Set and  1.639 on Test Set
+NMSE is  4.194 on Training Set and  1.390 on Test Set
+NMSE is  4.031 on Training Set and  1.226 on Test Set
+NMSE is  3.942 on Training Set and  1.016 on Test Set
+NMSE is  3.942 on Training Set and  0.847 on Test Set
+NMSE is  3.953 on Training Set and  0.788 on Test Set
+NMSE is  3.829 on Training Set and  0.781 on Test Set
+NMSE is  3.763 on Training Set and  0.768 on Test Set
+NMSE is  3.536 on Training Set and  0.752 on Test Set
+NMSE is  3.445 on Training Set and  0.572 on Test Set
+NMSE is  3.355 on Training Set and  0.405 on Test Set
+NMSE is  3.258 on Training Set and  0.300 on Test Set
+NMSE is  3.155 on Training Set and  0.207 on Test Set
+NMSE is  3.052 on Training Set and  0.152 on Test Set
+Finished in 1 iterations (18 epochs)
+
+Actual duration 19739 ms
+
+NMSE is 14.861 on Training Set and  0.104 on Test Set
+Verifying on 455 train data : 44 errors (9.67%)
+Verifying on 114 test data  :  1 errors (0.88%)
+Saving network in file /Network_BC.txt
+
+Validation 0: prediction 0.005128, expected 0.000000 --> OK
+Validation 1: prediction 0.001497, expected 0.000000 --> OK
+Validation 2: prediction 0.983595, expected 1.000000 --> OK
+Validation 3: prediction 0.000000, expected 0.000000 --> OK
+Validation 4: prediction 0.003818, expected 0.000000 --> OK
+Validation 5: prediction 0.990646, expected 1.000000 --> OK
+Validation 6: prediction 0.991993, expected 1.000000 --> OK
+Validation 7: prediction 0.001272, expected 0.000000 --> OK
+Validation 8: prediction 0.028574, expected 0.000000 --> OK
+Validation 9: prediction 0.006631, expected 0.000000 --> OK
+---------------------------
+Network has 4 layers:
+Layer number 0: 30 neurons
+Layer number 1: 20 neurons, activation SIGMOID, 620 weights
+Layer number 2: 10 neurons, activation SIGMOID, 210 weights
+Layer number 3: 1 neurons, activation SIGMOID, 11 weights
+Total number of weights: 841
+Average weight L1 norm: 0.60020 (lambda = 0.000e+00)
+Average weight L2 norm: 0.28468 (lambda = 0.000e+00)
+Learning rate is: 0.500
+Gain is: 1.000
+Momentum is: 0.900
+---------------------------

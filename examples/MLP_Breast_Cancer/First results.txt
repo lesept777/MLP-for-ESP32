@@ -1,0 +1,63 @@
+rocessing dataset
+Read 569 data of 30 input
+/Network_BC.txt - failed to open file for reading
+---------------------------
+Heuristics parameters:
+- Init with random weights
+- Random weights if needed
+- Variable learning rate
+- Variable Sigmoid gain
+- Select best weights at init
+---------------------------
+Processing dataset
+Estimated duration for training and optimization: 130000 ms (2 min 10 sec)
+Creating a new network
+Selecting best weights
+
+Iteration number 1
+NMSE is  8.349 on Training Set and  3.790 on Test Set
+NMSE is  5.927 on Training Set and  3.357 on Test Set
+NMSE is  4.888 on Training Set and  3.068 on Test Set
+NMSE is  4.298 on Training Set and  2.869 on Test Set
+NMSE is  3.983 on Training Set and  2.723 on Test Set
+NMSE is  3.841 on Training Set and  2.591 on Test Set
+NMSE is  3.833 on Training Set and  2.473 on Test Set
+NMSE is  3.938 on Training Set and  2.365 on Test Set
+NMSE is  4.105 on Training Set and  2.263 on Test Set
+NMSE is  4.254 on Training Set and  2.152 on Test Set
+NMSE is  4.303 on Training Set and  2.109 on Test Set
+NMSE is  4.482 on Training Set and  2.090 on Test Set
+NMSE is  4.559 on Training Set and  1.977 on Test Set
+Finished in 1 iterations (13 epochs)
+
+Actual duration 16691 ms
+
+NMSE is 13.214 on Training Set and  1.605 on Test Set
+Verifying on 455 train data : 80 errors (17.58%)
+Verifying on 114 test data  : 15 errors (13.16%)
+Saving network in file /Network_BC.txt
+
+Validation 0: prediction 0.005435, expected 0.000000 --> OK
+Validation 1: prediction 0.085953, expected 0.000000 --> OK
+Validation 2: prediction 0.064415, expected 0.000000 --> OK
+Validation 3: prediction 0.029774, expected 0.000000 --> OK
+Validation 4: prediction 0.456077, expected 0.000000 --> NOK
+Validation 5: prediction 0.016645, expected 0.000000 --> OK
+Validation 6: prediction 0.090270, expected 0.000000 --> OK
+Validation 7: prediction 0.005850, expected 0.000000 --> OK
+Validation 8: prediction 0.006461, expected 0.000000 --> OK
+Validation 9: prediction 0.995952, expected 1.000000 --> OK
+---------------------------
+Network has 4 layers:
+Layer number 0: 30 neurons
+Layer number 1: 20 neurons, activation SIGMOID, 620 weights
+Layer number 2: 10 neurons, activation SIGMOID, 210 weights
+Layer number 3: 1 neurons, activation SIGMOID, 11 weights
+Total number of weights: 841
+Average weight L1 norm: 0.61695 (lambda = 0.000e+00)
+Average weight L2 norm: 0.28388 (lambda = 0.000e+00)
+Learning rate is: 0.500
+Gain is: 1.000
+Momentum is: 0.900
+---------------------------
+
