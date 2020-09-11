@@ -94,12 +94,12 @@ When the goal is reached, i.e. when the error made on the test set is lower than
 
 The next phase is inference: run the network on unknown data to predict the output. For the example of a 2 neurons input - 1 neuron output network, it's as simple as:
 ```
-float out[0], x[2];
+float out, x[2];
 x[0] = ...;
 x[1] = ...;
-Net.predict(&x[0], out);
+out = Net.predict(&x[0]);
 ```
-The array `out[0]` contains the prediction.
+The float `out` contains the prediction.
 
 ## Various options
 
