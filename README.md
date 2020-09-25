@@ -49,6 +49,7 @@ Net.initLearn (0.9f, 0.5f, 1.0f, 0.8f);
 int Activations[] = {SIGMOID, SIGMOID};
 Net.setActivation (Activations);
 Net.setMaxError (0.3f);                
+Net.generateNetwork();
 ```
 * `Net.begin (0.8f)` --> Divide the dataset as 80% training and 20% testing
 * `Net.initLearn` defines the values of: the momentum, the learning rate, the gain of the sigmoid activation function, and the change rate of the learning rate.
