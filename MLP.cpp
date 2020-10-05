@@ -122,10 +122,11 @@ void MLP::netSave(const char* const path)
   for (int l = 0; l < _numLayers; l++) {
     file.printf("%d\n", Layer[l]->Units);
     file.printf("%d\n", Layer[l]->Activation);
-    if (_verbose > 1) 
-      if (l==0) Serial.printf("Layer %d -> %d neurons, %s\n", l, 
+    if (_verbose > 1) {
+      if (l > 0) Serial.printf("Layer %d -> %d neurons, %s\n", l, 
       Layer[l]->Units, ActivNames[Layer[l]->Activation]);
       else Serial.printf("Layer %d -> %d neurons\n", l, Layer[l]->Units);
+    }
   }
   // Save parameters
   file.printf("%f\n%f\n%f\n", AlphaSave, EtaSave, GainSave);
@@ -314,6 +315,12 @@ void MLP::begin(float ratio)
 // initialize learning and optimizing parameters
 void MLP::initLearn(float alpha, float eta, float gain, float anneal)
 {
+  /*
+    alpha  : momentum
+    eta    : learning rate (LR)
+    gain   : sigmoid gain
+    anneal : rate of variation of LR
+  */
   Alpha = alpha;
   AlphaSave = alpha;
   Eta = eta;
@@ -337,6 +344,9 @@ void MLP::setVerbose (int verbose) {
      3: 2 + content of dataset csv file
   */
   _verbose = verbose;
+}
+void MLP::setParallel (bool parallel) {
+  _parallelRun = parallel;
 }
 void MLP::setIterations (int iters) {
   _iters = iters;
@@ -362,7 +372,7 @@ void MLP::setGain (float gain) {
 void MLP::setAnneal (float anneal) {
   _anneal = anneal;
 }
-void MLP::setActivation (int activations[]) {
+void MLP::setActivation (int* activations) {
   _activations[0] = 99;
   for (int i = 0; i < _numLayers - 1; i++) _activations[i+1] = activations[i];
 }
@@ -392,6 +402,7 @@ void MLP::displayHeuristics () {
   Serial.println("Heuristics parameters:");
   if(_initialize)      Serial.println ("- Init with random weights");
   if(_changeWeights)   Serial.println ("- Random weights if needed");
+  if(_selectWeights)   Serial.println ("- Select best weights at init");
   if(_mutateWeights)   Serial.println ("- Slighlty change weights if needed");
   if(_changeBatch)     Serial.println ("- Variable batch size");
   if(_changeEta)       Serial.println ("- Variable learning rate");
@@ -400,10 +411,10 @@ void MLP::displayHeuristics () {
   if(_shuffleDataset)  Serial.println ("- Shuffle dataset if needed");
   if(_zeroWeights)     Serial.printf  ("- Force weights less than %f to zero\n", _zeroThreshold);
   if(_stopTotalError)  Serial.println ("- Stop optimization if train + test error under threshold");
-  if(_selectWeights)   Serial.println ("- Select best weights at init");
   if(_forceSGD)        Serial.println ("- Force stochastic gradient descent");
   if(_regulL1)         Serial.println ("- Use L1 weight regularization");
   if(_regulL2)         Serial.println ("- Use L2 weight regularization");
+  if(_parallelRun)     Serial.println ("- Compute using both processors")
   Serial.println("---------------------------");
 }
 
@@ -657,7 +668,7 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
       }
 
       // Stop if the objective is reached
-      if (_criterion < _maxErr) {
+      if (_criterion <= _maxErr) {
         if (_verbose > 1) Serial.println(" - Stopping Training and restoring Weights ...");
         Stop = true;
         break;
@@ -692,19 +703,6 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
     iter, _totalEpochs);
   return _testError;
 }
-
-// Single forward and backward process
-// void MLP::simulateNet(float* Input, float* Output, float* Target, bool BackProp)
-// {
-//   setInput(Input);
-//   propagateNet();
-//   getOutput(Output);
-//   computeOutputError(Target);
-//   if (BackProp) {
-//     backpropagateNet();
-//     adjustWeights();
-//   }
-// }
 
 // Train on a batch with no SGD
 void MLP::trainAndTest (DATASET* dataset)
@@ -837,6 +835,7 @@ void MLP::evaluateNet(DATASET* dataset, float threshold)
     }
   }
   if (_verbose > 0) Serial.printf("\nVerifying on %d train data : %2d errors (%.2f%%)\n", _nTrain, nError, 100.0 * nError / _nTrain);
+  _nTrainError = nError;
 
   nError = 0;
   for (int sample = _nTrain; sample < _nData; sample++) {
@@ -860,6 +859,7 @@ void MLP::evaluateNet(DATASET* dataset, float threshold)
   if (_verbose > 0) Serial.printf("Verifying on %d test data  : %2d errors (%.2f%%)\n", _nTest, nError, 100.0 * nError / _nTest);
   _eval = false;
   delete Out;
+  _nTestError = nError;
   // _predict = false;
 }
 
@@ -889,26 +889,74 @@ void MLP::shuffleDataset (DATASET* dataset, int begin, int end)
   }
 }
 
-// // Forward propagation in the network
+
+// Forward propagation : parallel task
 void MLP::propagateNet()
 {
-//   for (int l = 0; l < _numLayers - 1; l++)
-//     propagateLayer(Layer[l], Layer[l + 1]);
-  for (int l = 0; l < _numLayers - 1; l++) {
-    // Softmax case
-    if (l == _numLayers - 2 && OutputLayer->Activation == SOFTMAX) {
-      softmax();
-    } else {
-      // Other activation
-      float Sum;
-      for (int i = 1; i <= Layer[l + 1]->Units; i++) {
-        Sum = 0;
-        for (int j = 0; j <= Layer[l]->Units; j++) {
-          Sum += Layer[l + 1]->Weight[i][j] * Layer[l]->Output[j];
+  if (_parallelRun) { // parallel
+
+    for (int l = 0; l < _numLayers - 1; l++) {
+      // Softmax case
+      if (l == _numLayers - 2 && OutputLayer->Activation == SOFTMAX) {
+        softmax();
+      } else {
+        // Create semaphore for tasks synchronization
+        byte numTasks = 2;
+        if (Layer[l + 1]->Units == 1) numTasks =1;
+        SemaphoreHandle_t barrierSemaphore = xSemaphoreCreateCounting( numTasks, 0 );
+        // Arguments for the tasks
+        argsStruct params[numTasks];
+        if (numTasks == 1) {
+          params[0] = {1, 1, l, this, &barrierSemaphore};
+        } else {
+          int med = (Layer[l + 1]->Units) / 2;
+          params[0] = {1, med, l, this, &barrierSemaphore};
+          params[1] = {med + 1, Layer[l + 1]->Units, l, this, &barrierSemaphore};
+          xTaskCreatePinnedToCore(
+            MLP::forwardTask,         /* Function to implement the task */
+            "Forward1",               /* Name of the task */
+            1000,                      /* Stack size in words */
+            (void*)&params[1],        /* Task input parameter */
+            20,                       /* Priority of the task */
+            NULL,                     /* Task handle */
+            1);                       /* Core where the task runs */
         }
-        Layer[l + 1]->Output[i] = activation (Sum, Layer[l + 1]);
+        xTaskCreatePinnedToCore(
+          MLP::forwardTask,         /* Function to implement the task */
+          "Forward0",               /* Name of the task */
+          1000,                      /* Stack size in words */
+          (void*)&params[0],        /* Task input parameter */
+          20,                       /* Priority of the task */
+          NULL,                     /* Task handle */
+          0);                       /* Core where the task runs */
+
+        // Run tasks and wait until semaphore id released 
+        for (int i = 0; i < numTasks; i++) {
+          xSemaphoreTake(barrierSemaphore, portMAX_DELAY);
+        }
+        vSemaphoreDelete(barrierSemaphore);
       }
     }
+
+  } else { // not parallel
+
+    for (int l = 0; l < _numLayers - 1; l++) {
+      // Softmax case
+      if (l == _numLayers - 2 && OutputLayer->Activation == SOFTMAX) {
+        softmax();
+      } else {
+        // Other activation
+        float Sum;
+        for (int i = 1; i <= Layer[l + 1]->Units; i++) {
+          Sum = 0;
+          for (int j = 0; j <= Layer[l]->Units; j++) {
+            Sum += Layer[l + 1]->Weight[i][j] * Layer[l]->Output[j];
+          }
+          Layer[l + 1]->Output[i] = activation (Sum, Layer[l + 1]);
+        }
+      }
+    }
+// while(Serial.available() == 0);
   }
 }
 
@@ -950,34 +998,6 @@ float MLP::computeOutputError(float* Target, int iBatch, int batch)
   if (_regulL2) Error += regulL2Weights() * _lambdaRegulL2 / batch;
   return Error;
 }
-
-// // Back propagation of the error in the network
-// void MLP::backpropagateNet()
-// {
-//   for (int l = _numLayers - 1; l > 1; l--)
-//     backpropagateLayer(Layer[l], Layer[l - 1]);
-// }
-
-// // Compute the new weights after backpropagation
-// void MLP::adjustWeights()
-// {
-//   float Out, Err, dWeight;
-//   for (int l = 1; l < _numLayers; l++) {
-//     for (int i = 1; i <= Layer[l]->Units; i++) {
-//       for (int j = 0; j <= Layer[l - 1]->Units; j++) {
-//         Out = Layer[l - 1]->Output[j];
-//         Err = Layer[l]->Error[i];
-//         dWeight = Layer[l]->dWeight[i][j];
-//         Layer[l]->Weight[i][j] += Eta * Err * Out + Alpha * dWeight;
-//         Layer[l]->dWeight[i][j] = Eta * Err * Out;
-
-//         // Apply zero weights heuristics
-//         if (_zeroWeights && abs(Layer[l]->Weight[i][j])<_zeroThreshold)
-//           Layer[l]->Weight[i][j] = 0; 
-//       }
-//     }
-//   }
-// }
 
 // Random initialization of the weights
 void MLP::randomWeights(float x)
@@ -1052,7 +1072,6 @@ void MLP::setInput(float* Input, int iBatch)
   //   InputLayer->Output[i] = Input[i - 1];
     for (int i = 1; i <= InputLayer->Units; i++) {
       yield();
-      // InputLayer->Output[i] = Input[i - 1 + _units[0] * iBatch];
       InputLayer->Output[i] = (float) (Input[i - 1 + _units[0] * iBatch] - _inMinVal[i-1]) / _inDelta[i-1];
     }
 }
@@ -1061,6 +1080,58 @@ void MLP::getOutput(float* Output)
 {
   for (int i = 1; i <= OutputLayer->Units; i++)
     Output[i - 1] = OutputLayer->Output[i];
+}
+
+void MLP::backpropagateNet(){
+  float Out, Err;
+  if (_parallelRun) { // parallel
+    for (int l = _numLayers - 1; l > 1; l--) {
+      // Create semaphore for tasks synchronization
+      byte numTasks = 2;
+      SemaphoreHandle_t barrierSemaphore = xSemaphoreCreateCounting( numTasks, 0 );
+      // Arguments for the tasks
+      argsStruct params[numTasks];
+      int med = (Layer[l - 1]->Units) / 2;
+      params[0] = {1, med, l, this, &barrierSemaphore};
+      params[1] = {med + 1, Layer[l - 1]->Units, l, this, &barrierSemaphore};
+
+      xTaskCreatePinnedToCore(
+        MLP::backwardTask,         /* Function to implement the task */
+        "Backward0",               /* Name of the task */
+        1000,                      /* Stack size in words */
+        (void*)&params[0],        /* Task input parameter */
+        20,                       /* Priority of the task */
+        NULL,                     /* Task handle */
+        0);                       /* Core where the task runs */
+
+      xTaskCreatePinnedToCore(
+        MLP::backwardTask,         /* Function to implement the task */
+        "Backward1",               /* Name of the task */
+        1000,                      /* Stack size in words */
+        (void*)&params[1],        /* Task input parameter */
+        20,                       /* Priority of the task */
+        NULL,                     /* Task handle */
+        1);                       /* Core where the task runs */
+      // Run tasks and wait until semaphore id released 
+      for (int i = 0; i < numTasks; i++) {
+        xSemaphoreTake(barrierSemaphore, portMAX_DELAY);
+      }
+      vSemaphoreDelete(barrierSemaphore);
+    }   
+
+  } else { 
+
+    for (int l = _numLayers - 1; l > 1; l--) {
+      for (int i = 1; i <= Layer[l - 1]->Units; i++) {
+        Out = Layer[l - 1]->Output[i];
+        Err = 0;
+        for (int j = 1; j <= Layer[l]->Units; j++)
+          Err += Layer[l]->Weight[j][i] * Layer[l]->Error[j]; // W^l (T) . delta^l
+        Layer[l - 1]->Error[i] = derivActiv (Out, Layer[l-1]) * Err; // delta^(l-1)
+      }
+    }
+  }
+
 }
 
 // Reads a positive integer in a file
@@ -1179,6 +1250,7 @@ void MLP::weightMutation (float proba, float percent)
       }
 }
 
+
 float MLP::predict (float* Input)
 {
  _predict = true;
@@ -1219,6 +1291,7 @@ void MLP::processDataset (DATASET* dataset)
       if (dataset->data[i].In[j] > _inMaxVal) _inMaxVal = dataset->data[i].In[j];
     }
   _inDelta[j] = _inMaxVal - _inMinVal[j];
+  if (_inDelta[j] == 0) _inDelta[j] = 1.0f;
   }
 
   // Out data
@@ -1244,9 +1317,11 @@ void MLP::processDataset (DATASET* dataset)
 }
 
 // Provide the values of errors on the training and testing sets
-void MLP::getError (float *trainError, float *testError) {
+void MLP::getError (float *trainError, float *testError, int *nTrainError, int *nTestError) {
   *trainError = _trainError;
   *testError = _testError;
+  *nTrainError = _nTrainError;
+  *nTestError = _nTestError;
 }
 
 int MLP::getTotalEpochs () { return _totalEpochs; }
@@ -1271,6 +1346,14 @@ void MLP::softmax () {
   }
   delete sum;
   return;
+}
+
+float* MLP::getSoftmaxValues () {
+  static float values[30]; // Set max output number at 30
+  for (int i = 1; i <= OutputLayer->Units; i++) {
+    values[i - 1] = OutputLayer->Output[i];
+  }
+  return values;
 }
 
 // This is the heart of the neural network : forward and back propagation
@@ -1305,15 +1388,7 @@ void MLP::process (float* Input, float* Output, float* Target, int batch) {
     float Out, Err, Grad, Targ;
 
   // Backpropagate error
-    for (int l = _numLayers - 1; l > 1; l--) {
-      for (int i = 1; i <= Layer[l - 1]->Units; i++) {
-        Out = Layer[l - 1]->Output[i];
-        Err = 0;
-        for (int j = 1; j <= Layer[l]->Units; j++)
-          Err += Layer[l]->Weight[j][i] * Layer[l]->Error[j]; // W^l (T) . delta^l
-        Layer[l - 1]->Error[i] = derivActiv (Out, Layer[l-1]) * Err; // delta^(l-1)
-      }
-    }
+    backpropagateNet();
     
   // Adjust delta weights
     for (int l = 1; l < _numLayers; l++) 

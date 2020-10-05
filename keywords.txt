@@ -23,6 +23,8 @@ netSave	KEYWORD2
 readCsvFromSpiffs	KEYWORD2
 createDataset	KEYWORD2
 destroyDataset	KEYWORD2
+shuffleDataset	KEYWORD2
+processDataset	KEYWORD2
 displayNetwork	KEYWORD2
 begin	KEYWORD2
 initLearn	KEYWORD2
@@ -81,13 +83,11 @@ predict	KEYWORD2
 getError	KEYWORD2
 getTrainSetError	KEYWORD2
 getTestSetError	KEYWORD2
+getSoftmaxValues	KEYWORD2
 
 estimateDuration	KEYWORD2
-shuffleDataset	KEYWORD2
-propagateLayer	KEYWORD2
 propagateNet	KEYWORD2
 computeOutputError	KEYWORD2
-backpropagateLayer	KEYWORD2
 backpropagateNet	KEYWORD2
 adjustWeights	KEYWORD2
 randomWeights	KEYWORD2

@@ -41,7 +41,7 @@
 #define H_INIT_OPTIM     0x01  // if you initialize optimize
 #define H_CHAN_WEIGH     0x02  // for brand new random weights
 #define H_MUTA_WEIGH     0x04  // to slightly change the weights
-#define H_CHAN_BATCH     0x08  // to change natch size
+#define H_CHAN_BATCH     0x08  // to change batch size
 #define H_CHAN_LRATE     0x10  // to change the learning rate
 #define H_CHAN_SGAIN     0x20  // to change the sigmoid gain
 #define H_CHAN_ALPHA     0x40  // to change the sigmoid gain
@@ -152,7 +152,8 @@ class MLP
     void  setEta (float);
     void  setGain (float);
     void  setAnneal (float);
-    void  setActivation (int activation[]);
+    // void  setActivation (int activation[]);
+    void  setActivation (int*);
 /*
     set the verbose level
     0: mute
@@ -251,10 +252,11 @@ class MLP
     void  testNet (DATASET*, bool);
     void  trainAndTest (DATASET*);
     void  evaluateNet (DATASET*, float);
-    void  getError (float*, float*);
+    void  getError (float*, float*, int*, int*);
     float getTrainSetError (DATASET*);
     float getTestSetError (DATASET*);
     int   getTotalEpochs ();
+    float* getSoftmaxValues ();
 
 /*
     Once the net in trained and optimized, use the predict method
@@ -263,7 +265,6 @@ class MLP
     input: a pointer to the array of input data (in the format of the dataset)
     output: a pointer to the array of output result
 */
-    // void  predict (float*, float*);
     float  predict (float*);
 
 /*
@@ -285,13 +286,63 @@ class MLP
     void restoreWeights();
     void weightMutation (float, float);
 
-
-
-    void displayData (DATASET*);
-    void disp(float*, float*, int, int);
+/*
+    Method to control the parallel run of the learning phase
+    if enabled, learning is shared on both cores, reaching x2 speedup
+*/
+    void setParallel (bool);
 
 
   private:
+
+
+    struct argsStruct { // structure to pass arguments to parallel tasks
+      int start;
+      int end;
+      int layer;
+      MLP * instance;
+      SemaphoreHandle_t * semaphore;
+    };
+
+    // Task for parallel computing of forward propagation
+    static void forwardTask (void * parameters) {
+      int start = ((argsStruct *) parameters)->start;
+      int end   = ((argsStruct *) parameters)->end;
+
+      float Sum;
+      int l = ((argsStruct *) parameters)->layer;
+      LAYER* L  = ((argsStruct *) parameters)->instance->Layer[l];
+      LAYER* LP = ((argsStruct *) parameters)->instance->Layer[l + 1];
+      for (int i = start; i <= end; i++) {
+        Sum = 0;
+        for (int j = 0; j <= L->Units; j++) {
+          Sum += LP->Weight[i][j] * L->Output[j];
+        }
+        LP->Output[i] = ((argsStruct *) parameters)->instance->activation (Sum, LP);
+      }  
+      xSemaphoreGive(*((argsStruct *) parameters)->semaphore);
+      vTaskDelete(NULL);
+    }
+
+    // Task for parallel computing of backward propagation
+    static void backwardTask (void * parameters) {
+      int start = ((argsStruct *) parameters)->start;
+      int end   = ((argsStruct *) parameters)->end;
+
+      float Out, Err;
+      int l = ((argsStruct *) parameters)->layer;
+      LAYER* L  = ((argsStruct *) parameters)->instance->Layer[l];
+      LAYER* LP = ((argsStruct *) parameters)->instance->Layer[l - 1];
+      for (int i = start; i <= end; i++) {
+        Out = LP->Output[i];
+        Err = 0;
+        for (int j = 1; j <= L->Units; j++)
+          Err += L->Weight[j][i] * L->Error[j]; // W^l (T) . delta^l
+        LP->Error[i] = ((argsStruct *) parameters)->instance->derivActiv (Out, LP) * Err; // delta^(l-1)
+      }
+      xSemaphoreGive(*((argsStruct *) parameters)->semaphore);
+      vTaskDelete(NULL);
+    }
 
     // Parameters of the network
     LAYER**  Layer;         /* - layers of this net           */
@@ -306,9 +357,11 @@ class MLP
     float    GainSave;      /* - saved gain                   */
 
     // Private variables
+    bool     _parallelRun = false;
     int      _units[MAX_LAYERS], _numLayers;
     int      _activations[MAX_LAYERS] = {0};
     int      _nData, _nTrain, _nTest;
+    int      _nTrainError, _nTestError;
     float    _ratio = 0.8f;
     int      _iters, _epochs, _batchSize;
     float    _anneal = 0.8f;
@@ -355,12 +408,11 @@ class MLP
     // Private methods
     void  simulateNet(float*, float*, float*, bool);
     void  process(float*, float*, float*, int);
-    void  propagateLayer(LAYER*, LAYER*);
     void  propagateNet();
-    void  computeOutputError(float*);
-    void  backpropagateLayer(LAYER*, LAYER*);
     void  backpropagateNet();
-    void  setInput(float*);
+    float computeOutputError(float*, int, int);
+    void  initBatch();
+    void  setInput(float*, int);
     void  getOutput(float*);
     void  adjustWeights();
     int   randomInt(int, int);
@@ -370,6 +422,9 @@ class MLP
     float activation (float, LAYER*);
     float derivActiv (float, LAYER*);
     void  softmax ();
+
+    // void  forwardTask(void*);
+    // static void startForwardTask(void*);
 };
 
 #endif
