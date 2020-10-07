@@ -414,7 +414,7 @@ void MLP::displayHeuristics () {
   if(_forceSGD)        Serial.println ("- Force stochastic gradient descent");
   if(_regulL1)         Serial.println ("- Use L1 weight regularization");
   if(_regulL2)         Serial.println ("- Use L2 weight regularization");
-  if(_parallelRun)     Serial.println ("- Compute using both processors")
+  if(_parallelRun)     Serial.println ("- Compute using both processors");
   Serial.println("---------------------------");
 }
 
