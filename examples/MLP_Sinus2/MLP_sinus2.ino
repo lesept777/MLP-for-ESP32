@@ -31,6 +31,7 @@ void setup() {
   // Training
   unsigned long chrono = millis();
   float trainError, testError;
+  int nTrainError, nTestError;
   Net.randomWeights (0.5f);
   Net.shuffleDataset (&dataset, 0, nData);
   Net.setBatchSize (30);
@@ -38,7 +39,7 @@ void setup() {
   for (int e = 0; e < 5000; e++) { // 5000 training epochs
     Net.trainNetSGD (&dataset);
     Net.testNet (&dataset, true);
-    Net.getError (&trainError, &testError);
+    Net.getError (&trainError, &testError, &nTrainError, &nTestError);
     if (testError < minError) {
       minError = testError * 0.9;
       Serial.printf("Epoch %4d Error = %.3f\n", e, minError);
