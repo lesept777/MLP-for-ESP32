@@ -162,11 +162,11 @@ Net.setHeurShuffleDataset(false);
 Keep filenames short, under 16 characters total. Otherwise, you may get strange results, due to the fact that the dataset is not read from SPIFFS for example.
 
 For large datasets (such as the Mines example), you may need to increase some parameters, such as:
-in MLP.h
+in `MLP.h`
 ```
 #define MAX_INPUT    70      // Maximum number of neurons in input layer
 ```
-in MLP.cpp, MLP::readCsvFromSpiffs (around line 159), increase the length of the buffer array
+in `MLP.cpp`, `MLP::readCsvFromSpiffs` (around line 159), increase the length of the buffer array
 ```
   char buffer[500];
 ```
