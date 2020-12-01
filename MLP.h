@@ -34,7 +34,7 @@
 
 #define MAX_LAYERS    8      // Maximum number of layers
 #ifndef MAX_INPUT
-#define MAX_INPUT    40      // Maximum number of neurons in input layer
+#define MAX_INPUT    70      // Maximum number of neurons in input layer
 #endif
 
 // Heuristics options: set them if...

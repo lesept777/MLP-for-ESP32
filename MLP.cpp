@@ -156,7 +156,7 @@ int MLP::readCsvFromSpiffs (const char* const path, DATASET * dataset,
     Serial.printf("%s - failed to open file for reading\n", path);
     return 0;
   }
-  char buffer[400];
+  char buffer[500];
   char * pch;
 
   // If nData is provided
@@ -870,6 +870,7 @@ void MLP::evaluateNet(DATASET* dataset, float threshold)
 uint32_t MLP::estimateDuration (DATASET* dataset)
 {
   saveWeights();
+  randomWeights(0.5f);
   unsigned long chrono = millis();
   trainNetSGD(dataset);
   testNet(dataset, false);
@@ -951,6 +952,7 @@ void MLP::propagateNet()
           Sum = 0;
           for (int j = 0; j <= Layer[l]->Units; j++) {
             Sum += Layer[l + 1]->Weight[i][j] * Layer[l]->Output[j];
+            // Serial.printf("%d %d %d %f %f %f\n",l,i,j,Layer[l + 1]->Weight[i][j], Layer[l]->Output[j],Sum);
           }
           Layer[l + 1]->Output[i] = activation (Sum, Layer[l + 1]);
         }
