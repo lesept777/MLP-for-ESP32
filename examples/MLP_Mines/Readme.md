@@ -4,11 +4,11 @@ This is the data set used by Gorman and Sejnowski in their study of the classifi
 task is to train a network to discriminate between sonar signals bounced off a metal cylinder and those bounced off a roughly cylindrical rock (see the information.txt file).
 
 It's an example of managing a large dataset : 208 lines of 60 inputs. Some changes were made in the library to handle this big dataset:
-in MLP.h
+in `MLP.h`
 ```
 #define MAX_INPUT    70      // Maximum number of neurons in input layer
 ```
-in MLP.cpp, MLP::readCsvFromSpiffs (around line 159), increase the length of the buffer array
+in `MLP.cpp`, `MLP::readCsvFromSpiffs` (around line 159), increase the length of the buffer array
 ```
   char buffer[500];
 ```
