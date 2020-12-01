@@ -29,3 +29,6 @@ The well-known ML test: predict the class of Iris plant (0 = Iris Setosa, 1 = Ir
 
 ## MLP_Breast_Cancer
 An example of a large number of features (30)
+
+## MLP_Mines
+An example of a large dataset
