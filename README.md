@@ -1,7 +1,7 @@
 # Multi Layer Perceptron library for ESP32
 This library is designed to be used with the Arduino IDE.
 
-It implements both training and inference phases on a dataset. Datasets can be created in the sketch or read from a csv file. This library is not intended to work with images, only with arrays of floats.
+Multilayer perceptron is decribed [here](https://en.wikipedia.org/wiki/Multilayer_perceptron). This library implements both training and inference phases on a dataset. Datasets can be created in the sketch or read from a csv file. This library is not intended to work with images, only with arrays of floats.
 
 It can address **deep networks**, made of one input layer, multiple hidden layers and one output layer. The output layer can have one neuron for regression, or several neurons for classification (use SIGMOID or SOFTMAX activation for the last layer).
 
@@ -19,20 +19,20 @@ If you want to test it quickly, try the ["sinus" example](https://github.com/les
 To declare a network, just create an array of int with the number of neurons in each layer. The arguments of the constructor are: number of layers, array of neurons, verbose level.
 ```
 // Declare the network
-int Neurons[] = {2, 20, 1};
-MLP Net(3, Neurons, 1);
+int Neurons[] = {2, 20, 1}; // Number of neurons in each layer (from input to output)
+MLP Net(3, Neurons, 1);     // number of layers, array of neurons, verbose level
 ```
 
 ## Create a dataset
-To create a dataset, i.e. allocate memory for the data used for training the network, declare the dataset and call the method `createDataset`. The arguments are the dataset and the number of data.
+To create a dataset, i.e. allocate memory for the data used for training the network, declare the dataset and call the method `createDataset`. The arguments are the dataset and the number of data (for example the number of lines of the csv file).
 ```
-DATASET dataset;
-int nData = 300;
+DATASET dataset;            // Declare the dataset
+int nData = 300;            // Number of data
 int ret = Net.createDataset (&dataset, nData);
 ```
 The structure of a single data is: an array of floats, the output. The array has as many elements as the number of neurons of the input layer.
 
-The dataset can be filled by reading data from a csv file (stored in SPIFFS) or by putting values in it. Example for an input layer with 2 neurons:
+The dataset can be filled by reading data from a csv file (stored in SPIFFS) using the method `readCsvFromSpiffs` or by putting values in it. Example for an input layer with 2 neurons:
 ```
 for (int i = 0; i < nData; i++) {
   dataset.data[i].In[0] = ...;
@@ -46,12 +46,12 @@ Define the parameters of the network.
 ```
 Net.begin (0.8f);
 Net.initLearn (0.9f, 0.5f, 1.0f, 0.8f);
-int Activations[] = {SIGMOID, SIGMOID};
+int Activations[] = {SIGMOID, SIGMOID};  // See below for available activation functions
 Net.setActivation (Activations);
 Net.setMaxError (0.3f);                
 Net.generateNetwork();
 ```
-* `Net.begin (0.8f)` --> Divide the dataset as 80% training and 20% testing
+* `Net.begin (0.8f)` divides the dataset as 80% training and 20% testing
 * `Net.initLearn` defines the values of: the momentum, the learning rate, the gain of the sigmoid activation function, and the change rate of the learning rate.
 * `Net.setMaxError` sets the objective output testing error to stop the training phase.
 
