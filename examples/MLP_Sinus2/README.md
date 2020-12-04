@@ -20,7 +20,7 @@ A maximum of 5000 epochs are run. One epoch is made of the `trainNet` and `testN
 ```
 If the maximum number of epochs is reached or the error is lower than a threshold (0.002), the optimization process is stopped.
 ```
-    Net.getError (&trainError, &testError);
+    Net.getError (&trainError, &testError, &nTrainError, &nTestError);
     if (testError < minError) {
       minError = testError;
       Serial.printf("Epoch %4d Error = %.3f\n", e,minError);
