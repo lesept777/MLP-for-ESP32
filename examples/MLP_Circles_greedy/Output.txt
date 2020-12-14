@@ -1,0 +1,550 @@
+GREEDY SEARCH... INIT
+Dimensions : 15, 10 --> Number of errors : 169,  38 (207) Best case so far...
+
+GREEDY SEARCH... NOW SEARCHING
+Case number 1
+Dimensions : 14,  9 --> Number of errors : 160,  39 (199) Best case so far...
+Dimensions : 16,  9 --> Number of errors : 165,  43 (208)
+
+GREEDY SEARCH... INIT
+Dimensions : 15, 10 --> Number of errors : 153,  41 (194) Best case so far...
+
+GREEDY SEARCH... NOW SEARCHING
+Case number 1
+Dimensions : 14,  9 --> Number of errors : 165,  44 (209)
+Dimensions : 16,  9 --> Number of errors : 158,  35 (193) Best case so far...
+Dimensions : 14, 11 --> Number of errors : 156,  34 (190) Best case so far...
+Dimensions : 16, 11 --> Number of errors : 165,  44 (209)
+
+Case number 2
+Dimensions : 13, 10 --> Number of errors : 164,  41 (205)
+Dimensions : 15, 10 --> Number of errors : 168,  43 (211)
+Dimensions : 13, 12 --> Number of errors : 152,  41 (193)
+Dimensions : 15, 12 --> Number of errors : 149,  36 (185) Best case so far...
+
+Case number 3
+Dimensions : 14, 11 --> Number of errors : 143,  31 (174) Best case so far...
+Dimensions : 16, 11 --> Number of errors : 166,  47 (213)
+Dimensions : 14, 13 --> Number of errors : 159,  33 (192)
+Dimensions : 16, 13 --> Number of errors : 173,  37 (210)
+
+Case number 4
+Dimensions : 13, 10 --> Number of errors : 168,  42 (210)
+Dimensions : 15, 10 --> Number of errors : 153,  38 (191)
+Dimensions : 13, 12 --> Number of errors : 167,  37 (204)
+Dimensions : 15, 12 --> Number of errors : 144,  45 (189)
+Changing step to 2
+
+Case number 5
+Dimensions : 12,  9 --> Number of errors : 158,  42 (200)
+Dimensions : 16,  9 --> Number of errors : 161,  42 (203)
+Dimensions : 12, 13 --> Number of errors : 159,  36 (195)
+Dimensions : 16, 13 --> Number of errors : 157,  43 (200)
+Changing step to 4
+
+Case number 6
+Dimensions : 10,  7 --> Number of errors : 174,  38 (212)
+Dimensions : 18,  7 --> Number of errors : 146,  36 (182)
+Dimensions : 10, 15 --> Number of errors : 136,  38 (174)
+Dimensions : 18, 15 --> Number of errors : 160,  34 (194)
+Changing step to 8
+
+Case number 7
+Dimensions :  6,  3 --> Number of errors : 157,  38 (195)
+Dimensions : 22,  3 --> Number of errors : 174,  47 (221)
+Dimensions :  6, 19 --> Number of errors : 169,  38 (207)
+Dimensions : 22, 19 --> Number of errors : 158,  29 (187)
+Best case :  14,  11, 174 errors
+Training...
+Loading network -> 4 layers 
+layer 0 -> 2 neurons
+layer 1 -> 14 neurons, SIGMOID
+layer 2 -> 11 neurons, SIGMOID
+layer 3 -> 1 neurons, SIGMOID
+Alpha = 0.900000
+Eta = 0.320000
+Gain = 1.600000
+Reading weights : found 219 weights
+
+Processing dataset
+Creating a new network
+Estimated duration for training and optimization: 310000 ms (5 min 10 sec)
+Free Heap: 346140 bytes
+Estimated network size: 3724 bytes
+Estimated dataset size: 3600 bytes
+
+Iteration number 1
+Epoch    0 NMSE is 32.359 on Training Set and  6.849 on Test Set - Saving network ...
+Epoch    1 NMSE is 32.310 on Training Set and  6.853 on Test Set
+Epoch    2 NMSE is 36.005 on Training Set and  6.552 on Test Set - Saving network ...
+Epoch    3 NMSE is 35.186 on Training Set and  6.223 on Test Set - Saving network ...
+Epoch    4 NMSE is 34.472 on Training Set and  5.973 on Test Set - Saving network ...
+Epoch    5 NMSE is 33.902 on Training Set and  5.807 on Test Set - Saving network ...
+Epoch    6 NMSE is 33.503 on Training Set and  5.704 on Test Set - Saving network ...
+Epoch    7 NMSE is 33.237 on Training Set and  5.640 on Test Set - Saving network ...
+Epoch    8 NMSE is 33.058 on Training Set and  5.598 on Test Set - Saving network ...
+Epoch    9 NMSE is 32.933 on Training Set and  5.569 on Test Set - Saving network ...
+Epoch   10 NMSE is 32.842 on Training Set and  5.548 on Test Set - Saving network ...
+Epoch   11 NMSE is 32.774 on Training Set and  5.533 on Test Set - Saving network ...
+Epoch   12 NMSE is 32.722 on Training Set and  5.520 on Test Set - Saving network ...
+Epoch   13 NMSE is 32.682 on Training Set and  5.511 on Test Set - Saving network ...
+Epoch   14 NMSE is 32.649 on Training Set and  5.503 on Test Set - Saving network ...
+Epoch   15 NMSE is 32.623 on Training Set and  5.496 on Test Set - Saving network ...
+Epoch   16 NMSE is 32.602 on Training Set and  5.491 on Test Set - Saving network ...
+Epoch   17 NMSE is 32.585 on Training Set and  5.486 on Test Set - Saving network ...
+Epoch   18 NMSE is 32.570 on Training Set and  5.482 on Test Set - Saving network ...
+Epoch   19 NMSE is 32.558 on Training Set and  5.478 on Test Set - Saving network ...
+Epoch   20 NMSE is 32.548 on Training Set and  5.475 on Test Set - Saving network ...
+Epoch   21 NMSE is 32.540 on Training Set and  5.473 on Test Set
+Epoch   22 NMSE is 32.534 on Training Set and  5.470 on Test Set - Saving network ...
+Epoch   23 NMSE is 32.528 on Training Set and  5.468 on Test Set
+Epoch   24 NMSE is 32.524 on Training Set and  5.466 on Test Set - Saving network ...
+Epoch   25 NMSE is 32.520 on Training Set and  5.464 on Test Set
+Epoch   26 NMSE is 32.517 on Training Set and  5.463 on Test Set - Saving network ...
+Epoch   27 NMSE is 32.515 on Training Set and  5.461 on Test Set
+Epoch   28 NMSE is 32.513 on Training Set and  5.460 on Test Set
+Epoch   29 NMSE is 32.512 on Training Set and  5.459 on Test Set - Saving network ...
+Epoch   30 NMSE is 32.512 on Training Set and  5.457 on Test Set
+Epoch   31 NMSE is 32.512 on Training Set and  5.456 on Test Set
+Epoch   32 NMSE is 32.512 on Training Set and  5.455 on Test Set - Saving network ...
+Epoch   33 NMSE is 32.513 on Training Set and  5.454 on Test Set
+Epoch   34 NMSE is 32.514 on Training Set and  5.453 on Test Set
+Epoch   35 NMSE is 32.515 on Training Set and  5.453 on Test Set
+Epoch   36 NMSE is 32.517 on Training Set and  5.452 on Test Set - Saving network ...
+Epoch   37 NMSE is 32.519 on Training Set and  5.451 on Test Set
+Epoch   38 NMSE is 32.521 on Training Set and  5.450 on Test Set
+Epoch   39 NMSE is 32.523 on Training Set and  5.450 on Test Set
+Epoch   40 NMSE is 32.525 on Training Set and  5.449 on Test Set
+Epoch   41 NMSE is 32.528 on Training Set and  5.448 on Test Set - Saving network ...
+Epoch   42 NMSE is 32.531 on Training Set and  5.448 on Test Set
+Epoch   43 NMSE is 32.534 on Training Set and  5.447 on Test Set
+Epoch   44 NMSE is 32.537 on Training Set and  5.447 on Test Set
+Epoch   45 NMSE is 32.541 on Training Set and  5.446 on Test Set
+Epoch   46 NMSE is 32.544 on Training Set and  5.446 on Test Set
+Epoch   47 NMSE is 32.548 on Training Set and  5.445 on Test Set - Saving network ...
+Epoch   48 NMSE is 32.552 on Training Set and  5.445 on Test Set
+Epoch   49 NMSE is 32.555 on Training Set and  5.444 on Test Set
+Epoch   50 NMSE is 32.560 on Training Set and  5.444 on Test Set
+Epoch   51 NMSE is 32.564 on Training Set and  5.443 on Test Set
+Epoch   52 NMSE is 32.568 on Training Set and  5.443 on Test Set
+Epoch   53 NMSE is 32.572 on Training Set and  5.443 on Test Set
+Epoch   54 NMSE is 32.577 on Training Set and  5.442 on Test Set
+Epoch   55 NMSE is 32.582 on Training Set and  5.442 on Test Set - Saving network ...
+Epoch   56 NMSE is 32.586 on Training Set and  5.441 on Test Set
+Epoch   57 NMSE is 32.591 on Training Set and  5.441 on Test Set
+Epoch   58 NMSE is 32.596 on Training Set and  5.441 on Test Set
+Epoch   59 NMSE is 32.601 on Training Set and  5.440 on Test Set
+Epoch   60 NMSE is 32.606 on Training Set and  5.440 on Test Set
+Epoch   61 NMSE is 32.612 on Training Set and  5.440 on Test Set
+Epoch   62 NMSE is 32.617 on Training Set and  5.439 on Test Set
+Epoch   63 NMSE is 32.622 on Training Set and  5.439 on Test Set
+Epoch   64 NMSE is 32.628 on Training Set and  5.439 on Test Set - Saving network ...
+Epoch   65 NMSE is 32.634 on Training Set and  5.438 on Test Set
+Epoch   66 NMSE is 32.639 on Training Set and  5.438 on Test Set
+Epoch   67 NMSE is 32.645 on Training Set and  5.438 on Test Set
+Epoch   68 NMSE is 32.651 on Training Set and  5.438 on Test Set
+Epoch   69 NMSE is 32.657 on Training Set and  5.437 on Test Set
+Epoch   70 NMSE is 32.663 on Training Set and  5.437 on Test Set
+Epoch   71 NMSE is 32.669 on Training Set and  5.437 on Test Set
+Epoch   72 NMSE is 32.676 on Training Set and  5.436 on Test Set
+Epoch   73 NMSE is 32.682 on Training Set and  5.436 on Test Set
+Epoch   74 NMSE is 32.688 on Training Set and  5.436 on Test Set
+Epoch   75 NMSE is 32.695 on Training Set and  5.436 on Test Set - Saving network ...
+Epoch   76 NMSE is 32.701 on Training Set and  5.435 on Test Set
+Epoch   77 NMSE is 32.708 on Training Set and  5.435 on Test Set
+Epoch   78 NMSE is 32.715 on Training Set and  5.435 on Test Set
+Epoch   79 NMSE is 32.722 on Training Set and  5.434 on Test Set
+Epoch   80 NMSE is 32.728 on Training Set and  5.434 on Test Set
+Epoch   81 NMSE is 32.735 on Training Set and  5.434 on Test Set
+Epoch   82 NMSE is 32.742 on Training Set and  5.434 on Test Set
+Epoch   83 NMSE is 32.749 on Training Set and  5.433 on Test Set
+Epoch   84 NMSE is 32.757 on Training Set and  5.433 on Test Set
+Epoch   85 NMSE is 32.764 on Training Set and  5.433 on Test Set
+Epoch   86 NMSE is 32.771 on Training Set and  5.433 on Test Set
+Epoch   87 NMSE is 32.779 on Training Set and  5.432 on Test Set - Saving network ...
+Epoch   88 NMSE is 32.786 on Training Set and  5.432 on Test Set
+Epoch   89 NMSE is 32.793 on Training Set and  5.432 on Test Set
+Epoch   90 NMSE is 32.801 on Training Set and  5.432 on Test Set
+Epoch   91 NMSE is 32.809 on Training Set and  5.431 on Test Set
+Epoch   92 NMSE is 32.816 on Training Set and  5.431 on Test Set
+Epoch   93 NMSE is 32.824 on Training Set and  5.431 on Test Set
+Epoch   94 NMSE is 32.832 on Training Set and  5.431 on Test Set
+Epoch   95 NMSE is 32.840 on Training Set and  5.430 on Test Set
+Epoch   96 NMSE is 32.848 on Training Set and  5.430 on Test Set
+Epoch   97 NMSE is 32.856 on Training Set and  5.430 on Test Set
+Epoch   98 NMSE is 32.864 on Training Set and  5.430 on Test Set
+Epoch   99 NMSE is 32.872 on Training Set and  5.429 on Test Set
+Epoch  100 NMSE is 32.880 on Training Set and  5.429 on Test Set - Saving network ...
+Epoch  101 NMSE is 32.889 on Training Set and  5.429 on Test Set
+Epoch  102 NMSE is 32.897 on Training Set and  5.429 on Test Set
+Epoch  103 NMSE is 32.905 on Training Set and  5.428 on Test Set
+Epoch  104 NMSE is 32.914 on Training Set and  5.428 on Test Set
+Epoch  105 NMSE is 32.922 on Training Set and  5.428 on Test Set
+Epoch  106 NMSE is 32.931 on Training Set and  5.428 on Test Set
+Epoch  107 NMSE is 32.939 on Training Set and  5.427 on Test Set
+Epoch  108 NMSE is 32.948 on Training Set and  5.427 on Test Set
+Epoch  109 NMSE is 32.956 on Training Set and  5.427 on Test Set
+Epoch  110 NMSE is 32.965 on Training Set and  5.427 on Test Set
+Epoch  111 NMSE is 32.974 on Training Set and  5.426 on Test Set
+Epoch  112 NMSE is 32.983 on Training Set and  5.426 on Test Set
+Epoch  113 NMSE is 32.992 on Training Set and  5.426 on Test Set - Saving network ...
+Epoch  114 NMSE is 33.000 on Training Set and  5.426 on Test Set
+Epoch  115 NMSE is 33.009 on Training Set and  5.426 on Test Set
+Epoch  116 NMSE is 33.018 on Training Set and  5.425 on Test Set
+Epoch  117 NMSE is 33.027 on Training Set and  5.425 on Test Set
+Epoch  118 NMSE is 33.036 on Training Set and  5.425 on Test Set
+Epoch  119 NMSE is 33.045 on Training Set and  5.425 on Test Set
+Epoch  120 NMSE is 33.054 on Training Set and  5.424 on Test Set
+Epoch  121 NMSE is 33.064 on Training Set and  5.424 on Test Set
+Epoch  122 NMSE is 33.073 on Training Set and  5.424 on Test Set
+Epoch  123 NMSE is 33.082 on Training Set and  5.424 on Test Set
+Epoch  124 NMSE is 33.091 on Training Set and  5.423 on Test Set
+Epoch  125 NMSE is 33.100 on Training Set and  5.423 on Test Set
+Epoch  126 NMSE is 33.110 on Training Set and  5.423 on Test Set - Saving network ...
+Epoch  127 NMSE is 33.119 on Training Set and  5.423 on Test Set
+Epoch  128 NMSE is 33.128 on Training Set and  5.422 on Test Set
+Epoch  129 NMSE is 33.138 on Training Set and  5.422 on Test Set
+Epoch  130 NMSE is 33.147 on Training Set and  5.422 on Test Set
+Epoch  131 NMSE is 33.157 on Training Set and  5.422 on Test Set
+Epoch  132 NMSE is 33.166 on Training Set and  5.421 on Test Set
+Epoch  133 NMSE is 33.175 on Training Set and  5.421 on Test Set
+Epoch  134 NMSE is 33.185 on Training Set and  5.421 on Test Set
+Epoch  135 NMSE is 33.195 on Training Set and  5.420 on Test Set
+Epoch  136 NMSE is 33.204 on Training Set and  5.420 on Test Set
+Epoch  137 NMSE is 33.214 on Training Set and  5.420 on Test Set
+Epoch  138 NMSE is 33.223 on Training Set and  5.420 on Test Set - Saving network ...
+Epoch  139 NMSE is 33.233 on Training Set and  5.419 on Test Set
+Epoch  140 NMSE is 33.243 on Training Set and  5.419 on Test Set
+Epoch  141 NMSE is 33.252 on Training Set and  5.419 on Test Set
+Epoch  142 NMSE is 33.262 on Training Set and  5.419 on Test Set
+Epoch  143 NMSE is 33.272 on Training Set and  5.418 on Test Set
+Epoch  144 NMSE is 33.282 on Training Set and  5.418 on Test Set
+Epoch  145 NMSE is 33.292 on Training Set and  5.418 on Test Set
+Epoch  146 NMSE is 33.302 on Training Set and  5.417 on Test Set
+Epoch  147 NMSE is 33.311 on Training Set and  5.417 on Test Set
+Epoch  148 NMSE is 33.321 on Training Set and  5.417 on Test Set
+Epoch  149 NMSE is 33.331 on Training Set and  5.417 on Test Set - Saving network ...
+Epoch  150 NMSE is 33.341 on Training Set and  5.416 on Test Set
+Epoch  151 NMSE is 33.351 on Training Set and  5.416 on Test Set
+Epoch  152 NMSE is 33.362 on Training Set and  5.416 on Test Set
+Epoch  153 NMSE is 33.372 on Training Set and  5.415 on Test Set
+Epoch  154 NMSE is 33.382 on Training Set and  5.415 on Test Set
+Epoch  155 NMSE is 33.392 on Training Set and  5.415 on Test Set
+Epoch  156 NMSE is 33.402 on Training Set and  5.414 on Test Set
+Epoch  157 NMSE is 33.413 on Training Set and  5.414 on Test Set
+Epoch  158 NMSE is 33.423 on Training Set and  5.414 on Test Set
+Epoch  159 NMSE is 33.434 on Training Set and  5.413 on Test Set - Saving network ...
+Epoch  160 NMSE is 33.444 on Training Set and  5.413 on Test Set
+Epoch  161 NMSE is 33.455 on Training Set and  5.413 on Test Set
+Epoch  162 NMSE is 33.465 on Training Set and  5.412 on Test Set
+Epoch  163 NMSE is 33.476 on Training Set and  5.412 on Test Set
+Epoch  164 NMSE is 33.487 on Training Set and  5.412 on Test Set
+Epoch  165 NMSE is 33.497 on Training Set and  5.411 on Test Set
+Epoch  166 NMSE is 33.508 on Training Set and  5.411 on Test Set
+Epoch  167 NMSE is 33.519 on Training Set and  5.411 on Test Set
+Epoch  168 NMSE is 33.530 on Training Set and  5.410 on Test Set - Saving network ...
+Epoch  169 NMSE is 33.541 on Training Set and  5.410 on Test Set
+Epoch  170 NMSE is 33.552 on Training Set and  5.409 on Test Set
+Epoch  171 NMSE is 33.564 on Training Set and  5.409 on Test Set
+Epoch  172 NMSE is 33.575 on Training Set and  5.409 on Test Set
+Epoch  173 NMSE is 33.586 on Training Set and  5.408 on Test Set
+Epoch  174 NMSE is 33.598 on Training Set and  5.408 on Test Set
+Epoch  175 NMSE is 33.609 on Training Set and  5.407 on Test Set
+Epoch  176 NMSE is 33.621 on Training Set and  5.407 on Test Set - Saving network ...
+Epoch  177 NMSE is 33.633 on Training Set and  5.406 on Test Set
+Epoch  178 NMSE is 33.645 on Training Set and  5.406 on Test Set
+Epoch  179 NMSE is 33.657 on Training Set and  5.405 on Test Set
+Epoch  180 NMSE is 33.669 on Training Set and  5.405 on Test Set
+Epoch  181 NMSE is 33.681 on Training Set and  5.405 on Test Set
+Epoch  182 NMSE is 33.693 on Training Set and  5.404 on Test Set
+Epoch  183 NMSE is 33.706 on Training Set and  5.403 on Test Set - Saving network ...
+Epoch  184 NMSE is 33.718 on Training Set and  5.403 on Test Set
+Epoch  185 NMSE is 33.731 on Training Set and  5.402 on Test Set
+Epoch  186 NMSE is 33.744 on Training Set and  5.402 on Test Set
+Epoch  187 NMSE is 33.757 on Training Set and  5.401 on Test Set
+Epoch  188 NMSE is 33.770 on Training Set and  5.401 on Test Set
+Epoch  189 NMSE is 33.783 on Training Set and  5.400 on Test Set - Saving network ...
+Epoch  190 NMSE is 33.796 on Training Set and  5.399 on Test Set
+Epoch  191 NMSE is 33.810 on Training Set and  5.399 on Test Set
+Epoch  192 NMSE is 33.823 on Training Set and  5.398 on Test Set
+Epoch  193 NMSE is 33.837 on Training Set and  5.398 on Test Set
+Epoch  194 NMSE is 33.851 on Training Set and  5.397 on Test Set - Saving network ...
+Epoch  195 NMSE is 33.866 on Training Set and  5.396 on Test Set
+Epoch  196 NMSE is 33.880 on Training Set and  5.395 on Test Set
+Epoch  197 NMSE is 33.894 on Training Set and  5.395 on Test Set
+Epoch  198 NMSE is 33.909 on Training Set and  5.394 on Test Set
+Epoch  199 NMSE is 33.924 on Training Set and  5.393 on Test Set - Saving network ...
+Epoch  200 NMSE is 33.939 on Training Set and  5.392 on Test Set
+Epoch  201 NMSE is 33.955 on Training Set and  5.391 on Test Set
+Epoch  202 NMSE is 33.970 on Training Set and  5.391 on Test Set
+Epoch  203 NMSE is 33.986 on Training Set and  5.390 on Test Set - Saving network ...
+Epoch  204 NMSE is 34.002 on Training Set and  5.389 on Test Set
+Epoch  205 NMSE is 34.018 on Training Set and  5.388 on Test Set
+Epoch  206 NMSE is 34.035 on Training Set and  5.387 on Test Set
+Epoch  207 NMSE is 34.051 on Training Set and  5.386 on Test Set - Saving network ...
+Epoch  208 NMSE is 34.068 on Training Set and  5.385 on Test Set
+Epoch  209 NMSE is 34.085 on Training Set and  5.384 on Test Set
+Epoch  210 NMSE is 34.103 on Training Set and  5.383 on Test Set - Saving network ...
+Epoch  211 NMSE is 34.121 on Training Set and  5.382 on Test Set
+Epoch  212 NMSE is 34.139 on Training Set and  5.380 on Test Set
+Epoch  213 NMSE is 34.157 on Training Set and  5.379 on Test Set - Saving network ...
+Epoch  214 NMSE is 34.175 on Training Set and  5.378 on Test Set
+Epoch  215 NMSE is 34.194 on Training Set and  5.377 on Test Set
+Epoch  216 NMSE is 34.213 on Training Set and  5.375 on Test Set - Saving network ...
+Epoch  217 NMSE is 34.233 on Training Set and  5.374 on Test Set
+Epoch  218 NMSE is 34.252 on Training Set and  5.372 on Test Set
+Epoch  219 NMSE is 34.272 on Training Set and  5.371 on Test Set - Saving network ...
+Epoch  220 NMSE is 34.293 on Training Set and  5.369 on Test Set
+Epoch  221 NMSE is 34.313 on Training Set and  5.368 on Test Set - Saving network ...
+Epoch  222 NMSE is 34.334 on Training Set and  5.366 on Test Set
+Epoch  223 NMSE is 34.355 on Training Set and  5.364 on Test Set - Saving network ...
+Epoch  224 NMSE is 34.376 on Training Set and  5.362 on Test Set
+Epoch  225 NMSE is 34.398 on Training Set and  5.360 on Test Set - Saving network ...
+Epoch  226 NMSE is 34.420 on Training Set and  5.359 on Test Set
+Epoch  227 NMSE is 34.442 on Training Set and  5.356 on Test Set - Saving network ...
+Epoch  228 NMSE is 34.465 on Training Set and  5.354 on Test Set
+Epoch  229 NMSE is 34.487 on Training Set and  5.352 on Test Set - Saving network ...
+Epoch  230 NMSE is 34.510 on Training Set and  5.350 on Test Set
+Epoch  231 NMSE is 34.533 on Training Set and  5.347 on Test Set - Saving network ...
+Epoch  232 NMSE is 34.557 on Training Set and  5.345 on Test Set
+Epoch  233 NMSE is 34.580 on Training Set and  5.342 on Test Set - Saving network ...
+Epoch  234 NMSE is 34.603 on Training Set and  5.340 on Test Set
+Epoch  235 NMSE is 34.627 on Training Set and  5.337 on Test Set - Saving network ...
+Epoch  236 NMSE is 34.651 on Training Set and  5.334 on Test Set
+Epoch  237 NMSE is 34.674 on Training Set and  5.331 on Test Set - Saving network ...
+Epoch  238 NMSE is 34.697 on Training Set and  5.328 on Test Set - Saving network ...
+Epoch  239 NMSE is 34.721 on Training Set and  5.324 on Test Set - Saving network ...
+Epoch  240 NMSE is 34.744 on Training Set and  5.321 on Test Set - Saving network ...
+Epoch  241 NMSE is 34.766 on Training Set and  5.317 on Test Set - Saving network ...
+
+...
+
+
+Epoch  398 NMSE is  1.975 on Training Set and  0.905 on Test Set - Saving network ...
+Epoch  399 NMSE is  1.968 on Training Set and  0.903 on Test Set
+Iteration number 2
+Epoch    0 NMSE is  1.968 on Training Set and  0.903 on Test Set
+Epoch    1 NMSE is  1.961 on Training Set and  0.902 on Test Set
+Epoch    2 NMSE is  1.955 on Training Set and  0.901 on Test Set - Saving network ...
+Epoch    3 NMSE is  1.949 on Training Set and  0.900 on Test Set
+Epoch    4 NMSE is  1.943 on Training Set and  0.898 on Test Set
+Epoch    5 NMSE is  1.938 on Training Set and  0.897 on Test Set - Saving network ...
+Epoch    6 NMSE is  1.932 on Training Set and  0.896 on Test Set
+Epoch    7 NMSE is  1.927 on Training Set and  0.895 on Test Set
+Epoch    8 NMSE is  1.922 on Training Set and  0.894 on Test Set - Saving network ...
+Epoch    9 NMSE is  1.918 on Training Set and  0.893 on Test Set
+Epoch   10 NMSE is  1.913 on Training Set and  0.892 on Test Set
+Epoch   11 NMSE is  1.909 on Training Set and  0.891 on Test Set - Saving network ...
+Epoch   12 NMSE is  1.905 on Training Set and  0.890 on Test Set
+Epoch   13 NMSE is  1.901 on Training Set and  0.889 on Test Set
+Epoch   14 NMSE is  1.897 on Training Set and  0.888 on Test Set
+Epoch   15 NMSE is  1.893 on Training Set and  0.887 on Test Set - Saving network ...
+Epoch   16 NMSE is  1.890 on Training Set and  0.886 on Test Set
+Epoch   17 NMSE is  1.887 on Training Set and  0.885 on Test Set
+Epoch   18 NMSE is  1.883 on Training Set and  0.884 on Test Set
+Epoch   19 NMSE is  1.880 on Training Set and  0.883 on Test Set - Saving network ...
+Epoch   20 NMSE is  1.878 on Training Set and  0.883 on Test Set
+Epoch   21 NMSE is  1.875 on Training Set and  0.882 on Test Set
+Epoch   22 NMSE is  1.872 on Training Set and  0.881 on Test Set
+Epoch   23 NMSE is  1.870 on Training Set and  0.880 on Test Set - Saving network ...
+Epoch   24 NMSE is  1.868 on Training Set and  0.879 on Test Set
+Epoch   25 NMSE is  1.865 on Training Set and  0.879 on Test Set
+Epoch   26 NMSE is  1.863 on Training Set and  0.878 on Test Set
+Epoch   27 NMSE is  1.861 on Training Set and  0.877 on Test Set - Saving network ...
+Epoch   28 NMSE is  1.859 on Training Set and  0.876 on Test Set
+Epoch   29 NMSE is  1.858 on Training Set and  0.876 on Test Set
+Epoch   30 NMSE is  1.856 on Training Set and  0.875 on Test Set
+Epoch   31 NMSE is  1.854 on Training Set and  0.874 on Test Set
+Epoch   32 NMSE is  1.853 on Training Set and  0.873 on Test Set - Saving network ...
+Epoch   33 NMSE is  1.851 on Training Set and  0.873 on Test Set
+Epoch   34 NMSE is  1.850 on Training Set and  0.872 on Test Set
+Epoch   35 NMSE is  1.849 on Training Set and  0.871 on Test Set
+Epoch   36 NMSE is  1.848 on Training Set and  0.871 on Test Set
+Epoch   37 NMSE is  1.847 on Training Set and  0.870 on Test Set - Saving network ...
+Epoch   38 NMSE is  1.846 on Training Set and  0.869 on Test Set
+Epoch   39 NMSE is  1.845 on Training Set and  0.869 on Test Set
+Epoch   40 NMSE is  1.844 on Training Set and  0.868 on Test Set
+Epoch   41 NMSE is  1.843 on Training Set and  0.868 on Test Set
+Epoch   42 NMSE is  1.843 on Training Set and  0.867 on Test Set - Saving network ...
+Epoch   43 NMSE is  1.842 on Training Set and  0.866 on Test Set
+Epoch   44 NMSE is  1.842 on Training Set and  0.866 on Test Set
+Epoch   45 NMSE is  1.841 on Training Set and  0.865 on Test Set
+Epoch   46 NMSE is  1.841 on Training Set and  0.865 on Test Set
+Epoch   47 NMSE is  1.840 on Training Set and  0.864 on Test Set
+Epoch   48 NMSE is  1.840 on Training Set and  0.864 on Test Set - Saving network ...
+Epoch   49 NMSE is  1.840 on Training Set and  0.863 on Test Set
+Epoch   50 NMSE is  1.839 on Training Set and  0.863 on Test Set
+Epoch   51 NMSE is  1.839 on Training Set and  0.862 on Test Set
+Epoch   52 NMSE is  1.839 on Training Set and  0.862 on Test Set
+Epoch   53 NMSE is  1.839 on Training Set and  0.861 on Test Set
+Epoch   54 NMSE is  1.839 on Training Set and  0.861 on Test Set - Saving network ...
+Epoch   55 NMSE is  1.839 on Training Set and  0.860 on Test Set
+Epoch   56 NMSE is  1.839 on Training Set and  0.860 on Test Set
+
+...
+
+
+Epoch  393 NMSE is  1.239 on Training Set and  0.197 on Test Set
+Epoch  394 NMSE is  1.233 on Training Set and  0.197 on Test Set
+Epoch  395 NMSE is  1.228 on Training Set and  0.198 on Test Set
+Epoch  396 NMSE is  1.223 on Training Set and  0.198 on Test Set
+Epoch  397 NMSE is  1.219 on Training Set and  0.198 on Test Set
+Epoch  398 NMSE is  1.215 on Training Set and  0.198 on Test Set
+Epoch  399 NMSE is  1.212 on Training Set and  0.198 on Test Set
+Iteration number 10
+Epoch    0 NMSE is  1.847 on Training Set and  0.128 on Test Set
+Epoch    1 NMSE is  1.847 on Training Set and  0.127 on Test Set
+Epoch    2 NMSE is  1.846 on Training Set and  0.127 on Test Set
+Epoch    3 NMSE is  1.846 on Training Set and  0.127 on Test Set
+Epoch    4 NMSE is  1.845 on Training Set and  0.127 on Test Set
+Epoch    5 NMSE is  1.845 on Training Set and  0.127 on Test Set
+Epoch    6 NMSE is  1.845 on Training Set and  0.127 on Test Set
+Epoch    7 NMSE is  1.844 on Training Set and  0.127 on Test Set
+Epoch    8 NMSE is  1.844 on Training Set and  0.127 on Test Set
+Epoch    9 NMSE is  1.843 on Training Set and  0.127 on Test Set
+Epoch   10 NMSE is  1.843 on Training Set and  0.127 on Test Set
+Epoch   11 NMSE is  1.842 on Training Set and  0.127 on Test Set
+Epoch   12 NMSE is  1.842 on Training Set and  0.127 on Test Set
+Epoch   13 NMSE is  1.842 on Training Set and  0.127 on Test Set
+Epoch   14 NMSE is  1.841 on Training Set and  0.126 on Test Set
+Epoch   15 NMSE is  1.841 on Training Set and  0.126 on Test Set
+Epoch   16 NMSE is  1.840 on Training Set and  0.126 on Test Set
+Epoch   17 NMSE is  1.840 on Training Set and  0.126 on Test Set
+Epoch   18 NMSE is  1.839 on Training Set and  0.126 on Test Set
+Epoch   19 NMSE is  1.839 on Training Set and  0.126 on Test Set
+Epoch   20 NMSE is  1.838 on Training Set and  0.126 on Test Set
+Epoch   21 NMSE is  1.838 on Training Set and  0.126 on Test Set
+Epoch   22 NMSE is  1.837 on Training Set and  0.126 on Test Set
+Epoch   23 NMSE is  1.837 on Training Set and  0.126 on Test Set
+Epoch   24 NMSE is  1.836 on Training Set and  0.126 on Test Set
+Epoch   25 NMSE is  1.836 on Training Set and  0.126 on Test Set
+Epoch   26 NMSE is  1.835 on Training Set and  0.126 on Test Set
+Epoch   27 NMSE is  1.835 on Training Set and  0.126 on Test Set
+Epoch   28 NMSE is  1.834 on Training Set and  0.126 on Test Set
+Epoch   29 NMSE is  1.834 on Training Set and  0.125 on Test Set
+Epoch   30 NMSE is  1.833 on Training Set and  0.125 on Test Set
+Epoch   31 NMSE is  1.833 on Training Set and  0.125 on Test Set
+Epoch   32 NMSE is  1.832 on Training Set and  0.125 on Test Set
+Epoch   33 NMSE is  1.832 on Training Set and  0.125 on Test Set
+Epoch   34 NMSE is  1.831 on Training Set and  0.125 on Test Set
+Epoch   35 NMSE is  1.831 on Training Set and  0.125 on Test Set
+Epoch   36 NMSE is  1.830 on Training Set and  0.125 on Test Set
+Epoch   37 NMSE is  1.830 on Training Set and  0.125 on Test Set
+Epoch   38 NMSE is  1.829 on Training Set and  0.125 on Test Set
+Epoch   39 NMSE is  1.829 on Training Set and  0.125 on Test Set
+Epoch   40 NMSE is  1.828 on Training Set and  0.125 on Test Set
+Changing learning rate to 0.256, gain to 1.45, alpha to 0.90
+Epoch   41 NMSE is  1.971 on Training Set and  0.131 on Test Set
+Epoch   42 NMSE is  1.362 on Training Set and  0.128 on Test Set
+Epoch   43 NMSE is  1.455 on Training Set and  0.125 on Test Set
+Epoch   44 NMSE is  1.503 on Training Set and  0.123 on Test Set - Saving network ...
+Epoch   45 NMSE is  1.536 on Training Set and  0.122 on Test Set
+Epoch   46 NMSE is  1.559 on Training Set and  0.120 on Test Set
+Epoch   47 NMSE is  1.574 on Training Set and  0.120 on Test Set - Saving network ...
+Epoch   48 NMSE is  1.583 on Training Set and  0.119 on Test Set
+Epoch   49 NMSE is  1.587 on Training Set and  0.118 on Test Set
+Epoch   50 NMSE is  1.588 on Training Set and  0.118 on Test Set
+Epoch   51 NMSE is  1.586 on Training Set and  0.118 on Test Set
+Epoch   52 NMSE is  1.582 on Training Set and  0.117 on Test Set
+Epoch   53 NMSE is  1.577 on Training Set and  0.117 on Test Set
+Epoch   54 NMSE is  1.571 on Training Set and  0.117 on Test Set
+Epoch   55 NMSE is  1.564 on Training Set and  0.116 on Test Set - Saving network ...
+Epoch   56 NMSE is  1.557 on Training Set and  0.116 on Test Set
+Epoch   57 NMSE is  1.549 on Training Set and  0.116 on Test Set
+Epoch   58 NMSE is  1.542 on Training Set and  0.116 on Test Set
+Epoch   59 NMSE is  1.535 on Training Set and  0.116 on Test Set
+Epoch   60 NMSE is  1.527 on Training Set and  0.115 on Test Set
+Epoch   61 NMSE is  1.520 on Training Set and  0.115 on Test Set
+Epoch   62 NMSE is  1.513 on Training Set and  0.115 on Test Set
+Epoch   63 NMSE is  1.506 on Training Set and  0.115 on Test Set
+Epoch   64 NMSE is  1.499 on Training Set and  0.115 on Test Set
+Epoch   65 NMSE is  1.493 on Training Set and  0.115 on Test Set
+Epoch   66 NMSE is  1.487 on Training Set and  0.115 on Test Set
+Epoch   67 NMSE is  1.481 on Training Set and  0.115 on Test Set
+Epoch   68 NMSE is  1.475 on Training Set and  0.115 on Test Set
+Epoch   69 NMSE is  1.470 on Training Set and  0.114 on Test Set
+Epoch   70 NMSE is  1.465 on Training Set and  0.114 on Test Set
+Epoch   71 NMSE is  1.460 on Training Set and  0.114 on Test Set
+Epoch   72 NMSE is  1.455 on Training Set and  0.114 on Test Set
+Epoch   73 NMSE is  1.450 on Training Set and  0.114 on Test Set
+Epoch   74 NMSE is  1.446 on Training Set and  0.114 on Test Set
+Epoch   75 NMSE is  1.442 on Training Set and  0.114 on Test Set
+Epoch   76 NMSE is  1.438 on Training Set and  0.114 on Test Set
+Epoch   77 NMSE is  1.434 on Training Set and  0.114 on Test Set
+Epoch   78 NMSE is  1.430 on Training Set and  0.114 on Test Set
+Epoch   79 NMSE is  1.427 on Training Set and  0.114 on Test Set
+Epoch   80 NMSE is  1.424 on Training Set and  0.114 on Test Set
+Epoch   81 NMSE is  1.421 on Training Set and  0.114 on Test Set
+Epoch   82 NMSE is  1.418 on Training Set and  0.114 on Test Set
+Epoch   83 NMSE is  1.415 on Training Set and  0.114 on Test Set
+Epoch   84 NMSE is  1.412 on Training Set and  0.114 on Test Set
+Epoch   85 NMSE is  1.410 on Training Set and  0.113 on Test Set
+Epoch   86 NMSE is  1.407 on Training Set and  0.113 on Test Set
+Epoch   87 NMSE is  1.405 on Training Set and  0.113 on Test Set - Saving network ...
+Epoch   88 NMSE is  1.403 on Training Set and  0.113 on Test Set
+Epoch   89 NMSE is  1.401 on Training Set and  0.113 on Test Set
+Epoch   90 NMSE is  1.399 on Training Set and  0.113 on Test Set
+Epoch   91 NMSE is  1.397 on Training Set and  0.113 on Test Set
+Epoch   92 NMSE is  1.396 on Training Set and  0.113 on Test Set
+Epoch   93 NMSE is  1.394 on Training Set and  0.113 on Test Set
+Epoch   94 NMSE is  1.392 on Training Set and  0.113 on Test Set
+
+...
+
+
+Epoch  394 NMSE is  0.987 on Training Set and  0.178 on Test Set
+Epoch  395 NMSE is  0.985 on Training Set and  0.178 on Test Set
+Epoch  396 NMSE is  0.982 on Training Set and  0.177 on Test Set
+Epoch  397 NMSE is  0.980 on Training Set and  0.177 on Test Set
+Epoch  398 NMSE is  0.978 on Training Set and  0.177 on Test Set
+Epoch  399 NMSE is  0.976 on Training Set and  0.177 on Test Set
+Finished in 10 iterations (4000 epochs)
+
+Actual duration 1263331 ms
+
+Verifying on 240 train data : 15 errors (6.25%)
+Verifying on 60 test data  :  3 errors (5.00%)
+Saving network in file /CirclesNetwork.txt
+4 layers
+Layer 0 -> 2 neurons
+Layer 1 -> 14 neurons, SIGMOID
+Layer 2 -> 11 neurons, SIGMOID
+Layer 3 -> 1 neurons, SIGMOID
+Alpha = 0.900000
+Eta = 0.256000
+Gain = 1.450000
+Saved 219 weights
+
+Validation  0: expected  1, prediction  1 -- > OK
+Validation  1: expected  2, prediction  2 -- > OK
+Validation  2: expected  2, prediction  2 -- > OK
+Validation  3: expected  0, prediction  0 -- > OK
+Validation  4: expected  1, prediction  1 -- > OK
+Validation  5: expected  2, prediction  2 -- > OK
+Validation  6: expected  1, prediction  1 -- > OK
+Validation  7: expected  0, prediction  0 -- > OK
+Validation  8: expected  2, prediction  2 -- > OK
+Validation  9: expected  2, prediction  2 -- > OK
+Validation  10: expected  1, prediction  1 -- > OK
+Validation  11: expected  2, prediction  2 -- > OK
+Validation  12: expected  2, prediction  2 -- > OK
+Validation  13: expected  2, prediction  2 -- > OK
+Validation  14: expected  2, prediction  2 -- > OK
+Validation  15: expected  2, prediction  2 -- > OK
+Validation  16: expected  2, prediction  2 -- > OK
+Validation  17: expected  1, prediction  1 -- > OK
+Validation  18: expected  2, prediction  2 -- > OK
+Validation  19: expected  1, prediction  1 -- > OK
+---------------------------
+Network has 4 layers:
+Layer number 0: 2 neurons
+Layer number 1: 14 neurons, activation SIGMOID, 42 weights
+Layer number 2: 11 neurons, activation SIGMOID, 165 weights
+Layer number 3: 1 neurons, activation SIGMOID, 12 weights
+Total number of weights: 219
+Average weight L1 norm: 2.04323 (lambda = 0.000e+00)
+Average weight L2 norm: 5.25747 (lambda = 0.000e+00)
+Learning rate is: 0.256
+Gain is: 1.450
+Momentum is: 0.900
+---------------------------
