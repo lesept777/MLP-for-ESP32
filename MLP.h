@@ -96,7 +96,7 @@ typedef struct
 class MLP
 {
   public:
-    MLP(int, int units[], int verbose = 1);
+    MLP(int, int*, int = 1, bool = false);
     ~MLP();
 
 /*
@@ -175,6 +175,9 @@ class MLP
     float getAnneal ();
 // getNeuronNumbers (layer): get the number of neurons in a specific layer
     int   getNeuronNumbers (int);
+
+// estimateNetSize : estimate the memory size of the network in bytes
+    uint32_t    estimateNetSize ();
 /*
     getWeight(layer, upperNeuron, lowerNeuron): get the value of a 
     specific weight
@@ -291,6 +294,7 @@ class MLP
     if enabled, learning is shared on both cores, reaching x2 speedup
 */
     void setParallel (bool);
+    void dispWeights();
 
 
   private:
@@ -345,18 +349,21 @@ class MLP
     }
 
     // Parameters of the network
-    LAYER**  Layer;         /* - layers of this net           */
-    LAYER*   InputLayer;    /* - input layer                  */
-    LAYER*   OutputLayer;   /* - output layer                 */
-    float    Alpha;         /* - momentum factor              */
-    float    Eta;           /* - learning rate                */
-    float    Gain;          /* - gain of sigmoid function     */
-    float    Error;         /* - total net error              */
-    float    AlphaSave;     /* - saved learning rate          */
-    float    EtaSave;       /* - saved learning rate          */
-    float    GainSave;      /* - saved gain                   */
+    LAYER**  Layer;          /* - layers of this net           */
+    LAYER*   InputLayer;     /* - input layer                  */
+    LAYER*   OutputLayer;    /* - output layer                 */
+    float    Alpha;          /* - momentum factor              */
+    float    Eta;            /* - learning rate                */
+    float    Gain;           /* - gain of sigmoid function     */
+    float    Error;          /* - total net error              */
+    float    AlphaSave;      /* - saved learning rate          */
+    float    EtaSave;        /* - saved learning rate          */
+    float    GainSave;       /* - saved gain                   */
+    float    TrainErrorSave; /* - saved best train error       */
+    float    TestErrorSave;  /* - saved best test error        */
 
     // Private variables
+    bool     _enableSkip = false;
     bool     _parallelRun = false;
     int      _units[MAX_LAYERS], _numLayers;
     int      _activations[MAX_LAYERS] = {0};

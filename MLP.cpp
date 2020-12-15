@@ -15,45 +15,57 @@ template <typename T> int sgn(T val) {
   Constructor, arguments are:
     number of layers
     array of number of neurons
-    verbose level (0= silent, 1= intermediary, 2=very talkative)
+    verbose level (0= silent, 1= intermediary, 2= very talkative, 3 = even more)
+    'skip' enables or disables to add to each layer inputs from layer l-2
 */
-MLP::MLP(int numLayers, int units[], int verbose)
+// MLP::MLP(int numLayers, int units[], int verbose, bool enableSkip)
+MLP::MLP(int numLayers, int *units, int verbose, bool enableSkip)
 {
   _numLayers = numLayers;
-  for (int i = 0; i < _numLayers; i++) _units[i] = units[i];
+  _enableSkip = enableSkip; // For ResNet (https://en.wikipedia.org/wiki/Residual_neural_network)
+  for (int l = 0; l < _numLayers; l++) _units[l] = units[l];
   _verbose = verbose;
   generateNetwork();
+  for (int l = 0; l < _numLayers; l++) {
+    Layer[l]->Number = l;
+    Layer[l]->Units  = _units[l];
+    Layer[l]->Output[0]  = BIAS;
+  }
 }
 
 MLP::~MLP()
 {
   for (int l = 0; l < _numLayers; l++) {
-    delete &Layer[l]->Units;
-    delete Layer[l]->Output;
-    delete Layer[l]->Error;
-    // if (l != 0) {
-    //   for (int i = 1; i <= _units[l]; i++) {
-    //     delete Layer[l]->Weight[i];
-    //     delete Layer[l]->WeightSave[i];
-    //     delete Layer[l]->dWeight[i];
-    //   }
-    delete Layer[l]->Weight;
-    delete Layer[l]->WeightSave;
-    delete Layer[l]->dWeight;
-    delete &Layer[l]->Output[0];
-    // }
-    delete Layer[l];
+    if (l != 0) {
+      for (int i = 1; i <= _units[l]; i++) {
+        delete [] Layer[l]->Weight[i];
+        delete [] Layer[l]->WeightSave[i];
+        delete [] Layer[l]->dWeight[i];
+        delete [] Layer[l]->dWeightOld[i];
+      }
+    }
+    delete [] Layer[l]->Output;
+    delete [] Layer[l]->Error;
+    delete [] Layer[l]->Weight;
+    delete [] Layer[l]->WeightSave;
+    delete [] Layer[l]->dWeight;
+    delete [] Layer[l]->dWeightOld;
+    delete [] Layer[l];
   }
-  delete InputLayer;
-  delete OutputLayer;
-  delete &Alpha;
-  delete &Eta;
-  delete &Gain;
-  delete &Error;
-  delete &EtaSave;
-  delete &GainSave;
-  delete &AlphaSave;
-  delete Layer;
+  delete [] Layer;
+}
+
+// EStimate the size of the network (number of bytes)
+uint32_t MLP::estimateNetSize ()
+{
+  uint32_t sum = 0;
+  for (uint8_t l = 1; l < _numLayers; l++) {
+    sum += Layer[l]->Units * (Layer[l - 1]->Units + 1) * 4;
+    sum += Layer[l]->Units * 2;
+  }
+  sum *= sizeof(float);
+  sum += 3 * sizeof(int);
+  return sum;
 }
 
 // Loads a network from SPIFFS file system
@@ -71,10 +83,11 @@ bool MLP::netLoad(const char* const path)
   for (int l = 0; l < _numLayers; l++) {
     _units[l] = readIntFile (file);
     _activations[l] = readIntFile (file);
-    if (_verbose > 1) Serial.printf("layer %d -> %d neurons, %s\n",
+    if (_verbose > 1) 
+      if (l != 0) Serial.printf("layer %d -> %d neurons, %s\n",
      l, _units[l], ActivNames[_activations[l]]);
+        else  Serial.printf("layer %d -> %d neurons\n", l, _units[l]);
   }
-  generateNetwork();
   // Read parameters
   Alpha = readFloatFile (file);
   AlphaSave = Alpha;
@@ -139,6 +152,7 @@ void MLP::netSave(const char* const path)
     for (int i = 1; i <= Layer[l]->Units; i++) {
       for (int j = 0; j <= Layer[l - 1]->Units; j++) {
         file.printf("%.6f\n", Layer[l]->Weight[i][j]);
+        // Serial.printf("weight %d %d %d = %.6f\n", l,i,j,Layer[l]->Weight[i][j]);
         ++iW;
       }
     }
@@ -244,14 +258,16 @@ int MLP::createDataset (DATASET* dataset, int nData)
   _nData = nData;
 
   // creating data vector
-  dataset->data = (Data *)calloc(sizeof(Data), nData);
+  // dataset->data = (Data *)calloc(sizeof(Data), nData);
+  dataset->data = new Data [nData];
   if (dataset->data == NULL) return -1;
 
   dataset->nInput = _units[0];
   dataset->nData = nData;
 
   // creating input vector
-  float *pData = (float *)calloc(sizeof(float), _units[0] * nData);
+  // float *pData = (float *)calloc(sizeof(float), _units[0] * nData);
+  float *pData = new float [_units[0] * nData];
   if (pData == NULL) return -2;
 
   // Positioning each input on its sub-array
@@ -265,8 +281,10 @@ int MLP::createDataset (DATASET* dataset, int nData)
 
 void  MLP::destroyDataset(DATASET* dataset)
 {
-  free(dataset->data[0].In);
-  free(dataset->data);
+  // free(dataset->data[0].In);
+  // free(dataset->data);
+  delete [] dataset->data[0].In;
+  delete [] dataset->data;
 }
 
 // Display the parameters of the network
@@ -293,6 +311,7 @@ void MLP::displayNetwork()
   Serial.printf ("Total number of weights: %d\n", numWeights);
   Serial.printf ("Average weight L1 norm: %.5f (lambda = %.3e)\n", regulL1Weights()/numWeights, _lambdaRegulL1);
   Serial.printf ("Average weight L2 norm: %.5f (lambda = %.3e)\n", regulL2Weights()/numWeights, _lambdaRegulL2);
+  if (_enableSkip) Serial.println ("ResNet-like enabled");
   Serial.printf ("Learning rate is: %.3f\n", Eta);
   Serial.printf ("Gain is: %.3f\n", Gain);
   Serial.printf ("Momentum is: %.3f\n", Alpha);
@@ -374,7 +393,10 @@ void MLP::setAnneal (float anneal) {
 }
 void MLP::setActivation (int* activations) {
   _activations[0] = 99;
-  for (int i = 0; i < _numLayers - 1; i++) _activations[i+1] = activations[i];
+  for (int l = 0; l < _numLayers - 1; l++) {
+    _activations[l + 1] = activations[l];
+    Layer[l + 1]->Activation = _activations[l + 1];
+  }
 }
 
 void MLP::setHeuristics (long heuristics) { 
@@ -506,28 +528,41 @@ int MLP::setWeight (int layer, int upper, int lower, float val) {
 // Allocates the necessary memory for the network
 void MLP::generateNetwork()
 {
-  Layer = (LAYER**) calloc(_numLayers, sizeof(LAYER*));
+  // Layer = (LAYER**) calloc(_numLayers, sizeof(LAYER*));
+  Layer = new LAYER*[_numLayers];
+  memset(Layer,0,_numLayers*sizeof(LAYER*));
 
   for (int l = 0; l < _numLayers; l++) {
-    Layer[l] = (LAYER*) malloc(sizeof(LAYER));
+    // Layer[l] = (LAYER*) malloc(sizeof(LAYER));
+    Layer[l] = new LAYER;    
 
-    Layer[l]->Number     = l;
-    Layer[l]->Units      = _units[l];
-    Layer[l]->Activation = _activations[l];
-    Layer[l]->Output     = (float*)  calloc(_units[l] + 1, sizeof(float));
-    Layer[l]->Error      = (float*)  calloc(_units[l] + 1, sizeof(float));
-    Layer[l]->Weight     = (float**) calloc(_units[l] + 1, sizeof(float*));
-    Layer[l]->WeightSave = (float**) calloc(_units[l] + 1, sizeof(float*));
-    Layer[l]->dWeight    = (float**) calloc(_units[l] + 1, sizeof(float*));
-    Layer[l]->dWeightOld = (float**) calloc(_units[l] + 1, sizeof(float*));
-    Layer[l]->Output[0]  = BIAS;
+    Layer[l]->Output     = new float[_units[l] + 1];
+    Layer[l]->Error      = new float[_units[l] + 1];
+    Layer[l]->Weight     = new float*[_units[l] + 1];
+    Layer[l]->WeightSave = new float*[_units[l] + 1];
+    Layer[l]->dWeight    = new float*[_units[l] + 1];
+    Layer[l]->dWeightOld = new float*[_units[l] + 1];
+    // Layer[l]->Output[0]  = BIAS;
 
     if (l != 0) {
-      for (int i = 1; i <= _units[l]; i++) {
-        Layer[l]->Weight[i]     = (float*) calloc(_units[l - 1] + 1, sizeof(float));
-        Layer[l]->WeightSave[i] = (float*) calloc(_units[l - 1] + 1, sizeof(float));
-        Layer[l]->dWeight[i]    = (float*) calloc(_units[l - 1] + 1, sizeof(float));
-        Layer[l]->dWeightOld[i] = (float*) calloc(_units[l - 1] + 1, sizeof(float));
+      if (!_enableSkip) { // No ResNet
+        int dim = _units[l - 1] + 1;
+        for (int i = 1; i <= _units[l]; i++) {
+          Layer[l]->Weight[i]     = new float[dim];
+          Layer[l]->WeightSave[i] = new float[dim];
+          Layer[l]->dWeight[i]    = new float[dim];
+          Layer[l]->dWeightOld[i] = new float[dim];
+        }       
+      } else { // ResNet
+        int dim;
+        if (l == 1) dim = _units[l - 1] + 1;
+        else dim = _units[l - 2] + _units[l - 1] + 1;
+        for (int i = 1; i <= _units[l]; i++) {
+          Layer[l]->Weight[i]     = new float[dim];
+          Layer[l]->WeightSave[i] = new float[dim];
+          Layer[l]->dWeight[i]    = new float[dim];
+          Layer[l]->dWeightOld[i] = new float[dim];
+        }        
       }
     }
   }
@@ -593,20 +628,29 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
   int iter, epoch;
   _minError = MAX_float;
 
-    // Estimate maximum training duration
+  if (!_datasetProcessed) processDataset(dataset);
+
+  if (_initialize) {
+    if (_verbose > 0) Serial.println("Creating a new network");
+    (_selectWeights) ? selectWeights(dataset) : randomWeights(0.5f);
+  }
+
+  shuffleDataset (dataset, 0, _nData);
+
+  // Estimate maximum training duration
   if (_verbose > 0) {
     uint32_t dur = estimateDuration (dataset);
     Serial.printf("Estimated duration for training and optimization: %u ms (%d min %d sec)\n", dur,
                 dur / 60000, (dur % 60000) / 1000);
   }
-  if (!_datasetProcessed) processDataset(dataset);
 
-  if (_initialize) {
-    if (_verbose > 0) Serial.println("Creating a new network");
-    generateNetwork();
-    (_selectWeights) ? selectWeights(dataset) : randomWeights(0.5f);
+// Print memory information
+  if (_verbose >1) {
+    Serial.printf("Free Heap: %d bytes\n",ESP.getFreeHeap());
+    Serial.printf("Estimated network size: %d bytes\n",estimateNetSize ());
+    uint16_t dataSize = _nData * (_units[0] + 1) * sizeof(float);
+    Serial.printf("Estimated dataset size: %d bytes\n", dataSize);
   }
-  shuffleDataset (dataset, 0, _nData);
 
 
   for (iter = 0; iter < _iters; iter++) {
@@ -658,8 +702,9 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
         trainAndTest (dataset);
       }
 
+      float epsilon = 0.003f;
       // New best set of weights: save the weights
-      if (_criterion < _minError) {
+      if (_criterion < _minError - epsilon) {
         if (_verbose > 1) Serial.print(" - Saving network ...");
         lastIter = iter;
         _minError = _criterion;
@@ -718,6 +763,7 @@ void MLP::trainAndTest (DATASET* dataset)
     process(&dataset->data[sample].In[0], Output,
                 &dataset->data[sample].Out, _batchSize);
     _trainError += Error;
+
   }
   sample += _batchSize;
   if (_nTrain % _batchSize) {
@@ -737,20 +783,23 @@ void MLP::trainAndTest (DATASET* dataset)
                     _trainError * _batchSize, _testError);
     }
   }
-  delete Output;
+  // Prevent from going too far from the current best solution
+  if (_trainError * _batchSize + _testError > 
+      4 * (TrainErrorSave * _batchSize + TestErrorSave)) restoreWeights();
+  delete [] Output;
 }
 
 // Train on a random batch of data
 void MLP::trainNetSGD(DATASET* dataset)
 {
-  float *Output;
-  Output = new float [_units[_numLayers - 1]];
+  // float *Output;
+  float *Output = new float [_units[_numLayers - 1]];
   if (!_datasetProcessed) processDataset(dataset);
   int sample = randomInt(0, _nTrain - _batchSize);
   _eval = false;
   process(&dataset->data[sample].In[0], Output,
           &dataset->data[sample].Out, _batchSize);
-  delete Output;
+  delete [] Output;
 }
 
 float MLP::getTrainSetError (DATASET* dataset) {
@@ -764,7 +813,7 @@ float MLP::getTrainSetError (DATASET* dataset) {
     trainError += Error;
   }
   _eval = false;
-  delete Output;
+  delete [] Output;
   return trainError;
 }
 
@@ -779,11 +828,9 @@ float MLP::getTestSetError (DATASET* dataset) {
     testError += Error;
   }
   _eval = false;
-  delete Output;
+  delete [] Output;
   return testError;
 }
-
-
 
 // Compute total error on training and testing sets
 void MLP::testNet(DATASET* dataset, bool disp)
@@ -858,7 +905,7 @@ void MLP::evaluateNet(DATASET* dataset, float threshold)
   }
   if (_verbose > 0) Serial.printf("Verifying on %d test data  : %2d errors (%.2f%%)\n", _nTest, nError, 100.0 * nError / _nTest);
   _eval = false;
-  delete Out;
+  delete [] Out;
   _nTestError = nError;
   // _predict = false;
 }
@@ -870,12 +917,15 @@ void MLP::evaluateNet(DATASET* dataset, float threshold)
 uint32_t MLP::estimateDuration (DATASET* dataset)
 {
   saveWeights();
-  randomWeights(0.5f);
+//  randomWeights(0.5f);
   unsigned long chrono = millis();
   trainNetSGD(dataset);
+
   testNet(dataset, false);
+
   chrono = millis() - chrono;
   restoreWeights();
+
   return chrono * _iters * _epochs * 1.25f;
 }
 
@@ -1005,15 +1055,17 @@ float MLP::computeOutputError(float* Target, int iBatch, int batch)
 void MLP::randomWeights(float x)
 {
   x = abs(x);
-  for (int l = 1; l < _numLayers; l++) {
-    for (int i = 1; i <= Layer[l]->Units; i++){
+  for (int l = 1; l < _numLayers; l++) 
+    for (int i = 1; i <= Layer[l]->Units; i++)
       for (int j = 0; j <= Layer[l - 1]->Units; j++){
-        Layer[l]->Weight[i][j] = randomFloat(-x, x);
+        // Serial.printf("randomWeights: %d %d %d\n", l,i,j);
+        Layer[l]->Weight[i][j]     = randomFloat(-x, x);
+        Layer[l]->WeightSave[i][j] = 0.f;
+        Layer[l]->dWeight[i][j]    = 0.f;
+        Layer[l]->dWeightOld[i][j] = 0.f;
         // Randomly set zero weight
         if ((float) esp_random() / UINT32_MAX < _probaZeroWeight) Layer[l]->Weight[i][j] = 0;
       }
-    }
-  }
 }
 
 // Store the weights and parameters for later use
@@ -1022,10 +1074,14 @@ void MLP::saveWeights()
   EtaSave = Eta;
   GainSave = Gain;
   AlphaSave = Alpha;
+  TrainErrorSave = _trainError;
+  TestErrorSave = _testError;
   for (int l = 1; l < _numLayers; l++) {
     for (int i = 1; i <= Layer[l]->Units; i++) {
-      for (int j = 0; j <= Layer[l - 1]->Units; j++)
+      for (int j = 0; j <= Layer[l - 1]->Units; j++) {
         Layer[l]->WeightSave[i][j] = Layer[l]->Weight[i][j];
+        // Serial.printf("Saving weight %d %d %d = %.6f\n", l,i,j,Layer[l]->Weight[i][j]);
+      }
     }
   }
 }
@@ -1138,7 +1194,7 @@ void MLP::backpropagateNet(){
 
 // Reads a positive integer in a file
 int MLP::readIntFile (File file) {
-  char buffer[10];
+  char buffer[15];
   uint8_t i = 0;
   while (file.available()) {
     char c = file.read();
@@ -1346,7 +1402,7 @@ void MLP::softmax () {
   for (int i = 1; i <= OutputLayer->Units; i++) {
     OutputLayer->Output[i] = exp(sum[i] - sumMax) / denom;
   }
-  delete sum;
+  delete [] sum;
   return;
 }
 
@@ -1408,7 +1464,7 @@ void MLP::process (float* Input, float* Output, float* Target, int batch) {
         for (int j = 0; j <= Layer[l - 1]->Units; j++) {
           float temp = Layer[l]->Weight[i][j];
           Layer[l]->Weight[i][j] += (Layer[l]->dWeight[i][j]
-           + Alpha * Layer[l]->dWeightOld[i][j]) / batch;
+                                 + Alpha * Layer[l]->dWeightOld[i][j]) / batch;
           if (_regulL1) Layer[l]->Weight[i][j] -= sgn(temp) * _lambdaRegulL1 * Alpha / batch;
           if (_regulL2) Layer[l]->Weight[i][j] -= temp * _lambdaRegulL2 * Alpha / batch;
         }
@@ -1447,4 +1503,18 @@ int MLP::numberOfWeights()
       for (int j = 0; j <= Layer[l - 1]->Units; j++)
         ++N;
   return N;
+}
+
+
+void MLP::dispWeights()
+{
+  Serial.println("Displaying weights");
+  for (int l = 1; l < _numLayers; l++) {
+    for (int i = 1; i <= Layer[l]->Units; i++) {
+      for (int j = 0; j <= Layer[l - 1]->Units; j++) {
+        Serial.printf("weight %d %d %d = %.6f\n", l,i,j,Layer[l]->Weight[i][j]);
+      }
+    }
+  }
+  Serial.println();
 }
