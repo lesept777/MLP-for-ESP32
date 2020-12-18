@@ -1,0 +1,347 @@
+---------------------------
+Heuristics parameters:
+- Init with random weights
+- Random weights if needed
+- Select best weights at init
+- Variable batch size
+- Variable learning rate
+- Variable Sigmoid gain
+- Force stochastic gradient descent
+- Layer skip enabled (ResNet like)
+---------------------------
+Processing dataset
+Creating a new network
+ - Selecting best weights
+Estimated duration for training and optimization: 137500 ms (2 min 17 sec)
+
+Iteration number 1
+NMSE is 19.705 on Training Set and  4.737 on Test Set
+NMSE is 15.215 on Training Set and  4.505 on Test Set
+NMSE is  6.287 on Training Set and  2.082 on Test Set
+NMSE is  4.281 on Training Set and  1.389 on Test Set
+NMSE is  3.882 on Training Set and  1.237 on Test Set
+NMSE is  3.754 on Training Set and  1.179 on Test Set
+NMSE is  3.708 on Training Set and  1.145 on Test Set
+NMSE is  3.714 on Training Set and  1.128 on Test Set
+NMSE is  3.740 on Training Set and  1.104 on Test Set
+NMSE is  3.738 on Training Set and  1.091 on Test Set
+NMSE is  3.800 on Training Set and  1.078 on Test Set
+NMSE is  3.805 on Training Set and  1.069 on Test Set
+NMSE is  3.778 on Training Set and  1.066 on Test Set
+NMSE is  3.800 on Training Set and  1.057 on Test Set
+NMSE is  3.828 on Training Set and  1.049 on Test Set
+NMSE is  3.826 on Training Set and  1.044 on Test Set
+NMSE is  3.838 on Training Set and  1.040 on Test Set
+NMSE is  3.830 on Training Set and  1.039 on Test Set
+NMSE is  3.814 on Training Set and  1.040 on Test Set
+NMSE is  3.822 on Training Set and  1.036 on Test Set
+NMSE is  3.805 on Training Set and  1.036 on Test Set
+NMSE is  3.823 on Training Set and  1.033 on Test Set
+NMSE is  3.808 on Training Set and  1.031 on Test Set
+NMSE is  3.823 on Training Set and  1.027 on Test Set
+NMSE is  3.840 on Training Set and  1.021 on Test Set
+NMSE is  3.830 on Training Set and  1.020 on Test Set
+NMSE is  3.817 on Training Set and  1.019 on Test Set
+NMSE is  3.801 on Training Set and  1.020 on Test Set
+NMSE is  3.795 on Training Set and  1.020 on Test Set
+NMSE is  3.793 on Training Set and  1.019 on Test Set
+NMSE is  3.809 on Training Set and  1.020 on Test Set
+NMSE is  3.798 on Training Set and  1.019 on Test Set
+NMSE is  3.771 on Training Set and  1.020 on Test Set
+NMSE is  3.760 on Training Set and  1.019 on Test Set
+NMSE is  3.746 on Training Set and  1.019 on Test Set
+NMSE is  3.740 on Training Set and  1.019 on Test Set
+NMSE is  3.747 on Training Set and  1.018 on Test Set
+NMSE is  3.742 on Training Set and  1.017 on Test Set
+NMSE is  3.701 on Training Set and  1.013 on Test Set
+NMSE is  3.682 on Training Set and  1.011 on Test Set
+NMSE is  3.622 on Training Set and  1.012 on Test Set
+NMSE is  3.598 on Training Set and  1.007 on Test Set
+NMSE is  3.604 on Training Set and  0.995 on Test Set
+NMSE is  3.559 on Training Set and  0.989 on Test Set
+NMSE is  3.522 on Training Set and  0.984 on Test Set
+NMSE is  3.522 on Training Set and  0.971 on Test Set
+NMSE is  3.474 on Training Set and  0.963 on Test Set
+NMSE is  3.448 on Training Set and  0.956 on Test Set
+NMSE is  3.416 on Training Set and  0.952 on Test Set
+NMSE is  3.395 on Training Set and  0.947 on Test Set
+NMSE is  3.375 on Training Set and  0.944 on Test Set
+NMSE is  3.352 on Training Set and  0.937 on Test Set
+NMSE is  3.314 on Training Set and  0.916 on Test Set
+NMSE is  3.297 on Training Set and  0.905 on Test Set
+NMSE is  3.238 on Training Set and  0.893 on Test Set
+NMSE is  3.198 on Training Set and  0.859 on Test Set
+NMSE is  3.139 on Training Set and  0.852 on Test Set
+NMSE is  3.074 on Training Set and  0.825 on Test Set
+NMSE is  2.984 on Training Set and  0.811 on Test Set
+NMSE is  2.888 on Training Set and  0.775 on Test Set
+NMSE is  2.771 on Training Set and  0.747 on Test Set
+NMSE is  2.653 on Training Set and  0.732 on Test Set
+NMSE is  2.555 on Training Set and  0.712 on Test Set
+NMSE is  2.461 on Training Set and  0.709 on Test Set
+NMSE is  2.370 on Training Set and  0.712 on Test Set
+NMSE is  2.309 on Training Set and  0.692 on Test Set
+NMSE is  2.252 on Training Set and  0.683 on Test Set
+NMSE is  2.205 on Training Set and  0.621 on Test Set
+NMSE is  2.147 on Training Set and  0.588 on Test Set
+NMSE is  2.081 on Training Set and  0.562 on Test Set
+NMSE is  1.984 on Training Set and  0.541 on Test Set
+NMSE is  1.927 on Training Set and  0.535 on Test Set
+NMSE is  1.892 on Training Set and  0.521 on Test Set
+NMSE is  1.852 on Training Set and  0.473 on Test Set
+NMSE is  1.821 on Training Set and  0.464 on Test Set
+NMSE is  1.794 on Training Set and  0.456 on Test Set
+NMSE is  1.778 on Training Set and  0.438 on Test Set
+NMSE is  1.754 on Training Set and  0.425 on Test Set
+NMSE is  1.723 on Training Set and  0.405 on Test Set
+NMSE is  1.707 on Training Set and  0.391 on Test Set
+NMSE is  1.690 on Training Set and  0.380 on Test Set
+NMSE is  1.674 on Training Set and  0.375 on Test Set
+NMSE is  1.653 on Training Set and  0.374 on Test Set
+NMSE is  1.666 on Training Set and  0.363 on Test Set
+NMSE is  1.653 on Training Set and  0.358 on Test Set
+NMSE is  1.638 on Training Set and  0.354 on Test Set
+NMSE is  1.638 on Training Set and  0.350 on Test Set
+NMSE is  1.633 on Training Set and  0.346 on Test Set
+NMSE is  1.634 on Training Set and  0.343 on Test Set
+NMSE is  1.630 on Training Set and  0.338 on Test Set
+NMSE is  1.623 on Training Set and  0.338 on Test Set
+NMSE is  1.627 on Training Set and  0.335 on Test Set
+NMSE is  1.634 on Training Set and  0.328 on Test Set
+NMSE is  1.640 on Training Set and  0.327 on Test Set
+NMSE is  1.629 on Training Set and  0.325 on Test Set
+NMSE is  1.649 on Training Set and  0.320 on Test Set
+NMSE is  1.654 on Training Set and  0.315 on Test Set
+NMSE is  1.658 on Training Set and  0.313 on Test Set
+NMSE is  1.667 on Training Set and  0.315 on Test Set
+NMSE is  1.641 on Training Set and  0.314 on Test Set
+NMSE is  1.644 on Training Set and  0.315 on Test Set
+NMSE is  1.640 on Training Set and  0.312 on Test Set
+NMSE is  1.654 on Training Set and  0.310 on Test Set
+NMSE is  1.633 on Training Set and  0.311 on Test Set
+NMSE is  1.635 on Training Set and  0.312 on Test Set
+NMSE is  1.642 on Training Set and  0.307 on Test Set
+NMSE is  1.645 on Training Set and  0.305 on Test Set
+NMSE is  1.628 on Training Set and  0.305 on Test Set
+NMSE is  1.626 on Training Set and  0.304 on Test Set
+NMSE is  1.613 on Training Set and  0.305 on Test Set
+NMSE is  1.598 on Training Set and  0.306 on Test Set
+NMSE is  1.604 on Training Set and  0.302 on Test Set
+NMSE is  1.604 on Training Set and  0.300 on Test Set
+NMSE is  1.604 on Training Set and  0.298 on Test Set
+NMSE is  1.583 on Training Set and  0.298 on Test Set
+NMSE is  1.573 on Training Set and  0.295 on Test Set
+NMSE is  1.601 on Training Set and  0.293 on Test Set
+NMSE is  1.573 on Training Set and  0.292 on Test Set
+NMSE is  1.563 on Training Set and  0.290 on Test Set
+NMSE is  1.557 on Training Set and  0.290 on Test Set
+NMSE is  1.551 on Training Set and  0.289 on Test Set
+NMSE is  1.546 on Training Set and  0.287 on Test Set
+NMSE is  1.541 on Training Set and  0.286 on Test Set
+NMSE is  1.531 on Training Set and  0.287 on Test Set
+NMSE is  1.541 on Training Set and  0.284 on Test Set
+NMSE is  1.531 on Training Set and  0.286 on Test Set
+NMSE is  1.514 on Training Set and  0.286 on Test Set
+NMSE is  1.511 on Training Set and  0.286 on Test Set
+NMSE is  1.504 on Training Set and  0.286 on Test Set
+NMSE is  1.488 on Training Set and  0.286 on Test Set
+NMSE is  1.487 on Training Set and  0.285 on Test Set
+NMSE is  1.483 on Training Set and  0.285 on Test Set
+NMSE is  1.482 on Training Set and  0.287 on Test Set
+NMSE is  1.473 on Training Set and  0.286 on Test Set
+NMSE is  1.564 on Training Set and  0.286 on Test Set
+NMSE is  1.525 on Training Set and  0.286 on Test Set
+NMSE is  1.461 on Training Set and  0.286 on Test Set
+NMSE is  1.427 on Training Set and  0.284 on Test Set
+NMSE is  1.408 on Training Set and  0.283 on Test Set
+NMSE is  1.381 on Training Set and  0.280 on Test Set
+NMSE is  1.352 on Training Set and  0.277 on Test Set
+NMSE is  1.319 on Training Set and  0.276 on Test Set
+NMSE is  1.299 on Training Set and  0.275 on Test Set
+NMSE is  1.277 on Training Set and  0.271 on Test Set
+NMSE is  1.254 on Training Set and  0.270 on Test Set
+NMSE is  1.244 on Training Set and  0.269 on Test Set
+NMSE is  1.229 on Training Set and  0.270 on Test Set
+NMSE is  1.220 on Training Set and  0.266 on Test Set
+NMSE is  1.210 on Training Set and  0.262 on Test Set
+NMSE is  1.205 on Training Set and  0.260 on Test Set
+NMSE is  1.199 on Training Set and  0.259 on Test Set
+NMSE is  1.192 on Training Set and  0.261 on Test Set
+NMSE is  1.190 on Training Set and  0.258 on Test Set
+NMSE is  1.183 on Training Set and  0.253 on Test Set
+NMSE is  1.184 on Training Set and  0.251 on Test Set
+NMSE is  1.181 on Training Set and  0.249 on Test Set
+NMSE is  1.194 on Training Set and  0.248 on Test Set
+NMSE is  1.181 on Training Set and  0.248 on Test Set
+NMSE is  1.180 on Training Set and  0.247 on Test Set
+NMSE is  1.175 on Training Set and  0.246 on Test Set
+NMSE is  1.163 on Training Set and  0.248 on Test Set
+NMSE is  1.180 on Training Set and  0.247 on Test Set
+NMSE is  1.176 on Training Set and  0.245 on Test Set
+NMSE is  1.163 on Training Set and  0.244 on Test Set
+NMSE is  1.151 on Training Set and  0.244 on Test Set
+NMSE is  1.148 on Training Set and  0.243 on Test Set
+NMSE is  1.143 on Training Set and  0.244 on Test Set
+NMSE is  1.148 on Training Set and  0.245 on Test Set
+NMSE is  1.143 on Training Set and  0.241 on Test Set
+NMSE is  1.160 on Training Set and  0.239 on Test Set
+NMSE is  1.149 on Training Set and  0.237 on Test Set
+NMSE is  1.151 on Training Set and  0.235 on Test Set
+NMSE is  1.143 on Training Set and  0.235 on Test Set
+NMSE is  1.146 on Training Set and  0.236 on Test Set
+NMSE is  1.143 on Training Set and  0.235 on Test Set
+NMSE is  1.147 on Training Set and  0.233 on Test Set
+NMSE is  1.144 on Training Set and  0.233 on Test Set
+NMSE is  1.129 on Training Set and  0.233 on Test Set
+NMSE is  1.125 on Training Set and  0.233 on Test Set
+NMSE is  1.130 on Training Set and  0.230 on Test Set
+NMSE is  1.137 on Training Set and  0.228 on Test Set
+NMSE is  1.140 on Training Set and  0.227 on Test Set
+NMSE is  1.134 on Training Set and  0.226 on Test Set
+NMSE is  1.140 on Training Set and  0.225 on Test Set
+NMSE is  1.153 on Training Set and  0.222 on Test Set
+NMSE is  1.125 on Training Set and  0.221 on Test Set
+NMSE is  1.133 on Training Set and  0.220 on Test Set
+NMSE is  1.119 on Training Set and  0.222 on Test Set
+NMSE is  1.112 on Training Set and  0.221 on Test Set
+NMSE is  1.100 on Training Set and  0.220 on Test Set
+NMSE is  1.100 on Training Set and  0.219 on Test Set
+NMSE is  1.120 on Training Set and  0.216 on Test Set
+NMSE is  1.093 on Training Set and  0.218 on Test Set
+NMSE is  1.094 on Training Set and  0.216 on Test Set
+NMSE is  1.096 on Training Set and  0.215 on Test Set
+NMSE is  1.107 on Training Set and  0.215 on Test Set
+NMSE is  1.102 on Training Set and  0.213 on Test Set
+NMSE is  1.074 on Training Set and  0.212 on Test Set
+NMSE is  1.090 on Training Set and  0.212 on Test Set
+NMSE is  1.071 on Training Set and  0.210 on Test Set
+NMSE is  1.059 on Training Set and  0.212 on Test Set
+NMSE is  1.078 on Training Set and  0.209 on Test Set
+NMSE is  1.058 on Training Set and  0.209 on Test Set
+NMSE is  1.066 on Training Set and  0.206 on Test Set
+NMSE is  1.060 on Training Set and  0.208 on Test Set
+NMSE is  1.060 on Training Set and  0.207 on Test Set
+NMSE is  1.040 on Training Set and  0.207 on Test Set
+NMSE is  1.043 on Training Set and  0.206 on Test Set
+Iteration number 2
+NMSE is  1.043 on Training Set and  0.203 on Test Set
+NMSE is  1.034 on Training Set and  0.205 on Test Set
+NMSE is  1.040 on Training Set and  0.203 on Test Set
+NMSE is  1.037 on Training Set and  0.206 on Test Set
+NMSE is  1.022 on Training Set and  0.205 on Test Set
+NMSE is  1.022 on Training Set and  0.204 on Test Set
+NMSE is  1.016 on Training Set and  0.203 on Test Set
+NMSE is  1.026 on Training Set and  0.202 on Test Set
+NMSE is  1.041 on Training Set and  0.201 on Test Set
+NMSE is  1.019 on Training Set and  0.199 on Test Set
+NMSE is  1.024 on Training Set and  0.198 on Test Set
+NMSE is  1.032 on Training Set and  0.196 on Test Set
+NMSE is  1.040 on Training Set and  0.194 on Test Set
+NMSE is  1.040 on Training Set and  0.193 on Test Set
+NMSE is  1.015 on Training Set and  0.193 on Test Set
+NMSE is  1.010 on Training Set and  0.192 on Test Set
+NMSE is  1.001 on Training Set and  0.193 on Test Set
+NMSE is  0.992 on Training Set and  0.194 on Test Set
+NMSE is  1.000 on Training Set and  0.193 on Test Set
+NMSE is  1.006 on Training Set and  0.192 on Test Set
+NMSE is  1.009 on Training Set and  0.188 on Test Set
+NMSE is  1.003 on Training Set and  0.188 on Test Set
+NMSE is  1.000 on Training Set and  0.187 on Test Set
+NMSE is  0.999 on Training Set and  0.187 on Test Set
+NMSE is  1.011 on Training Set and  0.184 on Test Set
+NMSE is  1.017 on Training Set and  0.182 on Test Set
+NMSE is  0.997 on Training Set and  0.183 on Test Set
+NMSE is  1.001 on Training Set and  0.183 on Test Set
+NMSE is  0.983 on Training Set and  0.182 on Test Set
+NMSE is  0.977 on Training Set and  0.182 on Test Set
+NMSE is  0.954 on Training Set and  0.183 on Test Set
+NMSE is  0.951 on Training Set and  0.183 on Test Set
+NMSE is  0.952 on Training Set and  0.180 on Test Set
+NMSE is  0.974 on Training Set and  0.178 on Test Set
+NMSE is  0.965 on Training Set and  0.176 on Test Set
+NMSE is  0.983 on Training Set and  0.175 on Test Set
+NMSE is  0.961 on Training Set and  0.175 on Test Set
+NMSE is  0.957 on Training Set and  0.176 on Test Set
+NMSE is  0.936 on Training Set and  0.176 on Test Set
+NMSE is  0.933 on Training Set and  0.175 on Test Set
+NMSE is  0.941 on Training Set and  0.173 on Test Set
+NMSE is  0.939 on Training Set and  0.172 on Test Set
+NMSE is  0.931 on Training Set and  0.172 on Test Set
+NMSE is  0.949 on Training Set and  0.170 on Test Set
+NMSE is  0.945 on Training Set and  0.171 on Test Set
+NMSE is  0.962 on Training Set and  0.164 on Test Set
+NMSE is  0.941 on Training Set and  0.163 on Test Set
+NMSE is  0.917 on Training Set and  0.163 on Test Set
+NMSE is  0.928 on Training Set and  0.162 on Test Set
+NMSE is  0.913 on Training Set and  0.164 on Test Set
+NMSE is  0.916 on Training Set and  0.162 on Test Set
+NMSE is  0.899 on Training Set and  0.163 on Test Set
+NMSE is  0.986 on Training Set and  0.163 on Test Set
+NMSE is  1.003 on Training Set and  0.164 on Test Set
+NMSE is  0.972 on Training Set and  0.162 on Test Set
+NMSE is  0.983 on Training Set and  0.162 on Test Set
+NMSE is  0.991 on Training Set and  0.158 on Test Set
+NMSE is  0.992 on Training Set and  0.152 on Test Set
+NMSE is  0.985 on Training Set and  0.147 on Test Set
+NMSE is  2.135 on Training Set and  0.145 on Test Set
+Iteration number 3
+NMSE is  0.973 on Training Set and  0.146 on Test Set
+NMSE is  1.780 on Training Set and  0.132 on Test Set
+NMSE is  1.721 on Training Set and  0.116 on Test Set
+NMSE is  1.263 on Training Set and  0.110 on Test Set
+NMSE is  0.661 on Training Set and  0.105 on Test Set
+Iteration number 4
+NMSE is  0.614 on Training Set and  0.093 on Test Set
+NMSE is  0.605 on Training Set and  0.093 on Test Set
+NMSE is  0.601 on Training Set and  0.092 on Test Set
+NMSE is  0.602 on Training Set and  0.088 on Test Set
+NMSE is  0.591 on Training Set and  0.088 on Test Set
+Iteration number 5
+NMSE is  0.606 on Training Set and  0.088 on Test Set
+NMSE is  0.628 on Training Set and  0.086 on Test Set
+NMSE is  0.617 on Training Set and  0.088 on Test Set
+NMSE is  0.607 on Training Set and  0.073 on Test Set
+NMSE is  0.500 on Training Set and  0.072 on Test Set
+NMSE is  0.489 on Training Set and  0.070 on Test Set
+NMSE is  0.482 on Training Set and  0.070 on Test Set
+Finished in 5 iterations (9820 epochs)
+
+Actual duration 116104 ms
+
+Verifying on 240 train data : 15 errors (6.25%)
+Verifying on 60 test data  :  2 errors (3.33%)
+Saving network in file /SectorNetwork.txt
+
+Validation  0: expected 1, prediction 1 -->OK
+Validation  1: expected 1, prediction 1 -->OK
+Validation  2: expected 0, prediction 0 -->OK
+Validation  3: expected 1, prediction 1 -->OK
+Validation  4: expected 2, prediction 2 -->OK
+Validation  5: expected 3, prediction 3 -->OK
+Validation  6: expected 1, prediction 1 -->OK
+Validation  7: expected 1, prediction 1 -->OK
+Validation  8: expected 2, prediction 2 -->OK
+Validation  9: expected 1, prediction 1 -->OK
+Validation 10: expected 1, prediction 1 -->OK
+Validation 11: expected 1, prediction 1 -->OK
+Validation 12: expected 3, prediction 3 -->OK
+Validation 13: expected 3, prediction 3 -->OK
+Validation 14: expected 1, prediction 1 -->OK
+Validation 15: expected 3, prediction 3 -->OK
+Validation 16: expected 1, prediction 1 -->OK
+Validation 17: expected 1, prediction 1 -->OK
+Validation 18: expected 0, prediction 0 -->OK
+Validation 19: expected 0, prediction 0 -->OK
+---------------------------
+Network has 3 layers:
+Layer number 0: 2 neurons
+Layer number 1: 5 neurons, activation SIGMOID, 15 weights
+Layer number 2: 1 neurons, activation SIGMOID, 6 weights
+Total number of weights: 21
+Average weight L1 norm: 9.53933 (lambda = 0.000e+00)
+Average weight L2 norm: 112.53433 (lambda = 0.000e+00)
+ResNet-like enabled
+Learning rate is: 0.400
+Gain is: 1.450
+Momentum is: 0.900
+---------------------------
