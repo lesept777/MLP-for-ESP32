@@ -15,3 +15,16 @@ The tests show that this option provides several advantages:
 * Quicker learning phase (but this may be also due to a better random set of weights)
 * Reduce the number of neurons in the hidden layer(s), while keeping similar results
 * Reduce the size of the dataset. Using only 300 data in the dataset instead of 500 still enables a successful learning phase (this also enables to reduce the learning time).
+
+The example also shows the effect of L2 regularization on the weights. Without regularization, the weights are much bigger than when using regularization:
+
+Without:
+```
+Average weight L1 norm: 9.53933 (lambda = 0.000e+00)
+Average weight L2 norm: 112.53433 (lambda = 0.000e+00)
+```
+With:
+```
+Average weight L1 norm: 4.37046 (lambda = 0.000e+00)
+Average weight L2 norm: 17.09938 (lambda = 3.000e-06)
+```
