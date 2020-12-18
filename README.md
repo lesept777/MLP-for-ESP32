@@ -172,7 +172,8 @@ in `MLP.cpp`, `MLP::readCsvFromSpiffs` (around line 159), increase the length of
 ```
 
 ## (NEW) Residual Neural Network
-A new option is available to implement **RNNs**. A Residual Neural Network add **skip connections** to add to each layer n information from layer n-2, instead of only layer n-1. This is sketch in the following diagram (from [Wikipedia](https://en.wikipedia.org/wiki/Residual_neural_network "Residual Neural Network)).
+A new option is available to implement **RNNs**. A Residual Neural Network adds **skip connections** to add to each layer n information from layer *n-2*, instead of only layer *n-1*. This is sketch in the following diagram (from [Wikipedia](https://en.wikipedia.org/wiki/Residual_neural_network "Residual Neural Network)).
 
 ![RNN](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/ResNets.svg/330px-ResNets.svg.png "Residual Neural Network")
+
 See the ["MLP_4Sectors_ResNet" example](https://github.com/lesept777/MLP-for-ESP32/tree/master/examples/MLP_4Sectors_ResNet)
