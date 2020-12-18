@@ -9,7 +9,7 @@ int Neurons[] = {2, 5, 1};
 MLP Net(3, Neurons, 1, true);
 ```
 
-The network is automatically built with additional links from the input layer to the output layer. The output neuron receives the output of both the 5 hidden neurons and the 2 input neurons.
+The network is automatically built with additional links from the input layer to the output layer. The output neuron receives the output of both the 5 hidden neurons **and** the 2 input neurons.
 
 The tests show that this option provides several advantages:
 * Quicker learning phase (but this may be also due to a better random set of weights)
@@ -23,7 +23,7 @@ Without:
 Average weight L1 norm: 9.53933 (lambda = 0.000e+00)
 Average weight L2 norm: 112.53433 (lambda = 0.000e+00)
 ```
-With: uncomment line
+With: uncomment this line
 ```
 Net.setHeurRegulL2 (true, 3.0);
 ```
