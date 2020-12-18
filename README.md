@@ -172,7 +172,7 @@ in `MLP.cpp`, `MLP::readCsvFromSpiffs` (around line 159), increase the length of
 ```
 
 ## (NEW) Residual Neural Network
-A new option is available to implement **RNNs**. A Residual Neural Network adds **skip connections** to add to each layer n information from layer *n-2*, instead of only layer *n-1*. This is sketch in the following diagram (from [Wikipedia](https://en.wikipedia.org/wiki/Residual_neural_network "Residual Neural Network)).
+A new option is available to implement **RNNs**. A Residual Neural Network adds **skip connections** to provide to each layer *l* additional information from layer *l-2*, instead of only layer *l-1*. This is sketched in the following diagram (from [Wikipedia](https://en.wikipedia.org/wiki/Residual_neural_network "Residual Neural Network")).
 
 ![RNN](https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/ResNets.svg/330px-ResNets.svg.png "Residual Neural Network")
 
