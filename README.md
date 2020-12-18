@@ -8,7 +8,7 @@ It can address **deep networks**, made of one input layer, multiple hidden layer
 This library was inspired by the work from [Karsten Kutza](https://courses.cs.washington.edu/courses/cse599/01wi/admin/Assignments/bpn.html). It has changed a lot since...
 
 ## What's new?
-2020/12/18: [ResNet implementation] (https://github.com/lesept777/MLP-for-ESP32#new-residual-neural-network)
+2020/12/18: [ResNet implementation](https://github.com/lesept777/MLP-for-ESP32#new-residual-neural-network)
 
 ## Dependencies
 * [Arduino FS](https://github.com/espressif/arduino-esp32/tree/master/libraries/FS)
