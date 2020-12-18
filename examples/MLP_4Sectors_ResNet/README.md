@@ -23,7 +23,11 @@ Without:
 Average weight L1 norm: 9.53933 (lambda = 0.000e+00)
 Average weight L2 norm: 112.53433 (lambda = 0.000e+00)
 ```
-With:
+With: uncomment line
+```
+Net.setHeurRegulL2 (true, 3.0);
+```
+L2 norm is drastically reduced.
 ```
 Average weight L1 norm: 4.37046 (lambda = 0.000e+00)
 Average weight L2 norm: 17.09938 (lambda = 3.000e-06)
