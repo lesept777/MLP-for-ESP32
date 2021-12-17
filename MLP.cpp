@@ -695,12 +695,12 @@ float MLP::optimize(DATASET* dataset, int iters, int epochs, int batchSize)
     lastSave = 0;
     for (epoch = 0; epoch < _epochs; epoch++) {
       if (_verbose > 1) Serial.printf("\nEpoch %4d ", epoch);
-      if (_forceSGD) {
+//      if (_forceSGD) {
         trainNetSGD(dataset);
         testNet(dataset, true);
-      } else {
-        trainAndTest (dataset);
-      }
+//      } else {
+//        trainAndTest (dataset);
+//      }
 
       float epsilon = 0.003f;
       // New best set of weights: save the weights
