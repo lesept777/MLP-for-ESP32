@@ -26,7 +26,6 @@ void setup() {
   Net.begin (0.8f);                         // Initialize train & test sets
   Net.initLearn (0.9f, 0.5f, 1.0f, 0.8f);   // Set learning parameters
   Net.setActivation (Activations);
-  Net.generateNetwork();
 
   // Training
   unsigned long chrono = millis();
